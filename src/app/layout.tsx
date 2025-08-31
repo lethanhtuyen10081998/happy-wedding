@@ -1,6 +1,5 @@
 "use client";
 
-import { MouseCursor } from "@/components/material/mouse-cursor";
 import { FloatingParticles } from "@/components/pages/home/components/background/floating-particles";
 import { DesktopSidebar } from "@/components/pages/home/layout/navigation/desktop-sidebar";
 import { DesktopStatusBar } from "@/components/pages/home/layout/navigation/desktop-status-bar";
