@@ -12,6 +12,7 @@ import {
   Mail,
   MapPin,
 } from "lucide-react";
+import Image from "next/image";
 
 function HomePage() {
   return (
@@ -308,7 +309,7 @@ function HomePage() {
                 key={item}
                 className="group relative overflow-hidden rounded-lg aspect-square"
               >
-                <img
+                <Image
                   src={`/beautiful-wedding-photography.png?height=400&width=400&query=beautiful wedding photography ${item} romantic couple golden hour`}
                   alt={`Wedding photo ${item}`}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
