@@ -35,14 +35,14 @@ export default function RootLayout({
           <FloatingParticles />
 
           <div className="min-h-screen relative overflow-hidden">
-            <MouseCursor />
+            {/* <MouseCursor /> */}
 
             <MobileHeader />
             <MobileBottomNav />
 
             <DesktopSidebar />
 
-            <main className="md:ml-24 pt-20 pb-20 md:pt-12 md:pb-16 mx-4">
+            <main className="pt-20 pb-20 md:pt-[80px] md:pb-16">
               <AnimatePresence mode="wait">{children}</AnimatePresence>
             </main>
 

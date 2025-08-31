@@ -6,7 +6,7 @@ html {
 
 body {
   font-family: "Geist", sans-serif;
-  background: #0f172a;
+  background: #fff;
 }
 
 /* Custom scrollbar */
@@ -123,4 +123,9 @@ body {
   transform: translate(-50%, -50%);
   mix-blend-mode: screen; /* Cho hiệu ứng sáng đẹp */
   transition: transform 0.1s ease-out;
+}
+
+.header-bg {
+  background: #E63946;
+  color: #fff;
 }
