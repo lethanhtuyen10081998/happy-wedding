@@ -143,21 +143,21 @@ function HomePage() {
           {/* Sample Photos */}
           <div className="grid md:grid-cols-3 gap-4 mb-16">
             <div className="aspect-[4/5] overflow-hidden rounded-lg">
-              <img
+              <Image
                 src="/korean-wedding-couple.png"
                 alt="Wedding Studio Photo 1"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="aspect-[4/5] overflow-hidden rounded-lg">
-              <img
+              <Image
                 src="/placeholder-s979k.png"
                 alt="Wedding Studio Photo 2"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="aspect-[4/5] overflow-hidden rounded-lg">
-              <img
+              <Image
                 src="/korean-wedding-portrait.png"
                 alt="Wedding Studio Photo 3"
                 className="w-full h-full object-cover"
