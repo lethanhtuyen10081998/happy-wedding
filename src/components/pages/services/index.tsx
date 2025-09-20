@@ -1,12 +1,12 @@
 'use client';
 import { Box, Card, CardContent, Chip, colors, Divider, Grid, Typography } from '@mui/material';
 import { Camera, Clock, MapPin, Video } from 'lucide-react';
-import { useState } from 'react';
 import { Icon } from 'src/components/icons';
-import Button from 'src/components/material/Button';
 import Container from 'src/components/material/Container';
+import RatioBox from 'src/components/ui/RatioBox';
 
 import Gallery from './components/gallery';
+import Infomation from './components/infomation';
 
 const sampleData = {
   title: 'Gói chụp ảnh cưới Premium',
@@ -27,7 +27,7 @@ const sampleData = {
     'https://images.pexels.com/photos/372225/pexels-photo-372225.jpeg',
     'https://images.pexels.com/photos/2788488/pexels-photo-2788488.jpeg',
   ],
-  videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+  videoUrl: 'https://www.youtube.com/embed/i0yxWxk_e20',
   packageDetails: {
     duration: '8-10 giờ',
     location: 'TP.HCM và các tỉnh lân cận',
@@ -69,46 +69,154 @@ const sampleData = {
 };
 
 function WeddingServiceDetail() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showVideo, setShowVideo] = useState(false);
-  const { title, description, price, originalPrice, gallery, videoUrl, packageDetails, testimonials } = sampleData;
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % gallery.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
-  };
+  const { title, price, originalPrice, gallery, videoUrl, packageDetails } = sampleData;
 
   return (
-    <Container maxWidth='lg' sx={{ mt: 20 }}>
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={8} display='flex' flexDirection='column' gap={2}>
-          <Gallery gallery={gallery} title={title} />
+    <Container maxWidth='lg' sx={{ mt: 16 }}>
+      <Box display={'flex'} flexDirection={'column'} gap={2}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={8} display='flex' flexDirection='column' gap={2}>
+            <Gallery gallery={gallery} title={title} />
+          </Grid>
 
-          {videoUrl && (
-            <Card
-              style={{
-                overflow: 'hidden',
+          <Grid item xs={12} md={4}>
+            <Infomation price={price} originalPrice={originalPrice} />
+          </Grid>
+        </Grid>
+
+        <Card>
+          <CardContent>
+            <Typography
+              variant='h5'
+              sx={{
+                fontWeight: 'bold',
+                marginBottom: '16px',
               }}
             >
-              <CardContent>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    marginBottom: '16px',
-                  }}
-                >
-                  <Video size={24} />
-                  <Typography variant='h4' sx={{ fontWeight: 'bold', color: 'text.primary' }}>
-                    Video giới thiệu dịch vụ
-                  </Typography>
-                </Box>
+              Chi tiết gói dịch vụ
+            </Typography>
 
-                <div style={{ position: 'relative', height: '400px', borderRadius: '12px' }}>
+            <Grid container spacing={1}>
+              <Grid item xs={12} sm={6}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                  <Clock size={20} />
+
+                  <div>
+                    <Typography variant='body2' sx={{ color: 'text.secondary', margin: 0 }}>
+                      Thời gian
+                    </Typography>
+                    <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'text.primary', margin: 0 }}>
+                      {packageDetails.duration}
+                    </Typography>
+                  </div>
+                </div>
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                  <MapPin size={20} />
+                  <div>
+                    <Typography variant='body2' sx={{ color: 'text.secondary', margin: 0 }}>
+                      Địa điểm
+                    </Typography>
+                    <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'text.primary', margin: 0 }}>
+                      {packageDetails.location}
+                    </Typography>
+                  </div>
+                </div>
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                  <Camera size={20} />
+                  <div>
+                    <Typography variant='body2' sx={{ color: 'text.secondary', margin: 0 }}>
+                      Photographer
+                    </Typography>
+                    <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'text.primary', margin: 0 }}>
+                      {packageDetails.photographer}
+                    </Typography>
+                  </div>
+                </div>
+              </Grid>
+            </Grid>
+
+            <Divider style={{ margin: '24px 0' }} />
+
+            <Box sx={{ marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <Typography
+                variant='h5'
+                sx={{
+                  fontWeight: 'bold',
+                }}
+              >
+                Thiết bị chuyên nghiệp
+              </Typography>
+
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {packageDetails.equipment.map((item, index) => (
+                  <Chip
+                    key={index}
+                    label={item}
+                    sx={{
+                      backgroundColor: 'primary.light',
+                      color: 'white',
+                      border: '1px solid primary.main',
+                    }}
+                  />
+                ))}
+              </Box>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <Typography variant='h5'>Dịch vụ bao gồm</Typography>
+
+              <Box component='ul' sx={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {packageDetails.includes.map((item, index) => (
+                  <Box
+                    component='li'
+                    key={index}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '12px',
+                    }}
+                  >
+                    <Icon name='heart' sx={{ width: '20px', height: '20px', color: colors.pink[500] }} />
+
+                    <Typography variant='subtitle2' sx={{ color: 'text.secondary' }}>
+                      {item}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          </CardContent>
+        </Card>
+
+        {videoUrl && (
+          <Card
+            style={{
+              overflow: 'hidden',
+            }}
+          >
+            <CardContent>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  marginBottom: '16px',
+                }}
+              >
+                <Video size={24} />
+                <Typography variant='h5' sx={{ fontWeight: 'bold', color: 'text.primary' }}>
+                  Video giới thiệu dịch vụ
+                </Typography>
+              </Box>
+
+              <Box sx={{ position: 'relative', borderRadius: '12px' }}>
+                <RatioBox ratio='16:9'>
                   <iframe
                     src={videoUrl}
                     style={{
@@ -119,168 +227,12 @@ function WeddingServiceDetail() {
                     }}
                     allowFullScreen
                   />
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          <Card>
-            <CardContent>
-              <Typography
-                variant='h4'
-                sx={{
-                  fontWeight: 'bold',
-                  marginBottom: '16px',
-                }}
-              >
-                Chi tiết gói dịch vụ
-              </Typography>
-
-              <Grid container spacing={1}>
-                <Grid item xs={12} sm={6}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                    <Clock size={20} />
-
-                    <div>
-                      <Typography variant='body2' sx={{ color: 'text.secondary', margin: 0 }}>
-                        Thời gian
-                      </Typography>
-                      <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'text.primary', margin: 0 }}>
-                        {packageDetails.duration}
-                      </Typography>
-                    </div>
-                  </div>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                    <MapPin size={20} />
-                    <div>
-                      <Typography variant='body2' sx={{ color: 'text.secondary', margin: 0 }}>
-                        Địa điểm
-                      </Typography>
-                      <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'text.primary', margin: 0 }}>
-                        {packageDetails.location}
-                      </Typography>
-                    </div>
-                  </div>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                    <Camera size={20} />
-                    <div>
-                      <Typography variant='body2' sx={{ color: 'text.secondary', margin: 0 }}>
-                        Photographer
-                      </Typography>
-                      <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'text.primary', margin: 0 }}>
-                        {packageDetails.photographer}
-                      </Typography>
-                    </div>
-                  </div>
-                </Grid>
-              </Grid>
-
-              <Divider style={{ margin: '24px 0' }} />
-
-              <Box sx={{ marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <Typography
-                  variant='h5'
-                  sx={{
-                    fontWeight: 'bold',
-                  }}
-                >
-                  Thiết bị chuyên nghiệp
-                </Typography>
-
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                  {packageDetails.equipment.map((item, index) => (
-                    <Chip
-                      key={index}
-                      label={item}
-                      sx={{
-                        backgroundColor: 'primary.light',
-                        color: 'white',
-                        border: '1px solid primary.main',
-                      }}
-                    />
-                  ))}
-                </Box>
-              </Box>
-
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <Typography variant='h5'>Dịch vụ bao gồm</Typography>
-
-                <Box component='ul' sx={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {packageDetails.includes.map((item, index) => (
-                    <Box
-                      component='li'
-                      key={index}
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        gap: '12px',
-                      }}
-                    >
-                      <Icon name='heart' sx={{ width: '20px', height: '20px', color: colors.pink[500] }} />
-
-                      <Typography variant='subtitle2' sx={{ color: 'text.secondary' }}>
-                        {item}
-                      </Typography>
-                    </Box>
-                  ))}
-                </Box>
+                </RatioBox>
               </Box>
             </CardContent>
           </Card>
-        </Grid>
-
-        {/* Sidebar */}
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardContent>
-              <Box sx={{ textAlign: 'center', marginBottom: '24px' }}>
-                <Box sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '12px' }}>
-                  <Typography sx={{ fontSize: '36px', fontWeight: 'bold', color: (theme) => theme.palette.primary.main }}>{price}</Typography>
-                  {originalPrice && (
-                    <Typography
-                      sx={{
-                        fontSize: '18px',
-                        color: (theme) => theme.palette.text.secondary,
-                        textDecoration: 'line-through',
-                      }}
-                    >
-                      {originalPrice}
-                    </Typography>
-                  )}
-                </Box>
-                <Typography sx={{ color: (theme) => theme.palette.text.secondary, fontSize: '14px', margin: '8px 0 0 0' }}>
-                  Giá đã bao gồm VAT
-                </Typography>
-              </Box>
-
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <Button>Đặt lịch ngay</Button>
-
-                <Button variant='outlined'>Tư vấn miễn phí</Button>
-              </Box>
-
-              <Divider style={{ margin: '24px 0' }} />
-
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <Icon name='phone' sx={{ color: (theme) => theme.palette.primary.main }} size={20} />
-                  <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>0123 456 789</Typography>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <Icon name='mail' sx={{ color: (theme) => theme.palette.primary.main }} size={20} />
-                  <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>info@weddingservice.com</Typography>
-                </Box>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+        )}
+      </Box>
     </Container>
   );
 }

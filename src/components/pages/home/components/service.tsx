@@ -1,28 +1,29 @@
-import { Camera, DirectionsCar, Flight, Hotel } from '@mui/icons-material';
+import { Camera } from '@mui/icons-material';
 import { Box, Container, Grid, Typography } from '@mui/material';
+import { Crown, ShieldCheck } from 'lucide-react';
 import SmoothScroll from 'src/components/SmoothScroll';
 
 export default function ServiceComponent() {
   const services = [
     {
-      icon: <Flight sx={{ fontSize: 40, color: '#fff' }} />,
-      title: 'Đặt vé máy bay',
-      description: 'Tìm kiếm và đặt vé máy bay giá tốt nhất từ mọi hãng bay',
+      icon: <Camera />,
+      title: 'Chụp anh cưới',
+      description: 'Chụp anh cưới đẹp, chuyên nghiệp, tại nhiều địa điểm khác nhau.',
     },
     {
-      icon: <Hotel sx={{ fontSize: 40, color: '#fff' }} />,
-      title: 'Đặt khách sạn',
-      description: 'Hệ thống khách sạn đa dạng từ bình dân đến cao cấp',
+      icon: <Crown />,
+      title: 'Thuê váy cưới',
+      description: 'Cho thuê váy cưới với nhiều mẫu mã khác nhau, chất lượng cao.',
     },
     {
-      icon: <DirectionsCar sx={{ fontSize: 40, color: '#fff' }} />,
-      title: 'Làm VISA',
-      description: 'Dịch vụ làm visa cho bạn, nhanh chóng, tiện lợi',
+      icon: <Crown />,
+      title: 'Thuê áo dài cưới',
+      description: 'Cho thuê áo dài cưới, áo dài tiệc, với nhiều size khác nhau.',
     },
     {
-      icon: <Camera sx={{ fontSize: 40, color: '#fff' }} />,
-      title: 'Tour trọn gói',
-      description: 'Các gói tour du lịch được thiết kế tỉ mỉ, chuyên nghiệp',
+      icon: <ShieldCheck />,
+      title: 'Dịch vụ cưới trọn gói',
+      description: 'Các gói dịch vụ cưới trọn gói được thiết kế tỉ mỉ, chuyên nghiệp, phù hợp với nhiều chương trình cưới.',
     },
   ];
 
@@ -96,7 +97,7 @@ export default function ServiceComponent() {
                 lineHeight: 1.7,
               }}
             >
-              Anhfly Travel mang đến cho bạn trải nghiệm du lịch trọn vẹn với các dịch vụ đẳng cấp và chuyên nghiệp
+              Happy wedding - Studio mang đến cho bạn trải nghiệm cưới trọn vẹn với các dịch vụ đẳng cấp và chuyên nghiệp, cam kết chất lượng.
             </Typography>
           </Box>
 

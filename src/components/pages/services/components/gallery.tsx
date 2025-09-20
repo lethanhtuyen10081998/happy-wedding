@@ -26,16 +26,21 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
 
   return (
     <Card sx={{ overflow: 'hidden' }}>
-      <Box sx={{ position: 'relative', height: '500px' }}>
+      {/* Container giữ tỉ lệ ảnh */}
+      <Box
+        sx={{
+          position: 'relative',
+          aspectRatio: '16/9', // Giữ tỉ lệ 16:9 cho ảnh
+          width: '100%',
+          overflow: 'hidden',
+        }}
+      >
         <Image
-          key={currentImageIndex} // key để Next/Image re-render lại khi đổi ảnh
-          width={800}
-          height={500}
+          key={currentImageIndex}
+          fill
           src={gallery[currentImageIndex] || '/placeholder.svg?height=500&width=800'}
           alt={`${title} - Ảnh ${currentImageIndex + 1}`}
           style={{
-            width: '100%',
-            height: '100%',
             objectFit: 'cover',
             opacity: fade ? 1 : 0,
             transition: 'opacity 0.5s ease-in-out',
@@ -55,6 +60,7 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
             borderRadius: '50%',
             width: '48px',
             height: '48px',
+            '&:hover': { backgroundColor: (theme) => theme.palette.primary.dark },
           }}
         >
           <ChevronLeft size={24} />
@@ -73,6 +79,7 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
             borderRadius: '50%',
             width: '48px',
             height: '48px',
+            '&:hover': { backgroundColor: (theme) => theme.palette.primary.dark },
           }}
         >
           <ChevronRight size={24} />
@@ -116,6 +123,7 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
               backgroundImage: `url(${image})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
+              flexShrink: 0,
             }}
             onClick={() => {
               setCurrentImageIndex(index);

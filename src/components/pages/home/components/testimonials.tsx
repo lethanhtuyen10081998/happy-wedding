@@ -1,31 +1,29 @@
 import { Star } from '@mui/icons-material';
 import { Avatar, Box, Card, Container, Grid, Rating, Typography } from '@mui/material';
-import Button from 'src/components/material/Button';
-import TextField from 'src/components/material/TextField';
 import SmoothScroll from 'src/components/SmoothScroll';
 
 export default function TestimonialsComponent() {
   const testimonials = [
     {
-      name: 'Nguyễn Văn A',
-      avatar: '/placeholder.svg?height=100&width=100',
+      name: 'Bùi Thị Thúy',
+      avatar: '/avatar-1.png',
       rating: 5,
-      comment: 'Dịch vụ tuyệt vời, nhân viên nhiệt tình. Chuyến đi Sapa rất đáng nhớ! Tôi sẽ quay lại sử dụng dịch vụ trong tương lai.',
-      position: 'Doanh nhân',
+      comment: 'Dịch vụ tuyệt vời, nhân viên nhiệt tình. váy cưới đẹp, chất lượng cao, nhiều lựa chọn.',
+      position: 'Cô dâu',
     },
     {
-      name: 'Trần Thị B',
-      avatar: '/placeholder.svg?height=100&width=100',
+      name: 'Hoàng Trung Kiên',
+      avatar: '/avatar-2.png',
       rating: 5,
-      comment: 'Giá cả hợp lý, tour được tổ chức chuyên nghiệp. Hướng dẫn viên rất am hiểu và nhiệt tình. Sẽ quay lại!',
-      position: 'Giáo viên',
+      comment: 'Giá cả hợp lý, áo vest nam có nhiều màu sắc chọn lựa, mẫu mã đẹp. Hỗ trợ nhiệt tình.',
+      position: 'Chú rể',
     },
     {
-      name: 'Lê Minh C',
-      avatar: '/placeholder.svg?height=100&width=100',
+      name: 'Lê Minh Châu',
+      avatar: '/avatar-3.png',
       rating: 4,
-      comment: 'Phú Quốc thật tuyệt vời. Cảm ơn team đã tư vấn tận tình! Khách sạn và dịch vụ đều vượt quá mong đợi của tôi.',
-      position: 'Nhiếp ảnh gia',
+      comment: 'Váy đi bàn đẹp, giá thuê rể hơn so với thị trường, nhưng chất lượng không kém.',
+      position: 'Cô dâu',
     },
   ];
 
@@ -143,7 +141,7 @@ export default function TestimonialsComponent() {
         >
           <Container maxWidth='md'>
             <Grid container spacing={4} alignItems='center'>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={8}>
                 <Typography
                   variant='h3'
                   sx={{
@@ -151,10 +149,9 @@ export default function TestimonialsComponent() {
                     mb: 2,
                     fontSize: { xs: '1.8rem', md: '2.5rem' },
                     fontFamily: "'Playfair Display', serif",
-                    color: '#222',
                   }}
                 >
-                  Đăng ký nhận thông tin ưu đãi
+                  Liên hệ ngay để nhận ưu đãi
                 </Typography>
                 <Typography
                   variant='body1'
@@ -165,49 +162,8 @@ export default function TestimonialsComponent() {
                     lineHeight: 1.7,
                   }}
                 >
-                  Nhận thông tin về các tour mới và ưu đãi đặc biệt từ Wanderlust
+                  Nhận thông tin về các gói dịch vụ mới và ưu đãi đặc biệt từ Happy wedding - Studio
                 </Typography>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: { xs: 'column', sm: 'row' },
-                    gap: 2,
-                  }}
-                >
-                  <TextField
-                    fullWidth
-                    placeholder='Email của bạn'
-                    variant='outlined'
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: '12px',
-                        backgroundColor: 'white',
-                        '& fieldset': { borderColor: '#e0e0e0' },
-                        '&:hover fieldset': { borderColor: '#bdbdbd' },
-                        '&.Mui-focused fieldset': { borderColor: '#ff385c' },
-                      },
-                    }}
-                  />
-                  <Button
-                    variant='contained'
-                    sx={{
-                      borderRadius: '12px',
-                      py: 1.5,
-                      px: { xs: 2, sm: 4 },
-                      backgroundColor: '#ff385c',
-                      textTransform: 'none',
-                      fontSize: '1rem',
-                      fontWeight: 600,
-                      whiteSpace: 'nowrap',
-                      boxShadow: '0 8px 20px rgba(255, 56, 92, 0.3)',
-                      '&:hover': { backgroundColor: '#e8354f', boxShadow: '0 10px 25px rgba(255, 56, 92, 0.4)' },
-                    }}
-                  >
-                    Đăng ký ngay
-                  </Button>
-                </Box>
               </Grid>
             </Grid>
           </Container>

@@ -3,8 +3,10 @@
 import { Badge, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { Heart, Sparkles } from 'lucide-react';
 import Image from 'next/image';
+import NextLink from 'next/link';
 import type React from 'react';
 import Button from 'src/components/material/Button';
+import { Routes } from 'src/constants/route';
 import variables from 'src/themes/variables';
 
 interface WeddingServiceCardProps {
@@ -137,7 +139,9 @@ export function WeddingServiceCard({ title, description, price, originalPrice, f
         <Box style={{ padding: '24px', paddingTop: 0, position: 'absolute', bottom: 0, left: 0, right: 0 }}>
           <Box style={{ display: 'flex', gap: '12px', width: '100%' }}>
             <Button variant='contained'>Đặt ngay</Button>
-            <Button variant='outlined'>Tìm hiểu thêm</Button>
+            <NextLink href={Routes.SERVICES.replace(':id', '1')}>
+              <Button variant='outlined'>Tìm hiểu thêm</Button>
+            </NextLink>
           </Box>
         </Box>
       </CardActions>

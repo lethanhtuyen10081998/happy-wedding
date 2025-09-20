@@ -18,8 +18,6 @@ import NextLink from 'src/components/material/NextLink';
 import { Routes } from 'src/constants/route';
 import variables from 'src/themes/variables';
 
-import Header from './header';
-
 const drawerWidth = '100%';
 type NavItem = {
   label: string;
@@ -31,16 +29,6 @@ const navItems: NavItem[] = [
     label: 'menu.home',
     link: Routes.HOME,
     icon: 'home',
-  },
-  {
-    label: 'menu.ai_agent',
-    link: Routes.AI_AGENT,
-    icon: 'ai',
-  },
-  {
-    label: 'menu.popular',
-    link: Routes.POPULAR,
-    icon: 'popular',
   },
   {
     label: 'menu.wedding_dress',
@@ -74,9 +62,27 @@ const navItemsDrawer: NavItem[] = [
     icon: 'home',
   },
   {
-    label: 'menu.ai_agent',
-    link: Routes.AI_AGENT,
-    icon: 'ai',
+    label: 'menu.wedding_dress',
+    link: Routes.WEDDING_DRESS,
+    icon: 'wedding_dress',
+  },
+
+  {
+    label: 'menu.wedding_photo',
+    link: Routes.WEDDING_PHOTO,
+    icon: 'wedding_photo',
+  },
+
+  {
+    label: 'menu.wedding_service',
+    link: Routes.WEDDING_SERVICE,
+    icon: 'wedding_service',
+  },
+
+  {
+    label: 'menu.shining_moment',
+    link: Routes.SHINING_MOMENT,
+    icon: 'shining_moment',
   },
 ];
 
@@ -173,7 +179,7 @@ export default function DrawerAppBar() {
 
   return (
     <Box position='relative'>
-      <AppBar
+      {/* <AppBar
         component='nav'
         sx={{
           boxShadow: 'none',
@@ -194,7 +200,7 @@ export default function DrawerAppBar() {
             <Header />
           </Toolbar>
         </Container>
-      </AppBar>
+      </AppBar> */}
 
       <Box
         sx={{
@@ -207,7 +213,6 @@ export default function DrawerAppBar() {
           component='nav'
           sx={{
             color: 'white',
-            top: { xs: 0, sm: 0, md: 40 },
             background: 'primary.main',
             boxShadow: 'none',
           }}

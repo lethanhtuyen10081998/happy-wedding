@@ -5,7 +5,7 @@ export default {
   menuHeightDesktop: '90px',
   menuHeightMobileScrolled: '120px',
   menuHeightDesktopScrolled: '120px',
-  paddingPage: '130px',
+  paddingPage: '90px',
   drawerWidth: 'calc(16.21rem + 3.25vw)',
   drawerMobileWidth: 85,
   buttonMinWidth: 100,
