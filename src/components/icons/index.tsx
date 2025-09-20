@@ -53,6 +53,7 @@ import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
 import UndoIcon from '@mui/icons-material/Undo';
 import { useTheme } from '@mui/material/styles';
 import { SxProps, Theme } from '@mui/system';
+import { Camera, Crown, Heart, ShoppingBag, Sparkles } from 'lucide-react';
 
 import Spinner from '../material/Spinner';
 import { Email } from './email';
@@ -140,6 +141,14 @@ const icons = {
   visa: Visa,
   excel: Excel,
   ai: SmartToyIcon,
+  popular: Sparkles,
+  wedding_dress: Crown,
+  wedding_photo: Camera,
+  wedding_service: ShoppingBag,
+  shining_moment: Sparkles,
+  shining_moment_photo: Camera,
+  shining_moment_dress: Crown,
+  heart: Heart,
 };
 
 type ColorTypes = 'action' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | undefined;

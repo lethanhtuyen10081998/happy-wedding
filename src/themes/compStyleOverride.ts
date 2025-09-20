@@ -16,26 +16,32 @@ export default function componentStyleOverrides(theme: IThemeOption): Components
           '--primary-main': theme.colors.primary.main,
           '--primary-light': theme.colors.primary.light,
           '--primary-dark': theme.colors.primary.dark,
+          '--primary-text': theme.colors.primary.text,
           // secondary
           '--secondary-main': theme.colors.secondary.main,
           '--secondary-light': theme.colors.secondary.light,
           '--secondary-dark': theme.colors.secondary.dark,
+          '--secondary-text': theme.colors.secondary.text,
           // success
           '--success-main': theme.colors.success.main,
           '--success-light': theme.colors.success.light,
           '--success-dark': theme.colors.success.dark,
+          '--success-text': theme.colors.success.text,
           // error
           '--error-main': theme.colors.error.main,
           '--error-light': theme.colors.error.light,
           '--error-dark': theme.colors.error.dark,
+          '--error-text': theme.colors.error.text,
           // info
           '--info-main': theme.colors.info.main,
           '--info-light': theme.colors.info.light,
           '--info-dark': theme.colors.info.dark,
+          '--info-text': theme.colors.info.text,
           // warning
           '--warning-main': theme.colors.warning.main,
           '--warning-light': theme.colors.warning.light,
           '--warning-dark': theme.colors.warning.dark,
+          '--warning-text': theme.colors.warning.text,
           // grey
           '--grey-50': theme.colors.grey[50],
           '--grey-100': theme.colors.grey[100],

@@ -17,7 +17,8 @@
   "recharge": "Recharge",
   "menu": {
     "home": "Home",
-    "ai_agent": "AI Assistant"
+    "ai_agent": "AI Assistant",
+    "popular": "Popular"
   },
   "agency_code": "Agency code",
   "no_data": "No data",

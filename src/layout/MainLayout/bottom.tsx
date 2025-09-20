@@ -200,7 +200,7 @@ const TravelFooter = () => {
         <Grid container spacing={2} alignItems='center'>
           <Grid item xs={12} md={6}>
             <Typography variant='body2' sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-              © {new Date().getFullYear()} Travel Explorer. Tất cả các quyền được bảo lưu.
+              © {new Date().getFullYear()} Happy wedding - Studio. Tất cả các quyền được bảo lưu.
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
