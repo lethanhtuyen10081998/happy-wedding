@@ -8,7 +8,7 @@ export default function HeroComponent() {
   return (
     <Box
       sx={{
-        height: { xs: '100vh', md: `calc(100vh - ${variables.paddingPage})` },
+        height: { xs: '50vh', md: `calc(80vh - ${variables.paddingPage})` },
         backgroundImage: 'url(https://images.pexels.com/photos/33937926/pexels-photo-33937926.jpeg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',

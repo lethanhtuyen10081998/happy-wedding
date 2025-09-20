@@ -1,10 +1,7 @@
 import { KeyboardArrowUp } from '@mui/icons-material';
-import { Fab, IconButton } from '@mui/material';
+import { Fab } from '@mui/material';
 import Box from '@mui/material/Box';
 import React, { useMemo } from 'react';
-import { Icon } from 'src/components/icons';
-import NextLink from 'src/components/material/NextLink';
-import { Routes } from 'src/constants/route';
 import { CartContextProvider } from 'src/context/cartContext/provider';
 import { ProfileContextProvider } from 'src/context/profileContext/provider';
 
@@ -27,11 +24,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           <Box>{chilrenComponent}</Box>
 
           <Box position='fixed' bottom={82} right={24}>
-            <NextLink href={Routes.AI_AGENT}>
+            {/* <NextLink href={Routes.PROFILE}>
               <IconButton size='large' sx={{ backgroundColor: 'secondary.main', color: 'white' }}>
                 <Icon name='ai' />
               </IconButton>
-            </NextLink>
+            </NextLink> */}
           </Box>
 
           {/* Scroll to top button */}

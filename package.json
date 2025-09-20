@@ -79,6 +79,7 @@
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
     "firebase": "^12.3.0",
+    "framer-motion": "^12.23.16",
     "i18next": "^22.4.15",
     "iframe-resizer": "^5.3.2",
     "js-cookie": "^3.0.5",

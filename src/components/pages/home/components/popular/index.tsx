@@ -2,6 +2,7 @@
 import { Box, Typography } from '@mui/material';
 import { Camera, Crown, Sparkles } from 'lucide-react';
 import Container from 'src/components/material/Container';
+import SmoothScroll from 'src/components/SmoothScroll';
 
 import { WeddingServiceCard } from './components/cardPopular';
 
@@ -61,38 +62,40 @@ function WeddingServicesShowcase() {
   ];
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        backgroundColor: '#fdf2f8',
-        paddingTop: '48px',
-        paddingBottom: '48px',
-        paddingLeft: '16px',
-        paddingRight: '16px',
-      }}
-    >
-      <Container maxWidth='lg'>
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <Typography variant='h1'>Dịch vụ cưới trọn gói</Typography>
-          <Typography variant='body1'>
-            Biến giấc mơ đám cưới của bạn thành hiện thực với các gói dịch vụ chuyên nghiệp, từ chụp ảnh cưới đến thuê váy cưới cao cấp.
-          </Typography>
-        </div>
+    <SmoothScroll>
+      <Box
+        sx={{
+          minHeight: '100vh',
+          backgroundColor: '#fdf2f8',
+          paddingTop: '48px',
+          paddingBottom: '48px',
+          paddingLeft: '16px',
+          paddingRight: '16px',
+        }}
+      >
+        <Container maxWidth='lg'>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <Typography variant='h1'>Dịch vụ cưới trọn gói</Typography>
+            <Typography variant='body1'>
+              Biến giấc mơ đám cưới của bạn thành hiện thực với các gói dịch vụ chuyên nghiệp, từ chụp ảnh cưới đến thuê váy cưới cao cấp.
+            </Typography>
+          </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '32px',
-            justifyItems: 'center',
-          }}
-        >
-          {services.map((service, index) => (
-            <WeddingServiceCard key={index} {...service} />
-          ))}
-        </div>
-      </Container>
-    </Box>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '32px',
+              justifyItems: 'center',
+            }}
+          >
+            {services.map((service, index) => (
+              <WeddingServiceCard key={index} {...service} />
+            ))}
+          </div>
+        </Container>
+      </Box>
+    </SmoothScroll>
   );
 }
 

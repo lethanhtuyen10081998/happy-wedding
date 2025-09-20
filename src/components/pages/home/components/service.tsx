@@ -38,7 +38,6 @@ export default function ServiceComponent() {
           overflow: 'hidden',
         }}
       >
-        {/* Background decorative elements */}
         <Box
           sx={{
             position: 'absolute',

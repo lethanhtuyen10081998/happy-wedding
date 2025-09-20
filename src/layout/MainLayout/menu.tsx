@@ -1,5 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, ListItemIcon } from '@mui/material';
+import { ListItemIcon, Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -9,6 +9,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
+import { Crown } from 'lucide-react';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import * as React from 'react';
@@ -250,17 +251,23 @@ export default function DrawerAppBar() {
                   <MenuIcon />
                 </IconButton>
 
-                <Box ml='auto'>
-                  <NextLink href={Routes.PROFILE}>
-                    <Avatar
-                      sx={{
-                        background: (theme) => theme.palette.secondary.main,
-                      }}
-                    >
-                      T
-                    </Avatar>
-                  </NextLink>
+                <Box ml='auto' display='flex' alignItems='center' gap={2} color='white'>
+                  <Box mt='2px'>
+                    <Crown size={24} />
+                  </Box>
+                  <Typography variant='h4' color='white' fontFamily='Atma'>
+                    Happy Wedding
+                  </Typography>
                 </Box>
+              </Box>
+
+              <Box sx={{ display: { xs: 'none', md: 'flex' }, color: 'white', gap: 1 }}>
+                <Box mt='2px'>
+                  <Crown size={24} />
+                </Box>
+                <Typography variant='h3' color='white' fontFamily='Atma'>
+                  Happy Wedding
+                </Typography>
               </Box>
 
               <Box
