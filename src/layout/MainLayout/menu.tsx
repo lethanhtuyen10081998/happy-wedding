@@ -37,6 +37,34 @@ const navItems: NavItem[] = [
     link: Routes.AI_AGENT,
     icon: 'ai',
   },
+  {
+    label: 'menu.popular',
+    link: Routes.POPULAR,
+    icon: 'popular',
+  },
+  {
+    label: 'menu.wedding_dress',
+    link: Routes.WEDDING_DRESS,
+    icon: 'wedding_dress',
+  },
+
+  {
+    label: 'menu.wedding_photo',
+    link: Routes.WEDDING_PHOTO,
+    icon: 'wedding_photo',
+  },
+
+  {
+    label: 'menu.wedding_service',
+    link: Routes.WEDDING_SERVICE,
+    icon: 'wedding_service',
+  },
+
+  {
+    label: 'menu.shining_moment',
+    link: Routes.SHINING_MOMENT,
+    icon: 'shining_moment',
+  },
 ];
 
 const navItemsDrawer: NavItem[] = [
@@ -180,7 +208,7 @@ export default function DrawerAppBar() {
           sx={{
             color: 'white',
             top: { xs: 0, sm: 0, md: 40 },
-            background: 'rgba(2,12,24,.9)',
+            background: 'primary.main',
             boxShadow: 'none',
           }}
         >
