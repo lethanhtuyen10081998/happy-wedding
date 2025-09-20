@@ -1,0 +1,14 @@
+{
+  "trailingComma": "all",
+  "arrowParens": "always",
+  "printWidth": 150,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "endOfLine": "lf",
+  "tabWidth": 2,
+  "plugins": ["prettier-plugin-organize-imports"],
+  "importOrder": ["^(.*)$", "^@(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "extends": ["next/core-web-vitals"]
+}

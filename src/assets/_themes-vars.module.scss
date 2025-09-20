@@ -1,0 +1,128 @@
+// paper & background
+$paper: black;
+$background: #fff;
+$white: #ffffff;
+$black: #000000;
+
+// text Disabled
+$textDisabled: #718d8e;
+$text: #000000;
+
+// primary
+$primary50: #fcf6f4;
+$primaryLight: #e85e77;
+$primaryMain: #ff385c;
+$primaryDark: #f91f47;
+$textPrimary: #fff;
+
+// secondary
+$secondaryDark: #065e55;
+$secondaryMain: #009688;
+$secondaryLight: #1cb9a9;
+$textSecondary: #fff;
+
+// success Colors
+$successLight: #ebfaef;
+$successMain: #05b46a;
+$successDark: #0a7b39;
+$textSuccess: #ffffff;
+
+// error
+$errorLight: #e4cfce;
+$errorMain: #e50000;
+$errorDark: #e50000;
+$textError: #ffffff;
+
+// info
+$infoLight: #e5f2f1;
+$infoMain: #68bbb9;
+$infoDark: #f27269;
+$textInfo: #ffffff;
+
+// warning
+$warningLight: #fff8e1;
+$warningMain: #f0c30f;
+$warningDark: #e2ab06;
+$textWarning: #ffffff;
+
+// grey
+$grey50: #fafafa;
+$grey100: #f5f5f5;
+$grey200: #eeeeee;
+$grey300: #e0e0e0;
+$grey400: #d4d3d3;
+$grey500: #9e9e9e;
+$grey600: #8f8f8f;
+$grey700: #616161;
+$grey800: #4e4e4e;
+$grey900: #212121;
+
+// action
+$actionActive: #005cc7;
+
+// divider
+$divider: #d4d3d3;
+
+:export {
+  // paper & background
+  paper: $paper;
+  backgroundDefault: $background;
+
+  // text
+  textPrimary: $textPrimary;
+  textSecondary: $textSecondary;
+  textDisabled: $textDisabled;
+
+  // primary
+  primary50: $primary50;
+  primaryLight: $primaryLight;
+  primaryMain: $primaryMain;
+  primaryDark: $primaryDark;
+
+  // secondary
+  secondaryLight: $secondaryLight;
+  secondaryMain: $secondaryMain;
+  secondaryDark: $secondaryDark;
+
+  // success
+  successLight: $successLight;
+  successMain: $successMain;
+  successDark: $successDark;
+
+  // error
+  errorLight: $errorLight;
+  errorMain: $errorMain;
+  errorDark: $errorDark;
+
+  // info
+  infoLight: $infoLight;
+  infoMain: $infoMain;
+  infoDark: $infoDark;
+
+  // warning
+  warningLight: $warningLight;
+  warningMain: $warningMain;
+  warningDark: $warningDark;
+
+  // grey
+  grey50: $grey50;
+  grey100: $grey100;
+  grey200: $grey200;
+  grey300: $grey300;
+  grey400: $grey400;
+  grey500: $grey500;
+  grey600: $grey600;
+  grey700: $grey700;
+  grey800: $grey800;
+  grey900: $grey900;
+
+  // divider
+  divider: $divider;
+  white: $white;
+  black: $black;
+
+  text: $text;
+
+  transparent: 'transparent';
+  actionActive: $actionActive;
+}

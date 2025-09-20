@@ -1,0 +1,20 @@
+.tiptap {
+  height: calc(100vh - 200px);
+}
+
+.ProseMirror {
+  border-radius: 4px;
+  padding: 10px;
+  outline: none;
+  line-height: 1.5;
+
+  code {
+    background-color: $grey700;
+    padding: 10px 10px;
+    border-radius: 4px;
+    color: $grey50;
+  }
+}
+.ProseMirror-focused {
+  border-color: none;
+}

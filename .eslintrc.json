@@ -1,0 +1,54 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    // "project": true,
+    // "tsconfigRootDir": ".",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "sonarjs", "jest", "prettier"],
+  "ignorePatterns": ["**/node_modules/**", "next/**", "**.js"],
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "no-restricted-syntax": "off",
+    "no-case-declarations": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "react/no-unstable-nested-components": "off",
+    "@typescript-eslint/ban-types": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-no-bind": "off",
+    "class-methods-use-this": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
+    "react/function-component-definition": "off",
+    "react/jsx-uses-react": "off",
+    "react/require-default-props": [0],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "max-len": ["warn", { "code": 150 }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "import/prefer-default-export": "off",
+    "react/prop-types": "off",
+    "no-restricted-exports": "off",
+    "no-debugger": "warn",
+    "react/display-name": "off",
+    "import/no-anonymous-default-export": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [["builtin", "external", "internal"]],
+        "newlines-between": "always"
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "editor.codeActionsOnSave": {
+    "eslint.autoFixOnSave": "always",
+    "source.fixAll.eslint": "always"
+  },
+  "purecode-ai.enableTabAutocomplete": true
+}

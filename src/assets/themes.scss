@@ -1,0 +1,153 @@
+// color variants
+@import 'themes-vars.module.scss';
+@import 'utils.scss';
+@import 'fonts.scss';
+@import 'tiptap.scss';
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 0.8s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  display: block;
+  margin: 6px auto;
+  position: relative;
+  color: gray;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite alternate;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow:
+      -20px -12px,
+      -8px 0,
+      8px 0,
+      20px 0;
+  }
+  33% {
+    box-shadow:
+      -20px 0px,
+      -8px -12px,
+      8px 0,
+      20px 0;
+  }
+  66% {
+    box-shadow:
+      -20px 0px,
+      -8px 0,
+      8px -12px,
+      20px 0;
+  }
+  100% {
+    box-shadow:
+      -20px 0,
+      -8px 0,
+      8px 0,
+      20px -12px;
+  }
+}
+
+// /* Thay đổi kiểu thanh cuộn cho toàn bộ trang web */
+// * {
+//   /* Đặt chiều rộng cho thanh cuộn */
+//   scrollbar-width: thin; /* Có thể là thin, medium, hoặc thick */
+//   scrollbar-color: #f1f1f1; /* Màu của thanh cuộn và nền */
+// }
+
+// /* Dành cho các trình duyệt Webkit như Chrome, Safari, Edge */
+// ::-webkit-scrollbar {
+//   width: 8px; /* Chiều rộng thanh cuộn */
+// }
+
+// ::-webkit-scrollbar-track {
+//   background: #f1f1f1; /* Màu nền của thanh cuộn */
+// }
+
+// ::-webkit-scrollbar-thumb {
+//   background: #f1f1f1; /* Màu của thanh cuộn */
+//   border-radius: 10px; /* Tạo góc bo cho thanh cuộn */
+// }
+
+// ::-webkit-scrollbar-thumb:hover {
+//   background: #f1f1f1; /* Màu của thanh cuộn khi hover */
+// }
+
+.custom-input {
+  all: unset; /* Loại bỏ mặc định của input */
+  width: 100%;
+  padding: 2px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  color: rgba(0, 0, 0, 0.87);
+  transition: border-bottom 0.3s ease;
+  font-weight: 700;
+}
+
+.custom-input:focus {
+  border-bottom: 2px solid #1976d2; /* Màu xanh của MUI */
+}
+
+.custom-input::placeholder {
+  color: rgba(0, 0, 0, 0.42);
+}
+
+.custom-input:disabled {
+  color: rgba(0, 0, 0, 0.38);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+}
+
+.custom-select-standard {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $grey500;
+  padding: 6px 6px;
+  background: transparent;
+  appearance: none;
+  font-weight: 700;
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1.5em;
+  font-family: Myriad Pro;
+
+  /* Add dropdown icon like MUI */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' width='24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+  background-size: 16px;
+}
+
+.custom-select-standard:focus {
+  outline: none;
+  border-bottom: 2px solid #1976d2;
+}
+
+.custom-select-standard:disabled {
+  border-bottom: 1px dashed #ccc;
+  background: transparent;
+  cursor: not-allowed;
+}
+
+.custom-select-standard option {
+  padding: 10px;
+  background-color: white;
+}

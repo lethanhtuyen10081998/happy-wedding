@@ -1,0 +1,8 @@
+{
+  "title": "Sign in",
+  "password": "Password",
+  "messages": {
+    "sign_in_success": "Login successfully!"
+  },
+  "welcome": "Welcome to the Travel Management Company"
+}

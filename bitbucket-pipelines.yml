@@ -1,0 +1,21 @@
+pipelines:
+  branches:
+    main:
+      - step:
+          size: 2x
+          name: Build and Push Docker Image
+          services:
+            - docker
+          script:
+            # Hiển thị các biến môi trường để kiểm tra
+            - echo "NEXT_PUBLIC_SESSION_PASSWORD_KEY=$NEXT_PUBLIC_SESSION_PASSWORD_KEY"
+            - echo "DB_NAME=$DB_NAME"
+
+            # Build Docker image với các build arguments
+            - docker build --build-arg NEXT_PUBLIC_SESSION_PASSWORD_KEY=$NEXT_PUBLIC_SESSION_PASSWORD_KEY --build-arg DB_NAME=$DB_NAME -t tuyenlt1008/travel:nextjs-deploy-images .
+
+            # Đăng nhập vào Docker Hub
+            - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+            # Đẩy Docker image lên Docker Hub
+            - docker push tuyenlt1008/travel:nextjs-deploy-images

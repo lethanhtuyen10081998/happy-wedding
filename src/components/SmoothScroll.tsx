@@ -1,0 +1,34 @@
+import { Box } from '@mui/material';
+import { styled } from '@mui/system';
+import React, { ReactNode } from 'react';
+import { useInView } from 'react-intersection-observer';
+
+interface FadeInBoxProps {
+  inView: boolean;
+}
+
+const FadeInBox = styled(Box)<FadeInBoxProps>(({ inView }) => ({
+  opacity: inView ? 1 : 0,
+  transform: inView ? 'translateY(0)' : 'translateY(36px)',
+  transition: 'opacity 1s ease-out, transform 1s ease-out',
+  width: '100%',
+}));
+
+interface SmoothScrollComponentProps {
+  children: ReactNode;
+}
+
+const SmoothScroll: React.FC<SmoothScrollComponentProps> = ({ children }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.5,
+  });
+
+  return (
+    <FadeInBox ref={ref} inView={inView}>
+      {children}
+    </FadeInBox>
+  );
+};
+
+export default SmoothScroll;

@@ -1,0 +1,9 @@
+.spinner-animation {
+  animation: spinner 1.6s linear infinite;
+  animation-delay: -1.6s;
+}
+
+.spinner-animation-secondary {
+  animation-delay: -1s;
+}
+

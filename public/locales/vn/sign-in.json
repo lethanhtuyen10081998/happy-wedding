@@ -1,0 +1,8 @@
+{
+  "title": "Đăng nhập",
+  "password": "Mật khẩu",
+  "messages": {
+    "sign_in_success": "Đăng nhập thành công!"
+  },
+  "welcome": "Chào mừng đến với Công ty"
+}
