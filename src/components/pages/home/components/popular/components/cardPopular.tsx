@@ -29,9 +29,9 @@ export function WeddingServiceCard({ title, description, price, originalPrice, f
     >
       {isPopular && (
         <Box sx={{ position: 'absolute', top: '16px', right: '16px', zIndex: 10 }}>
-          <Badge sx={{ backgroundColor: 'primary.main', fontWeight: 'bold', borderRadius: variables.borderRadiusCard, padding: '4px 8px' }}>
-            <Sparkles style={{ width: '12px', height: '12px', marginRight: '4px' }} />
-            <Typography variant='body1' sx={{ color: 'white' }}>
+          <Badge sx={{ backgroundColor: 'primary.main', fontWeight: 'bold', borderRadius: variables.borderRadius, padding: '4px 8px' }}>
+            <Sparkles style={{ width: '12px', height: '12px', marginRight: '4px', color: 'white', marginTop: '3px' }} />
+            <Typography variant='caption' sx={{ color: 'white' }}>
               Phổ biến
             </Typography>
           </Badge>
@@ -50,8 +50,11 @@ export function WeddingServiceCard({ title, description, price, originalPrice, f
         />
         <div style={{ position: 'absolute', bottom: '16px', left: '16px', color: 'white' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-            {icon}
-            <span style={{ fontSize: '14px', fontWeight: '500' }}>{title}</span>
+            <Badge sx={{ backgroundColor: 'primary.main', fontWeight: 'bold', borderRadius: variables.borderRadius, padding: '4px 8px' }}>
+              <Typography variant='caption' sx={{ fontWeight: '500', color: 'white' }}>
+                {title}
+              </Typography>
+            </Badge>
           </div>
         </div>
       </div>
