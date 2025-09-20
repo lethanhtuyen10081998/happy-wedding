@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import PagePadding from 'src/components/PagePadding';
-import TravelHomePage from 'src/components/pages/home';
+import HomePage from 'src/components/pages/home';
 
 const Dashboard = () => {
   return (
@@ -9,7 +9,7 @@ const Dashboard = () => {
         <title>Happy wedding</title>
       </Head>
       <PagePadding>
-        <TravelHomePage />
+        <HomePage />
       </PagePadding>
     </>
   );

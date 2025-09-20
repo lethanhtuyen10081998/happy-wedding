@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { styled } from '@mui/system';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 interface FadeInBoxProps {
@@ -18,7 +18,7 @@ interface SmoothScrollComponentProps {
   children: ReactNode;
 }
 
-const SmoothScroll: React.FC<SmoothScrollComponentProps> = ({ children }) => {
+const SmoothScroll = ({ children }: SmoothScrollComponentProps) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.5,
