@@ -28,7 +28,7 @@ export default function SignIn() {
   const handleSubmit = useCallback(
     (values: SignFormRequest) => {
       mutation(values).then(() => {
-        router.push(Routes.PROFILE);
+        router.push(Routes.ADMIN_DASHBOARD);
       });
     },
     [mutation, router],
@@ -39,7 +39,7 @@ export default function SignIn() {
       <Box component='form'>
         <FormProvider {...methods}>
           <Box display='grid' gap={SPACING}>
-            <FormTextField name='username' label={t('common:email')} InputProps={{ startAdornment: <Icon name='user-interface' /> }} />
+            <FormTextField name='username' label={t('common:username')} InputProps={{ startAdornment: <Icon name='user-interface' /> }} />
 
             <PasswordField name='password' label={t('common:password')} InputProps={{ startAdornment: <Icon name='password' /> }} />
           </Box>

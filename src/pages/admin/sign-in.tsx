@@ -1,7 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 import Head from 'next/head';
 import { serverSideUnAuthentication } from 'src/auth/session';
-import SignIn from 'src/components/pages/auth/signIn';
+import SignIn from 'src/components/pages/admin/signIn';
 import PublicLayout from 'src/layout/PublicLayout/PublicLayout';
 
 const SignInPage = () => {
@@ -12,6 +12,7 @@ const SignInPage = () => {
       <Head>
         <title>{t('signIn')}</title>
       </Head>
+
       <SignIn />
     </>
   );

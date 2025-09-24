@@ -8,6 +8,7 @@ const Dashboard = () => {
       <Head>
         <title>Happy wedding</title>
       </Head>
+
       <PagePadding>
         <HomePage />
       </PagePadding>

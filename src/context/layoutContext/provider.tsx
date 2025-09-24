@@ -48,12 +48,10 @@ export const LayoutContextProvider: React.FC<{
   return (
     <LayoutAPIContext.Provider value={actionContext}>
       <CollapsibleContext.Provider value={state.collapsible}>
-        <BreadcrumbContext.Provider value={state.breadcrumbs}>
-          {children}
-        </BreadcrumbContext.Provider>
+        <BreadcrumbContext.Provider value={state.breadcrumbs}>{children}</BreadcrumbContext.Provider>
       </CollapsibleContext.Provider>
     </LayoutAPIContext.Provider>
   );
 };
 
-export const useLayoutAPI = () => useContext(LayoutAPIContext);
+export const useAPILayoutContext = () => useContext(LayoutAPIContext);

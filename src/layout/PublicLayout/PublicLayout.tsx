@@ -1,27 +1,16 @@
 'use client';
 
 import { Flight } from '@mui/icons-material';
-import { Avatar, Box, Container, Grid, Link, Typography } from '@mui/material';
+import { Avatar, Box, Container, Grid, Typography } from '@mui/material';
 import type React from 'react';
 import { useState } from 'react';
-import { Icon } from 'src/components/icons';
-import Button from 'src/components/material/Button';
-import NextLink from 'src/components/material/NextLink';
 import { Images } from 'src/constants/images';
-import { Routes } from 'src/constants/route';
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Login attempt:', { email, password, rememberMe });
-  };
 
   return (
     <Box
@@ -86,12 +75,12 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               <Typography variant='h3' component='h1' gutterBottom sx={{ fontWeight: 'bold' }}>
                 Chào mừng trở lại!
               </Typography>
-              <Typography variant='h6' sx={{ mb: 3, opacity: 0.9 }}>
+              {/* <Typography variant='h6' sx={{ mb: 3, opacity: 0.9 }}>
                 Tiếp tục hành trình của bạn với chúng tôi
               </Typography>
               <Typography variant='body1' sx={{ opacity: 0.8, maxWidth: 400 }}>
                 Khám phá điểm đến tuyệt vời, đặt những trải nghiệm tuyệt vời, và tạo những kỷ niệm mãi mãi.
-              </Typography>
+              </Typography> */}
 
               {/* Floating Elements */}
               <Box
@@ -226,7 +215,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
 
               {children}
 
-              <Box sx={{ textAlign: 'center', mt: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {/* <Box sx={{ textAlign: 'center', mt: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <Typography variant='body2' color='text.secondary'>
                   {'Không có tài khoản? '}
                   <Link
@@ -249,7 +238,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                     Trang chủ
                   </Button>
                 </NextLink>
-              </Box>
+              </Box> */}
             </Box>
           </Grid>
         </Grid>

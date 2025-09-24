@@ -27,7 +27,7 @@ type NavItem = {
 };
 const navItems: NavItem[] = [
   {
-    label: 'menu.home',
+    label: 'Trang chủ',
     link: Routes.HOME,
     icon: 'home',
   },
@@ -284,7 +284,7 @@ export default function DrawerAppBar() {
                     <NextLink
                       key={item.link}
                       sx={{
-                        color: active ? 'primary.main' : 'white',
+                        color: 'white',
                         fontWeight: 'bold',
                       }}
                       href={item.link}

@@ -18,4 +18,7 @@ export default {
   //AI
   MANAGEMENT_AI_GENERATE_TOUR_INFORMATION: '/manager-ai/tour-ai/generate-tour-information',
   MANAGEMENT_AI_N8N_CHAT_AI: process.env.NEXT_PUBLIC_API_ENDPOINT_N8N_WEBHOOK,
+
+  // Admin Settings
+  ADMIN_SETTINGS_CATEGORIES_GET_LIST: '/admin/settings/categories/get-list',
 };

@@ -15,7 +15,7 @@ import AlertContainer from 'src/components/material/Alert/alertContainer';
 import PageLoading from 'src/components/PageLoading';
 import { queryClient } from 'src/config/reactQuery';
 import { Routes } from 'src/constants/route';
-import AiAgentLayout from 'src/layout/AiAgentLayout/AiAgentLayout';
+import AdminLayout from 'src/layout/AdminLayout';
 import MainLayoutContainer from 'src/layout/MainLayout/MainLayout';
 import PublicLayout from 'src/layout/PublicLayout/PublicLayout';
 import getLocale, { useSetLocale } from 'src/libs/languageUtils';
@@ -26,13 +26,21 @@ import nextI18NextConfig from '../../next-i18next.config.js';
 
 const locale = getLocale();
 
-const PickLayout = ({ isAiAgent, children, isPublicLayout }: { isAiAgent?: boolean; children: React.ReactChild; isPublicLayout?: boolean }) => {
-  if (isAiAgent) {
-    return <AiAgentLayout>{children}</AiAgentLayout>;
-  }
-
+const PickLayout = ({
+  children,
+  isPublicLayout,
+  isAdminLayout,
+}: {
+  children: React.ReactChild;
+  isPublicLayout?: boolean;
+  isAdminLayout?: boolean;
+}) => {
   if (isPublicLayout) {
     return <PublicLayout>{children}</PublicLayout>;
+  }
+
+  if (isAdminLayout) {
+    return <AdminLayout>{children}</AdminLayout>;
   }
 
   return <MainLayoutContainer>{children}</MainLayoutContainer>;
@@ -70,7 +78,7 @@ function App({ Component, pageProps, router }: AppProps) {
 
             <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
               <PageLoading />
-              <PickLayout isAiAgent={router.pathname === Routes.PROFILE} isPublicLayout={router.pathname === Routes.SIGN_IN}>
+              <PickLayout isPublicLayout={router.pathname === Routes.ADMIN_SIGN_IN} isAdminLayout={router.pathname.includes('/admin')}>
                 <Component {...pageProps} />
               </PickLayout>
             </SnackbarProvider>

@@ -123,5 +123,6 @@
     "11": "Tháng 11",
     "12": "Tháng 12"
   },
-  "login_sign_up": "Đăng kí / Đăng nhập"
+  "login_sign_up": "Đăng kí / Đăng nhập",
+  "username": "Tên đăng nhập"
 }

@@ -1,4 +1,24 @@
-import { addDoc, collection, deleteDoc, doc, DocumentData, Firestore, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  count,
+  deleteDoc,
+  doc,
+  DocumentData,
+  Firestore,
+  getAggregateFromServer,
+  getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  QueryDocumentSnapshot,
+  setDoc,
+  startAfter,
+  updateDoc,
+  where,
+  WhereFilterOp,
+} from 'firebase/firestore';
 
 import { db } from './config';
 
@@ -60,6 +80,71 @@ export class FirestoreService {
   async delete(collectionName: string, id: string): Promise<void> {
     const ref = doc(this.db, collectionName, id);
     await deleteDoc(ref);
+  }
+
+  async countDocuments(collectionName: string): Promise<number> {
+    const colRef = collection(this.db, collectionName);
+    const snapshot = await getAggregateFromServer(colRef, { total: count() });
+    return snapshot.data().total;
+  }
+
+  async list<T = DocumentData>(
+    collectionName: string,
+    options?: {
+      conditions?: { field: string; op: WhereFilterOp; value: unknown }[];
+      orderByField?: string; // sắp xếp theo field
+      orderDirection?: 'asc' | 'desc';
+      pageSize?: number; // số lượng mỗi trang
+      startAfterDoc?: QueryDocumentSnapshot; // doc bắt đầu (cho load more)
+    },
+  ): Promise<{
+    rows: (T & { id: string })[];
+    total: number;
+    lastDoc: QueryDocumentSnapshot | null; // để load trang tiếp theo
+  }> {
+    try {
+      let q: any = collection(this.db, collectionName);
+
+      const { conditions, orderByField, orderDirection, pageSize, startAfterDoc } = options || {};
+
+      // filter
+      if (conditions && conditions.length > 0) {
+        const filters = conditions.map((c) => where(c.field, c.op, c.value));
+        q = query(q, ...filters);
+      }
+
+      // orderBy (quan trọng khi dùng paging)
+      if (orderByField) {
+        q = query(q, orderBy(orderByField, orderDirection || 'asc'));
+      }
+
+      // paging
+      if (startAfterDoc) {
+        q = query(q, startAfter(startAfterDoc));
+      }
+
+      if (pageSize) {
+        q = query(q, limit(pageSize));
+      }
+
+      const snapshot = await getDocs(q);
+
+      const docs = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as T) }));
+      const lastDocSnap = snapshot.docs.length > 0 ? snapshot.docs[snapshot.docs.length - 1] : null;
+      const total = await this.countDocuments(collectionName);
+
+      return {
+        rows: docs,
+        lastDoc: lastDocSnap as QueryDocumentSnapshot<DocumentData, DocumentData> | null,
+        total: total,
+      };
+    } catch (error) {
+      return {
+        rows: [],
+        total: 0,
+        lastDoc: null,
+      };
+    }
   }
 }
 
