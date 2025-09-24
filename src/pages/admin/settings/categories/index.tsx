@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import AdminSettingsCategoriesPage from 'src/components/pages/admin/ListCategoriesPage';
+import AdminSettingsCategoriesPage from 'src/components/pages/admin/categories/ListCategoriesPage';
 
 const AdminSettingsCategories = () => {
   return (
