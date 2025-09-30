@@ -23,6 +23,7 @@ export interface Props {
   isValidMinimumSize?: boolean;
   disabled?: boolean;
   width?: string;
+  height?: string;
 }
 
 type CardCommentImpHandler = {
@@ -30,7 +31,7 @@ type CardCommentImpHandler = {
 };
 
 const Dropzone = forwardRef<CardCommentImpHandler, Props>((props, ref) => {
-  const { children, multiple, accept, disabled, onAddFile = () => {}, width = '100%' } = props;
+  const { children, multiple, accept, disabled, onAddFile = () => {}, width = '100%', height = '100%' } = props;
   const dropzoneRef: any = useRef();
   const [files, setFiles] = useState<FileUpload[]>([]);
 
@@ -66,6 +67,7 @@ const Dropzone = forwardRef<CardCommentImpHandler, Props>((props, ref) => {
       sx={{
         width: width,
         cursor: disabled ? 'not-allowed' : 'pointer',
+        height: height,
       }}
     >
       <input {...getInputProps()} disabled={disabled} />

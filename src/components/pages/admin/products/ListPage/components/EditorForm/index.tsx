@@ -1,19 +1,17 @@
 import { Box, Grid } from '@mui/material';
 import { useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Icon } from 'src/components/icons';
 import Button from 'src/components/material/Button';
 import FormArrayTextField from 'src/components/material/form/ArrayTextField';
 import FormTextField from 'src/components/material/form/FormTextField';
 import NumberField from 'src/components/material/form/NumberField';
 import { AutoCompleteCategoriesField } from 'src/components/ui/AutoCompleteCategories';
-import Dropzone from 'src/components/ui/Dropzone';
-import { ImageType } from 'src/components/ui/Dropzone/types';
 import { SPACING } from 'src/constants/grid';
 import useYupValidationResolver from 'src/helpers/useYupValidationResolver';
 import { formatMoneyToNumber } from 'src/libs/utils';
 import { FormEditorProps } from 'src/types/formEditor';
 
+import UploadArea from './components/UploadArea';
 import { EditorFormRequest } from './types';
 import { validation } from './validation';
 
@@ -43,11 +41,7 @@ export default function EditorForm({ onSubmit, defaultValues, buttonLabel: butto
         <FormProvider {...methods}>
           <Grid container spacing={SPACING.md}>
             <Grid item xs={12} md={6}>
-              <Dropzone accept={ImageType} maxLength={1} currentFileLength={0} onAddFile={() => {}}>
-                <Box>
-                  <Icon name='ai' />
-                </Box>
-              </Dropzone>
+              <UploadArea />
             </Grid>
             <Grid item xs={12} md={6}>
               <Box display='grid' gap={SPACING.md}>
