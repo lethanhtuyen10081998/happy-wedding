@@ -5,7 +5,7 @@ const AdminSettingsCategories = () => {
   return (
     <>
       <Head>
-        <title>AdminSettingsCategories</title>
+        <title>Danh Mục</title>
       </Head>
 
       <AdminSettingsCategoriesPage />

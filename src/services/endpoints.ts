@@ -21,4 +21,5 @@ export default {
 
   // Admin Settings
   ADMIN_SETTINGS_CATEGORIES_GET_LIST: '/admin/settings/categories/get-list',
+  ADMIN_MANAGE_PRODUCTS_GET_LIST: '/admin/manage/products/get-list',
 };

@@ -1,25 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
 import firestoreService from 'src/libs/firebase/service';
 import endpoints from 'src/services/endpoints';
-import { Category } from 'src/types/admin/categories';
 import { PagingDataRequest, PagingDataResponse } from 'src/types/paging';
+import { Product } from 'src/types/product';
 
 export type Request = PagingDataRequest & {};
 
 export type Response = {
-  data: PagingDataResponse<Category>;
+  data: PagingDataResponse<Product>;
 };
 
-export function getListUser(request: Request) {
-  return firestoreService.list<Category>('category', {
+export function getList(request: Request) {
+  return firestoreService.list<Product>('product', {
     pageSize: request.limit,
   });
 }
 
-const useListUser = (request: Request) => {
+const useList = (request: Request) => {
   const { data, ...others } = useQuery({
-    queryKey: [endpoints.ADMIN_SETTINGS_CATEGORIES_GET_LIST, request],
-    queryFn: () => getListUser(request),
+    queryKey: [endpoints.ADMIN_MANAGE_PRODUCTS_GET_LIST, request],
+    queryFn: () => getList(request),
   });
 
   return {
@@ -29,4 +29,4 @@ const useListUser = (request: Request) => {
   };
 };
 
-export default useListUser;
+export default useList;
