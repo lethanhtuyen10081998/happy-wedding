@@ -20,6 +20,7 @@ interface WeddingServiceCardProps {
   isPopular?: boolean;
   icon?: React.ReactNode;
   slug: string;
+  id: string;
 }
 
 export function WeddingServiceCard({
@@ -30,8 +31,8 @@ export function WeddingServiceCard({
   features,
   image,
   isPopular = false,
-  icon,
   slug,
+  id,
 }: WeddingServiceCardProps) {
   return (
     <Card
@@ -178,7 +179,7 @@ export function WeddingServiceCard({
         <Box style={{ padding: '24px', paddingTop: 0, position: 'absolute', bottom: 0, left: 0, right: 0 }}>
           <Box style={{ display: 'flex', gap: '12px', width: '100%' }}>
             <Button variant='contained'>Đặt ngay</Button>
-            <NextLink href={Routes.SERVICES.replace(':id', slug)}>
+            <NextLink href={`${Routes.SERVICES.replace(':id', slug)}?productId=${id}`}>
               <Button variant='outlined'>Tìm hiểu thêm</Button>
             </NextLink>
           </Box>

@@ -105,6 +105,7 @@ function WeddingServicesShowcase() {
                   features={service.tags || []}
                   image={service.imagesList?.[0] || ''}
                   slug={service.slug}
+                  id={service.id}
                 />
               </Grid>
             ))}
