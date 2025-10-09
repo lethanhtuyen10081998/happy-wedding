@@ -7,26 +7,28 @@ import NextLink from 'next/link';
 import type React from 'react';
 import Button from 'src/components/material/Button';
 import { Routes } from 'src/constants/route';
+import { formatMoney } from 'src/libs/utils';
 import variables from 'src/themes/variables';
 
 interface WeddingServiceCardProps {
   title: string;
   description: string;
-  price: string;
-  originalPrice?: string;
+  price: number;
+  originalPrice?: number;
   features: string[];
   image: string;
   isPopular?: boolean;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
 export function WeddingServiceCard({ title, description, price, originalPrice, features, image, isPopular = false, icon }: WeddingServiceCardProps) {
   return (
     <Card
-      style={{
+      sx={{
         position: 'relative',
         overflow: 'hidden',
         border: '1px solid primary.light',
+        height: '100%',
       }}
     >
       {isPopular && (
@@ -93,11 +95,11 @@ export function WeddingServiceCard({ title, description, price, originalPrice, f
         <div style={{ marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
             <Typography variant='h4' sx={{ fontWeight: 'bold', color: 'primary.main' }}>
-              {price}
+              {formatMoney(price)}
             </Typography>
             {originalPrice && (
               <Typography variant='subtitle2' sx={{ fontWeight: 'bold', color: 'text.secondary', textDecoration: 'line-through' }}>
-                {originalPrice}
+                {formatMoney(originalPrice)}
               </Typography>
             )}
           </div>
@@ -105,7 +107,7 @@ export function WeddingServiceCard({ title, description, price, originalPrice, f
 
         <Box>
           <Box component='ul' sx={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            {features.map((feature, index) => (
+            {features.slice(0, 4).map((feature, index) => (
               <Box
                 component='li'
                 key={index}
@@ -131,6 +133,32 @@ export function WeddingServiceCard({ title, description, price, originalPrice, f
                 </Typography>
               </Box>
             ))}
+
+            {features.length - 4 > 0 && (
+              <Box
+                component='li'
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '8px',
+                  fontSize: '14px',
+                  marginBottom: '8px',
+                }}
+              >
+                <Heart
+                  style={{
+                    width: '16px',
+                    height: '16px',
+                    color: '#f48fb1',
+                    marginTop: '2px',
+                    flexShrink: 0,
+                  }}
+                />
+                <Typography variant='subtitle2' sx={{ color: 'text.secondary' }}>
+                  + {features.length - 3} ưu đãi khác
+                </Typography>
+              </Box>
+            )}
           </Box>
         </Box>
       </CardContent>

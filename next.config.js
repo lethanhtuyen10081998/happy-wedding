@@ -16,7 +16,7 @@ const nextConfig = () => {
       return config;
     },
     images: {
-      domains: ['images.pexels.com'],
+      domains: ['images.pexels.com', 'happy-wedding-studio.s3.us-east-2.amazonaws.com'],
     },
     eslint: {
       // Warning: This allows production builds to successfully complete even if

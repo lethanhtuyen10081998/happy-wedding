@@ -7,6 +7,8 @@ import { PagingDataResponse } from 'src/types/paging';
 export type Request = {
   name: string;
   id: string;
+  slug: string;
+  isMenu?: boolean;
 };
 
 export type Response = {
@@ -16,6 +18,7 @@ export type Response = {
 export function updateCategory(request: Request) {
   return firestoreService.update('category', request.id, {
     name: request.name,
+    slug: request.slug,
   });
 }
 

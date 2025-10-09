@@ -5,24 +5,22 @@ import { Category } from 'src/types/admin/categories';
 import { PagingDataResponse } from 'src/types/paging';
 
 export type Request = {
-  name: string;
-  slug: string;
-  isMenu?: boolean;
+  id: string;
 };
 
 export type Response = {
   data: PagingDataResponse<Category>;
 };
 
-export function createCategory(request: Request) {
-  return firestoreService.create('category', request);
+export function deleteCategory(request: Request) {
+  return firestoreService.delete('category', request.id);
 }
 
-const useCreateCategory = () => {
+const useDeleteCategory = () => {
   return useMutation({
     mutationKey: [endpoints.ADMIN_SETTINGS_CATEGORIES_GET_LIST],
-    mutationFn: createCategory,
+    mutationFn: deleteCategory,
   });
 };
 
-export default useCreateCategory;
+export default useDeleteCategory;

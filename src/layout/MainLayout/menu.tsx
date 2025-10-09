@@ -9,6 +9,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
+import { unionBy } from 'lodash';
 import { Crown } from 'lucide-react';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
@@ -17,6 +18,7 @@ import { Icon, IconTypes } from 'src/components/icons';
 import Container from 'src/components/material/Container';
 import NextLink from 'src/components/material/NextLink';
 import { Routes } from 'src/constants/route';
+import useListCategory from 'src/services/admin/settings/categories/getList';
 import variables from 'src/themes/variables';
 
 const drawerWidth = '100%';
@@ -25,65 +27,11 @@ type NavItem = {
   link: string;
   icon: IconTypes;
 };
-const navItems: NavItem[] = [
+let navItems: NavItem[] = [
   {
     label: 'Trang chủ',
     link: Routes.HOME,
     icon: 'home',
-  },
-  {
-    label: 'menu.wedding_dress',
-    link: Routes.WEDDING_DRESS,
-    icon: 'wedding_dress',
-  },
-
-  {
-    label: 'menu.wedding_photo',
-    link: Routes.WEDDING_PHOTO,
-    icon: 'wedding_photo',
-  },
-
-  {
-    label: 'menu.wedding_service',
-    link: Routes.WEDDING_SERVICE,
-    icon: 'wedding_service',
-  },
-
-  {
-    label: 'menu.shining_moment',
-    link: Routes.SHINING_MOMENT,
-    icon: 'shining_moment',
-  },
-];
-
-const navItemsDrawer: NavItem[] = [
-  {
-    label: 'menu.home',
-    link: Routes.HOME,
-    icon: 'home',
-  },
-  {
-    label: 'menu.wedding_dress',
-    link: Routes.WEDDING_DRESS,
-    icon: 'wedding_dress',
-  },
-
-  {
-    label: 'menu.wedding_photo',
-    link: Routes.WEDDING_PHOTO,
-    icon: 'wedding_photo',
-  },
-
-  {
-    label: 'menu.wedding_service',
-    link: Routes.WEDDING_SERVICE,
-    icon: 'wedding_service',
-  },
-
-  {
-    label: 'menu.shining_moment',
-    link: Routes.SHINING_MOMENT,
-    icon: 'shining_moment',
   },
 ];
 
@@ -93,7 +41,22 @@ export default function DrawerAppBar() {
   const [scrolled, setScrolled] = React.useState(false);
   const router = useRouter();
   const link = router.route;
+  const { data } = useListCategory({
+    limit: 100,
+    page: 1,
+  });
 
+  const menuItems = data.filter((item) => item.isMenu);
+
+  navItems = navItems.concat(
+    menuItems.map((item) => ({
+      label: item.name,
+      link: `/dich-vu?category=${item.slug}`,
+      icon: 'home',
+    })),
+  );
+
+  navItems = unionBy(navItems, 'link');
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -132,7 +95,7 @@ export default function DrawerAppBar() {
       </Box>
 
       <List sx={{ mx: 6 }}>
-        {navItemsDrawer.map((item) => (
+        {navItems.map((item) => (
           <ListItem key={item.link} disablePadding onClick={() => handleRouterLink(item.link)}>
             <ListItemButton
               sx={{

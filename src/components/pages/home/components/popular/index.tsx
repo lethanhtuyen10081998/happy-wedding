@@ -1,8 +1,10 @@
 'use client';
-import { Box, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { Camera, Crown, Sparkles } from 'lucide-react';
 import Container from 'src/components/material/Container';
+import SpinnerCenter from 'src/components/material/Spinner/SpinnerCenter';
 import SmoothScroll from 'src/components/SmoothScroll';
+import useList from 'src/services/admin/manage/product/getList';
 
 import { WeddingServiceCard } from './components/cardPopular';
 
@@ -11,8 +13,8 @@ function WeddingServicesShowcase() {
     {
       title: 'Chụp ảnh cưới trọn gói',
       description: 'Gói chụp ảnh cưới hoàn hảo với nhiều concept đa dạng, từ studio đến ngoại cảnh thiên nhiên tuyệt đẹp.',
-      price: '15.000.000đ',
-      originalPrice: '20.000.000đ',
+      price: 15000000,
+      originalPrice: 20000000,
       features: [
         '300+ ảnh chỉnh sửa chuyên nghiệp',
         'Album cưới cao cấp 30x40cm',
@@ -28,8 +30,8 @@ function WeddingServicesShowcase() {
     {
       title: 'Thuê váy cưới cao cấp',
       description: 'Bộ sưu tập váy cưới đẳng cấp từ các thương hiệu nổi tiếng, phù hợp với mọi phong cách và vóc dáng.',
-      price: '3.500.000đ',
-      originalPrice: '5.000.000đ',
+      price: 3500000,
+      originalPrice: 5000000,
       features: [
         'Váy cưới nhập khẩu cao cấp',
         'Tư vấn phong cách miễn phí',
@@ -44,8 +46,8 @@ function WeddingServicesShowcase() {
     {
       title: 'Combo 3 váy cưới VIP',
       description: 'Gói combo đặc biệt với 3 bộ váy cưới khác nhau cho các nghi thức: lễ vu quy, lễ cưới và tiệc cưới.',
-      price: '8.500.000đ',
-      originalPrice: '12.000.000đ',
+      price: 8500000,
+      originalPrice: 12000000,
       features: [
         '3 váy cưới phong cách khác nhau',
         'Áo dài cưới truyền thống',
@@ -61,11 +63,22 @@ function WeddingServicesShowcase() {
     },
   ];
 
+  const { data, isFetching } = useList({
+    limit: 10,
+    page: 1,
+    isShowHomePage: true,
+  });
+
+  if (isFetching) {
+    return <SpinnerCenter />;
+  }
+
+  console.log(data);
+
   return (
     <SmoothScroll>
       <Box
         sx={{
-          minHeight: '100vh',
           backgroundColor: '#fdf2f8',
           paddingTop: '48px',
           paddingBottom: '48px',
@@ -81,18 +94,20 @@ function WeddingServicesShowcase() {
             </Typography>
           </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '32px',
-              justifyItems: 'center',
-            }}
-          >
-            {services.map((service, index) => (
-              <WeddingServiceCard key={index} {...service} />
+          <Grid container spacing={3}>
+            {data.map((service, index) => (
+              <Grid item xs={12} md={4} key={index}>
+                <WeddingServiceCard
+                  title={service.name}
+                  description={service.description}
+                  price={service.price as number}
+                  originalPrice={service.originalPrice as number}
+                  features={service.tags || []}
+                  image={service.imagesList?.[0] || ''}
+                />
+              </Grid>
             ))}
-          </div>
+          </Grid>
         </Container>
       </Box>
     </SmoothScroll>

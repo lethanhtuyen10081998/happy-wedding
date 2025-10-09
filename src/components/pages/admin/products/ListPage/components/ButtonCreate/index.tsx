@@ -4,7 +4,9 @@ import { Icon } from 'src/components/icons';
 import Button from 'src/components/material/Button';
 import { useModal } from 'src/components/ui/ModalEditor/useModal';
 import { useRefreshData } from 'src/context/dataContext/hooksContext';
+import { formatMoneyToNumber } from 'src/libs/utils';
 import useCreate from 'src/services/admin/manage/product/create';
+import { uploadFile } from 'src/services/fileUpload/uploadFile';
 
 import EditorForm from '../EditorForm';
 import { EditorFormRequest } from '../EditorForm/types';
@@ -15,20 +17,42 @@ const ButtonCreateCategory = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { Dialog, open, close } = useModal();
 
+  const handleUploadImage = useCallback(async (file: File) => {
+    return await uploadFile({
+      fileName: file.name,
+      folder: 'products',
+      contentType: file.type,
+      file,
+    });
+  }, []);
+
+  const handleUploadImages = useCallback(
+    async (files: File[]) => {
+      return await Promise.all(
+        files.map(async (file) => {
+          return await handleUploadImage(file);
+        }),
+      );
+    },
+    [handleUploadImage],
+  );
+
   const handleSubmit = useCallback(
-    (values: EditorFormRequest) => {
-      console.log(values);
+    async (values: EditorFormRequest) => {
+      const imagesList = await handleUploadImages(values.images?.map((image) => image.file) || []);
+
       return mutateAsync({
         name: values.name,
         categoryId: values.categoryId?.id,
-        price: values.price,
-        quantity: values.quantity,
+        price: formatMoneyToNumber(values.price),
+        quantity: formatMoneyToNumber(values.quantity),
         unit: values.unit,
-        originalPrice: values.originalPrice,
-        imagesList: values.imagesList || [],
+        originalPrice: formatMoneyToNumber(values.originalPrice),
+        imagesList: imagesList,
         tags: values.tags || [],
         description: values.description || '',
         videoUrl: values.videoUrl || '',
+        isShowHomePage: values.isShowHomePage || false,
       })
         .then(() => {
           enqueueSnackbar('Tạo sản phẩm thành công!', { variant: 'success' });
@@ -41,7 +65,7 @@ const ButtonCreateCategory = () => {
           });
         });
     },
-    [enqueueSnackbar, mutateAsync, refreshData, close],
+    [handleUploadImages, mutateAsync, enqueueSnackbar, refreshData, close],
   );
 
   return (

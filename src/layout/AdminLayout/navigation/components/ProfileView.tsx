@@ -1,8 +1,11 @@
-import { Box } from '@mui/material';
+import { Avatar, Box, Typography } from '@mui/material';
+import { Icon } from 'src/components/icons';
+import { useCollapsible } from 'src/context/layoutContext/hooksContext';
 import { useProfileContext } from 'src/context/profileContext/hooksContext';
 
 function ProfileView() {
   const { profile } = useProfileContext();
+  const collapsible = useCollapsible();
 
   if (!profile) {
     return null;
@@ -10,8 +13,7 @@ function ProfileView() {
 
   return (
     <Box py={1}>
-      profile
-      {/* <Box
+      <Box
         display='flex'
         alignItems='center'
         justifyContent='center'
@@ -20,19 +22,18 @@ function ProfileView() {
           overflow: 'hidden',
         }}
       >
-        <Avatar alt='Administrator' src={profile?.profile.avatar} sx={{ background: (theme) => theme.palette.secondary.light }}>
+        <Avatar alt='Administrator' sx={{ background: (theme) => theme.palette.secondary.light }}>
           <Icon name='user-interface' />
         </Avatar>
 
         {!collapsible && (
           <Box>
             <Typography color='primary' fontWeight='bold' fontSize={12}>
-              {profile?.profile.fullName}
+              {profile?.fullName}
             </Typography>
-            <Typography fontSize={10}>{profile.profile.roleInfo?.roleName}</Typography>
           </Box>
         )}
-      </Box> */}
+      </Box>
     </Box>
   );
 }

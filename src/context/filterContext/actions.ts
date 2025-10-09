@@ -8,6 +8,7 @@ export enum ActionsTypes {
   ON_SET_FILTER_OBJECT = 'ON_SET_FILTER_OBJECT',
   ON_SET_FILTER_BY_COLUMN = 'ON_SET_FILTER_BY_COLUMN',
   ON_RESET_FILTER = 'ON_RESET_FILTER',
+  ON_SET_DEFAULT_FILTER = 'ON_SET_DEFAULT_FILTER',
 }
 
 export type Actions =
@@ -45,6 +46,10 @@ export type Actions =
   | {
       type: ActionsTypes.ON_SET_FILTER_BY_COLUMN;
       payload: Object;
+    }
+  | {
+      type: ActionsTypes.ON_SET_DEFAULT_FILTER;
+      payload: Object;
     };
 
 export type API = {
@@ -57,6 +62,7 @@ export type API = {
   onSetFilterObject: (value: Object) => void;
   onResetFilterObject: () => void;
   onSetFilterByColumn: (value: Object) => void;
+  onSetDefaultFilter: (value: Object) => void;
 };
 
 export type Sort = {

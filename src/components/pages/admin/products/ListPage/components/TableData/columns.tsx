@@ -35,6 +35,17 @@ const useColumns = () => {
       },
     },
     {
+      accessorKey: 'originalPrice',
+      header: 'Giá Gốc',
+      Cell: ({ row }) => {
+        return (
+          <Typography sx={{ textDecoration: 'line-through' }}>
+            {row.original.originalPrice ? formatMoney(Number(row.original.originalPrice)) : ''}
+          </Typography>
+        );
+      },
+    },
+    {
       accessorKey: 'quantity',
       header: 'Số Lượng',
       Cell: ({ row }) => {
@@ -46,6 +57,13 @@ const useColumns = () => {
       header: 'Đơn Vị',
       Cell: ({ row }) => {
         return <Typography>{row.original.unit}</Typography>;
+      },
+    },
+    {
+      accessorKey: 'isShowHomePage',
+      header: 'Hiển thị trang chủ',
+      Cell: ({ row }) => {
+        return <Typography>{row.original.isShowHomePage ? 'Có' : 'Không'}</Typography>;
       },
     },
     {

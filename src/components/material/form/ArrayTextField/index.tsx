@@ -25,6 +25,7 @@ const FormArrayTextField = (props: Props) => {
             <Stack direction='row' spacing={1} alignItems='center'>
               <TextField
                 {...others}
+                label={index > 0 ? undefined : others.label}
                 inputRef={ref}
                 value={value || ''}
                 onChange={onChange}
@@ -32,10 +33,14 @@ const FormArrayTextField = (props: Props) => {
                 error={invalid || others.error}
                 helperText={invalid ? error?.message || '' : helperText}
                 fullWidth
+                InputProps={{
+                  endAdornment: (
+                    <IconButton color='error' onClick={() => remove(index)}>
+                      <Trash2 size={18} />
+                    </IconButton>
+                  ),
+                }}
               />
-              <IconButton color='error' onClick={() => remove(index)}>
-                <Trash2 size={18} />
-              </IconButton>
             </Stack>
           )}
         />

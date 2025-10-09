@@ -1,4 +1,3 @@
-import { isArray } from 'lodash';
 import { useSnackbar } from 'notistack';
 import { useCallback } from 'react';
 import { Icon } from 'src/components/icons';
@@ -7,7 +6,7 @@ import { useModal } from 'src/components/ui/ModalEditor/useModal';
 import { useRefreshData } from 'src/context/dataContext/hooksContext';
 import useCreateRole from 'src/services/admin/settings/categories/create';
 
-import EditorRoleForm from '../EditorForm';
+import EditorForm from '../EditorForm';
 import { EditorFormRequest } from '../EditorForm/types';
 
 const ButtonCreateCategory = () => {
@@ -19,7 +18,8 @@ const ButtonCreateCategory = () => {
   const handleSubmit = useCallback(
     (values: EditorFormRequest) => {
       return mutateAsync({
-        name: values.name,
+        ...values,
+        isMenu: values.isMenu || false,
       })
         .then(() => {
           enqueueSnackbar('Tạo danh mục thành công!', { variant: 'success' });
@@ -27,14 +27,6 @@ const ButtonCreateCategory = () => {
           close();
         })
         .catch((error) => {
-          if (isArray(error.response.data.message)) {
-            error.response.data.message.forEach((item: string) => {
-              enqueueSnackbar(item, {
-                variant: 'error',
-              });
-            });
-            return;
-          }
           enqueueSnackbar('Tạo danh mục thất bại!', {
             variant: 'error',
           });
@@ -50,7 +42,7 @@ const ButtonCreateCategory = () => {
       </Button>
 
       <Dialog loading={status === 'pending'} label='Thêm Danh Mục'>
-        <EditorRoleForm onSubmit={handleSubmit} loading={status === 'pending'} buttonLabel='Thêm Danh Mục' title='Thêm Danh Mục' />
+        <EditorForm onSubmit={handleSubmit} loading={status === 'pending'} buttonLabel='Thêm Danh Mục' title='Thêm Danh Mục' />
       </Dialog>
     </>
   );

@@ -16,7 +16,7 @@ export function getListUser(request: Request) {
   });
 }
 
-const useListUser = (request: Request) => {
+const useListCategory = (request: Request) => {
   const { data, ...others } = useQuery({
     queryKey: [endpoints.ADMIN_SETTINGS_CATEGORIES_GET_LIST, request],
     queryFn: () => getListUser(request),
@@ -29,4 +29,4 @@ const useListUser = (request: Request) => {
   };
 };
 
-export default useListUser;
+export default useListCategory;

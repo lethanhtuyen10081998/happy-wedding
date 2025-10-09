@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useReducer } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useReducer } from 'react';
 
 import { API, Actions, ActionsTypes, Sort, State } from './actions';
 import { FilterByColumnContext, FilterObjectContext, KeywordContext, LimitContext, LoadingContext, PageContext, SortContext } from './hooksContext';
@@ -41,6 +41,9 @@ const filterReducer = (state: State, action: Actions): State => {
     case ActionsTypes.ON_SET_FILTER_BY_COLUMN:
       return { ...state, filterByColumn: action.payload, page: 1 };
 
+    case ActionsTypes.ON_SET_DEFAULT_FILTER:
+      return { ...state, filter: action.payload };
+
     default:
       return state;
   }
@@ -54,6 +57,10 @@ export const FilterContextProvider = ({ children, filter, defaultState }: { chil
     filter,
     ...defaultState,
   });
+
+  useEffect(() => {
+    dispatch({ type: ActionsTypes.ON_SET_DEFAULT_FILTER, payload: defaultState || {} });
+  }, [defaultState]);
 
   const actionContext: API = useMemo(() => {
     const onChangeKeyword = (payload?: string) => {
@@ -92,6 +99,10 @@ export const FilterContextProvider = ({ children, filter, defaultState }: { chil
       dispatch({ type: ActionsTypes.ON_SET_FILTER_BY_COLUMN, payload });
     };
 
+    const onSetDefaultFilter = (payload: Object) => {
+      dispatch({ type: ActionsTypes.ON_SET_DEFAULT_FILTER, payload });
+    };
+
     return {
       onChangeKeyword,
       onUpdateLimit,
@@ -102,6 +113,7 @@ export const FilterContextProvider = ({ children, filter, defaultState }: { chil
       onResetFilterObject,
       onSetFilterObject,
       onSetFilterByColumn,
+      onSetDefaultFilter,
     };
   }, []);
 

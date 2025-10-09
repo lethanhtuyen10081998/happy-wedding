@@ -5,16 +5,16 @@ import { useCallback } from 'react';
 import { Icon } from 'src/components/icons';
 import { useModal } from 'src/components/ui/ModalEditor/useModal';
 import { useRefreshData } from 'src/context/dataContext/hooksContext';
-import useUpdateRole from 'src/services/admin/settings/categories/update';
+import useUpdate from 'src/services/admin/settings/categories/update';
 import { Category } from 'src/types/admin/categories';
 import { FormMode } from 'src/types/formEditor';
 
-import EditorRoleForm from '../EditorForm';
+import EditorForm from '../EditorForm';
 import { EditorFormRequest } from '../EditorForm/types';
 
 const ButtonUpdateCategory = ({ data }: { data: Category }) => {
   const refreshData = useRefreshData();
-  const { mutateAsync, status } = useUpdateRole();
+  const { mutateAsync, status } = useUpdate();
   const { enqueueSnackbar } = useSnackbar();
   const { Dialog, open, close } = useModal();
 
@@ -23,6 +23,8 @@ const ButtonUpdateCategory = ({ data }: { data: Category }) => {
       return mutateAsync({
         id: values.id,
         name: values.name,
+        slug: values.slug,
+        isMenu: values.isMenu,
       })
         .then(() => {
           enqueueSnackbar('Cập nhật danh mục thành công!', { variant: 'success' });
@@ -53,7 +55,7 @@ const ButtonUpdateCategory = ({ data }: { data: Category }) => {
       </IconButton>
 
       <Dialog loading={status === 'pending'} label='Cập Nhật Vai Trò'>
-        <EditorRoleForm
+        <EditorForm
           onSubmit={handleSubmit}
           loading={status === 'pending'}
           buttonLabel='Cập Nhật Danh Mục'
@@ -61,6 +63,8 @@ const ButtonUpdateCategory = ({ data }: { data: Category }) => {
           defaultValues={{
             name: data.name,
             id: data.id,
+            slug: data.slug,
+            isMenu: data.isMenu || false,
           }}
           mode={FormMode.EDIT}
         />

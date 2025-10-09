@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useAPIDataContext } from 'src/context/dataContext/provider';
 import { useFilterByColumnContext, useLimit, usePage, useSort } from 'src/context/filterContext/hooksContext';
-import useListUser from 'src/services/admin/settings/categories/getList';
+import { useAPIRefsContext } from 'src/context/refsContext/provider';
+import useListCategory from 'src/services/admin/settings/categories/getList';
 import { SortType } from 'src/types/paging';
 
 import TableData from './components/TableData';
@@ -12,8 +13,9 @@ const ListUserPage = () => {
   const limit = useLimit();
   const sort = useSort();
   const filterByColumn = useFilterByColumnContext<{}>();
+  const { onSetRefs } = useAPIRefsContext();
 
-  const { data, isFetching, total, refetch } = useListUser({
+  const { data, isFetching, total, refetch } = useListCategory({
     limit: limit || 10,
     page: page || 1,
     keySort: sort?.field || 'createdTime',
@@ -23,7 +25,8 @@ const ListUserPage = () => {
 
   useEffect(() => {
     onSetFunctionRefreshData(refetch);
-  }, [onSetFunctionRefreshData, refetch]);
+    onSetRefs({ getListCategories: refetch });
+  }, [onSetFunctionRefreshData, refetch, onSetRefs]);
 
   useEffect(() => {
     if (data) {

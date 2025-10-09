@@ -1,8 +1,8 @@
 export const SPACING = {
   xs: 1,
   sm: 1,
-  md: 1,
-  lg: 1,
+  md: 2,
+  lg: 3,
   xl: 2,
 };
 

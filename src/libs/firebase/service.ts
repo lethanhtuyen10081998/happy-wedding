@@ -66,6 +66,21 @@ export class FirestoreService {
   }
 
   /**
+   * Get a document by condition
+   * Returns null if not exists.
+   */
+
+  async getByCondition<T = DocumentData>(collectionName: string, field: string, op: WhereFilterOp, value: any): Promise<(T & { id: string }) | null> {
+    const q = query(collection(this.db, collectionName), where(field, op, value), limit(1));
+
+    const snap = await getDocs(q);
+
+    if (snap.empty) return null;
+
+    return { id: snap.docs[0].id, ...(snap.docs[0].data() as T) };
+  }
+
+  /**
    * Update document by id. Partial update only.
    * Throws if doc not exists (Firestore will create if doesn't exist for updateDoc? actually updateDoc fails on missing doc).
    */
