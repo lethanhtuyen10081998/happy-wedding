@@ -64,10 +64,12 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
       const imageDeletes = values.images?.filter((image) => image.action === EditorFormAction.DELETE) || [];
       const imagesListUpload = await handleUploadImages(imageUploads.map((image) => image.file));
       await handleDeleteImages(imageDeletes.map((image) => image.file.src as string));
-      const images = values.images?.filter((image) => image.action === EditorFormAction.DEFAULT) || [];
-      const imagesList = [...images.map((image) => image.file.src as string), ...imagesListUpload];
+      const imagesDefault = values.images?.filter((image) => image.action === EditorFormAction.DEFAULT) || [];
+      const imagesList = [...imagesDefault.map((image) => image.file.src as string), ...imagesListUpload];
+      const { images: _, ...rest } = values;
 
       return mutateAsync({
+        ...rest,
         categoryId: values.categoryId?.id,
         imagesList: imagesList,
         videoUrl: values.videoUrl || '',
@@ -137,6 +139,7 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
               } as unknown as FileUpload,
             })),
             isShowHomePage: data.isShowHomePage || false,
+            slug: data.slug,
           }}
           mode={FormMode.EDIT}
         />

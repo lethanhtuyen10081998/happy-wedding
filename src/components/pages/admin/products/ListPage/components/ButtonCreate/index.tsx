@@ -40,8 +40,10 @@ const ButtonCreateCategory = () => {
   const handleSubmit = useCallback(
     async (values: EditorFormRequest) => {
       const imagesList = await handleUploadImages(values.images?.map((image) => image.file) || []);
+      const { images: _, ...rest } = values;
 
       return mutateAsync({
+        ...rest,
         name: values.name,
         categoryId: values.categoryId?.id,
         price: formatMoneyToNumber(values.price),

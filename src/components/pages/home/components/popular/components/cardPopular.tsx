@@ -19,9 +19,20 @@ interface WeddingServiceCardProps {
   image: string;
   isPopular?: boolean;
   icon?: React.ReactNode;
+  slug: string;
 }
 
-export function WeddingServiceCard({ title, description, price, originalPrice, features, image, isPopular = false, icon }: WeddingServiceCardProps) {
+export function WeddingServiceCard({
+  title,
+  description,
+  price,
+  originalPrice,
+  features,
+  image,
+  isPopular = false,
+  icon,
+  slug,
+}: WeddingServiceCardProps) {
   return (
     <Card
       sx={{
@@ -167,7 +178,7 @@ export function WeddingServiceCard({ title, description, price, originalPrice, f
         <Box style={{ padding: '24px', paddingTop: 0, position: 'absolute', bottom: 0, left: 0, right: 0 }}>
           <Box style={{ display: 'flex', gap: '12px', width: '100%' }}>
             <Button variant='contained'>Đặt ngay</Button>
-            <NextLink href={Routes.SERVICES.replace(':id', '1')}>
+            <NextLink href={Routes.SERVICES.replace(':id', slug)}>
               <Button variant='outlined'>Tìm hiểu thêm</Button>
             </NextLink>
           </Box>

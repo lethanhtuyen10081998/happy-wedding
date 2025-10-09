@@ -104,6 +104,7 @@ function WeddingServicesShowcase() {
                   originalPrice={service.originalPrice as number}
                   features={service.tags || []}
                   image={service.imagesList?.[0] || ''}
+                  slug={service.slug}
                 />
               </Grid>
             ))}

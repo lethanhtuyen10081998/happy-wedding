@@ -11,4 +11,5 @@ export type Product = {
   imagesList?: string[];
   videoUrl?: string;
   isShowHomePage?: boolean;
+  slug?: string;
 };
