@@ -2,8 +2,9 @@
 import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
 import { Icon } from 'src/components/icons';
 import Button from 'src/components/material/Button';
+import { formatMoney } from 'src/libs/utils';
 
-function Infomation({ price, originalPrice }: { price: string; originalPrice: string }) {
+function Infomation({ price, originalPrice }: { price: number; originalPrice: number }) {
   return (
     <Card>
       <CardContent>
@@ -14,7 +15,7 @@ function Infomation({ price, originalPrice }: { price: string; originalPrice: st
           <Box sx={{ alignItems: 'baseline', justifyContent: 'center', gap: '12px', textAlign: 'center' }}>
             <Box sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '12px', alignSelf: 'center' }}>
               <Typography variant='h4' sx={{ fontWeight: 'bold', color: (theme) => theme.palette.primary.main }}>
-                {price}
+                {formatMoney(price)}
               </Typography>
               {originalPrice && (
                 <Typography
@@ -24,7 +25,7 @@ function Infomation({ price, originalPrice }: { price: string; originalPrice: st
                     textDecoration: 'line-through',
                   }}
                 >
-                  {originalPrice}
+                  {formatMoney(originalPrice)}
                 </Typography>
               )}
             </Box>

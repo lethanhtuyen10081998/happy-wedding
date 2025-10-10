@@ -27,7 +27,7 @@ export function formatMoney(amount = 0, currencySymbol: string = '', thousands: 
     let i = Math.abs(amount).toFixed(0); // Bỏ phần thập phân
     let j = i.length > 3 ? i.length % 3 : 0;
 
-    return negativeSign + i.substr(0, j) + (j ? thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) + '' + currencySymbol;
+    return negativeSign + i.substr(0, j) + (j ? thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) + '' + currencySymbol + 'đ';
   } catch (e) {
     console.error(e);
     return amount.toString();

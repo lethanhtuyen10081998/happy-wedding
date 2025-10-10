@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, colors, Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, colors, Divider, Grid, Typography } from '@mui/material';
 import { Video } from 'lucide-react';
 import { Icon } from 'src/components/icons';
 import Container from 'src/components/material/Container';
@@ -21,14 +21,14 @@ function WeddingServiceDetail() {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Infomation price={price.toString()} originalPrice={originalPrice.toString()} />
+            <Infomation price={price as number} originalPrice={originalPrice as number} />
           </Grid>
         </Grid>
 
         <Card>
           <CardContent>
             <Typography
-              variant='h5'
+              variant='h3'
               sx={{
                 fontWeight: 'bold',
                 marginBottom: '16px',
@@ -39,8 +39,10 @@ function WeddingServiceDetail() {
 
             <Box dangerouslySetInnerHTML={{ __html: description }} />
 
+            <Divider style={{ margin: '24px 0' }} />
+
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <Typography variant='h5'>Dịch vụ bao gồm</Typography>
+              <Typography variant='h3'>Dịch vụ bao gồm</Typography>
 
               <Box component='ul' sx={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {tags?.map((item, index) => (
@@ -81,7 +83,7 @@ function WeddingServiceDetail() {
                 }}
               >
                 <Video size={24} />
-                <Typography variant='h5' sx={{ fontWeight: 'bold', color: 'text.primary' }}>
+                <Typography variant='h3' sx={{ fontWeight: 'bold', color: 'text.primary' }}>
                   Video giới thiệu dịch vụ
                 </Typography>
               </Box>
