@@ -1,5 +1,3 @@
-'use client';
-
 import { Container, Grid } from '@mui/material';
 import PagePadding from 'src/components/PagePadding';
 
@@ -9,13 +7,13 @@ import ProductList from './components/ProductList';
 export default function CategoryDetail() {
   return (
     <PagePadding>
-      <Container maxWidth='xl' sx={{ paddingY: 2 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={3}>
+      <Container maxWidth='xl' sx={{ paddingY: 2, position: 'relative' }}>
+        <Grid container>
+          <Grid item xs={12} md={12}>
             <Filter />
           </Grid>
 
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={12}>
             <ProductList />
           </Grid>
         </Grid>

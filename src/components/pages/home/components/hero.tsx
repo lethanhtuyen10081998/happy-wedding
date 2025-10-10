@@ -1,4 +1,3 @@
-import { PlayArrow } from '@mui/icons-material';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import Button from 'src/components/material/Button';
 import SmoothScroll from 'src/components/SmoothScroll';
@@ -57,12 +56,11 @@ export default function HeroComponent() {
                     size='large'
                     sx={{
                       fontWeight: 600,
-                      boxShadow: '0 10px 20px rgba(255, 56, 92, 0.35)',
                     }}
                   >
                     Khám phá ngay
                   </Button>
-                  <Button
+                  {/* <Button
                     variant='outlined'
                     size='large'
                     startIcon={<PlayArrow />}
@@ -78,7 +76,7 @@ export default function HeroComponent() {
                     }}
                   >
                     Xem video
-                  </Button>
+                  </Button> */}
                 </Box>
               </Box>
             </SmoothScroll>

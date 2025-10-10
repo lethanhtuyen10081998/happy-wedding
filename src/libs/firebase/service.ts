@@ -97,8 +97,14 @@ export class FirestoreService {
     await deleteDoc(ref);
   }
 
-  async countDocuments(collectionName: string): Promise<number> {
-    const colRef = collection(this.db, collectionName);
+  async countDocuments(collectionName: string, conditions?: { field: string; op: WhereFilterOp; value: unknown }[]): Promise<number> {
+    let colRef: any = collection(this.db, collectionName);
+
+    if (conditions && conditions.length > 0) {
+      const filters = conditions.map((c) => where(c.field, c.op, c.value));
+      colRef = query(colRef, ...filters);
+    }
+
     const snapshot = await getAggregateFromServer(colRef, { total: count() });
     return snapshot.data().total;
   }
@@ -145,8 +151,9 @@ export class FirestoreService {
       const snapshot = await getDocs(q);
 
       const docs = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as T) }));
+
       const lastDocSnap = snapshot.docs.length > 0 ? snapshot.docs[snapshot.docs.length - 1] : null;
-      const total = await this.countDocuments(collectionName);
+      const total = await this.countDocuments(collectionName, conditions);
 
       return {
         rows: docs,
@@ -154,6 +161,7 @@ export class FirestoreService {
         total: total,
       };
     } catch (error) {
+      console.error(error);
       return {
         rows: [],
         total: 0,

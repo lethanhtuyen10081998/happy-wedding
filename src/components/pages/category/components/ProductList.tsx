@@ -1,37 +1,50 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Pagination, Typography } from '@mui/material';
 import SpinnerCenter from 'src/components/material/Spinner/SpinnerCenter';
-import { WeddingServiceCard } from 'src/components/pages/home/components/popular/components/cardPopular';
-import { useFilterObjectContext } from 'src/context/filterContext/hooksContext';
+import { useFilterObjectContext, usePage } from 'src/context/filterContext/hooksContext';
+import { useAPIFilterContext } from 'src/context/filterContext/provider';
 import useList from 'src/services/admin/manage/product/getList';
 
+import { WeddingServiceCard } from '../../home/components/popular/components/cardPopular';
 import { FilterProps } from './Filter';
 
 export default function ProductList() {
-  const { category, name, fromPrice, toPrice } = useFilterObjectContext<FilterProps>();
-  const { data, isFetching, total } = useList(
-    {
-      limit: 10,
-      page: 1,
-      categoryId: category?.id,
-      name: name,
-      price: fromPrice,
-      toPrice: toPrice,
-    },
-    !!category?.id,
-  );
+  const { name, category, sortOrder, fromPrice, toPrice } = useFilterObjectContext<FilterProps>();
+  const page = usePage();
+  const { onUpdatePage } = useAPIFilterContext();
+
+  const { data, isFetching, total } = useList({
+    limit: 10,
+    page: page,
+    categoryId: category?.id,
+    name: name,
+    orderByField: 'price',
+    orderDirection: sortOrder,
+    price: fromPrice,
+    toPrice: toPrice,
+  });
 
   if (isFetching) {
     return <SpinnerCenter />;
   }
 
+  if (total === 0) {
+    return (
+      <Box sx={{ textAlign: 'center', py: 8 }}>
+        <Typography variant='h6'>Không tìm thấy sản phẩm nào phù hợp với bộ lọc</Typography>
+      </Box>
+    );
+  }
+
+  console.log(data);
+
   return (
     <>
-      <Typography variant='h6' sx={{ mb: 3 }}>
+      <Typography variant='h6' sx={{ my: 3 }}>
         Tìm thấy {total} sản phẩm
       </Typography>
       <Grid container spacing={3}>
         {data.map((service, index) => (
-          <Grid item xs={12} md={4} key={index}>
+          <Grid item xs={12} md={4} lg={3} xl={3} key={index}>
             <WeddingServiceCard
               title={service.name}
               features={service.tags || []}
@@ -39,16 +52,16 @@ export default function ProductList() {
               description={service.description || ''}
               price={service.price as number}
               originalPrice={service.originalPrice as number}
+              slug={service.slug}
+              id={service.id}
             />
           </Grid>
         ))}
-      </Grid>
 
-      {data.length === 0 && (
-        <Box sx={{ textAlign: 'center', py: 8 }}>
-          <Typography variant='h6'>Không tìm thấy sản phẩm nào phù hợp với bộ lọc</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }} width='100%'>
+          <Pagination count={Math.ceil(total / 10)} page={page} onChange={(e, value) => onUpdatePage(value)} />
         </Box>
-      )}
+      </Grid>
     </>
   );
 }

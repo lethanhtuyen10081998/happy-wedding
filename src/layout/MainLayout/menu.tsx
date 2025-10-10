@@ -51,7 +51,7 @@ export default function DrawerAppBar() {
   navItems = navItems.concat(
     menuItems.map((item) => ({
       label: item.name,
-      link: `/dich-vu?category=${item.slug}`,
+      link: `/dich-vu/${item.slug}`,
       icon: 'home',
     })),
   );
@@ -245,8 +245,6 @@ export default function DrawerAppBar() {
                 }}
               >
                 {navItems.map((item) => {
-                  const active = router.pathname === item.link;
-
                   return (
                     <NextLink
                       key={item.link}

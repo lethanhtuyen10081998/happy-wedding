@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useReducer } from 'react';
+import React, { createContext, useContext, useMemo, useReducer } from 'react';
 
 import { API, Actions, ActionsTypes, Sort, State } from './actions';
 import { FilterByColumnContext, FilterObjectContext, KeywordContext, LimitContext, LoadingContext, PageContext, SortContext } from './hooksContext';
@@ -51,16 +51,11 @@ const filterReducer = (state: State, action: Actions): State => {
 
 const FilterAPIContext = createContext<API>({} as API);
 
-export const FilterContextProvider = ({ children, filter, defaultState }: { children: React.ReactNode; filter?: Object; defaultState?: State }) => {
+export const FilterContextProvider = ({ children, filter }: { children: React.ReactNode; filter?: Object; defaultState?: State }) => {
   const [state, dispatch] = useReducer(filterReducer, {
     ...initialState,
     filter,
-    ...defaultState,
   });
-
-  useEffect(() => {
-    dispatch({ type: ActionsTypes.ON_SET_DEFAULT_FILTER, payload: defaultState || {} });
-  }, [defaultState]);
 
   const actionContext: API = useMemo(() => {
     const onChangeKeyword = (payload?: string) => {

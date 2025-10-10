@@ -30,7 +30,7 @@ const Dropdown = <E extends unknown = string | number>(props: Props<E>) => {
   }, [options]);
 
   return (
-    <FormControl variant={others.variant || 'standard'} fullWidth error={!!error} {...controlProps}>
+    <FormControl variant={others.variant || 'outlined'} fullWidth error={!!error} {...controlProps}>
       <InputLabel {...labelProps}>{label}</InputLabel>
 
       <Select label={label} fullWidth {...others} value={value}>

@@ -1,6 +1,4 @@
-'use client';
-
-import { Badge, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Badge, Box, CardActions, CardContent, Paper, Typography } from '@mui/material';
 import { Heart, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import NextLink from 'next/link';
@@ -23,19 +21,10 @@ interface WeddingServiceCardProps {
   id: string;
 }
 
-export function WeddingServiceCard({
-  title,
-  description,
-  price,
-  originalPrice,
-  features,
-  image,
-  isPopular = false,
-  slug,
-  id,
-}: WeddingServiceCardProps) {
+export function WeddingServiceCard({ title, price, originalPrice, features, image, isPopular = false, slug, id }: WeddingServiceCardProps) {
   return (
-    <Card
+    <Box
+      component={Paper}
       sx={{
         position: 'relative',
         overflow: 'hidden',
@@ -64,11 +53,11 @@ export function WeddingServiceCard({
             background: 'linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent)',
           }}
         />
-        <div style={{ position: 'absolute', bottom: '16px', left: '16px', color: 'white' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+        <div style={{ position: 'absolute', bottom: '8px', left: '8px', color: 'white' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <Badge sx={{ backgroundColor: 'primary.main', fontWeight: 'bold', borderRadius: variables.borderRadius, padding: '4px 8px' }}>
               <Typography variant='caption' sx={{ fontWeight: '500', color: 'white' }}>
-                {title}
+                Giảm giá {formatMoney(((originalPrice - price) * 100) / originalPrice)}%
               </Typography>
             </Badge>
           </div>
@@ -86,21 +75,6 @@ export function WeddingServiceCard({
             }}
           >
             {title}
-          </Typography>
-          <Typography
-            sx={{
-              lineHeight: '1.6',
-              color: 'text.secondary',
-              lineClamp: 2,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-            }}
-            variant='subtitle2'
-          >
-            {description}
           </Typography>
         </div>
 
@@ -185,6 +159,6 @@ export function WeddingServiceCard({
           </Box>
         </Box>
       </CardActions>
-    </Card>
+    </Box>
   );
 }

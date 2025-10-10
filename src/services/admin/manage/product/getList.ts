@@ -11,6 +11,8 @@ export type Request = PagingDataRequest & {
   price?: number;
   toPrice?: number;
   isShowHomePage?: boolean;
+  orderByField?: string;
+  orderDirection?: 'asc' | 'desc';
 };
 
 export type Response = {
@@ -19,32 +21,39 @@ export type Response = {
 
 export function getList(request: Request) {
   const conditions: { field: string; op: WhereFilterOp; value: unknown }[] = [];
+  const orderByField = request.orderByField || 'price';
+  const orderDirection = request.orderDirection || 'asc';
+
   if (request.categoryId) {
     conditions.push({ field: 'categoryId', op: '==', value: request.categoryId });
   }
-  if (request.name) {
+  if (!!request.name) {
     conditions.push({ field: 'name', op: 'in', value: request.name });
   }
-  if (request.price) {
+  if (request.price !== undefined) {
     conditions.push({ field: 'price', op: '>=', value: request.price });
   }
-  if (request.toPrice) {
+  if (request.toPrice !== undefined) {
     conditions.push({ field: 'price', op: '<=', value: request.toPrice });
   }
-  if (request.isShowHomePage) {
+  if (request.isShowHomePage !== undefined) {
     conditions.push({ field: 'isShowHomePage', op: '==', value: request.isShowHomePage });
   }
+
+  console.log({ conditions });
+
   return firestoreService.list<Product>('product', {
     pageSize: request.limit,
     conditions,
+    orderByField: orderByField || undefined,
+    orderDirection: orderDirection || undefined,
   });
 }
 
-const useList = (request: Request, enabled?: boolean) => {
+const useList = (request: Request) => {
   const { data, ...others } = useQuery({
     queryKey: [endpoints.ADMIN_MANAGE_PRODUCTS_GET_LIST, request],
     queryFn: () => getList(request),
-    enabled: enabled,
   });
 
   return {
