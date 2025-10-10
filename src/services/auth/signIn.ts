@@ -1,6 +1,8 @@
 import useTranslation from 'next-translate/useTranslation';
+import router from 'next/router';
 import { useCallback, useState } from 'react';
 import useSnackbar from 'src/components/material/Snackbar/useSnackbar';
+import { Routes } from 'src/constants/route';
 import { useAPIProfileContext } from 'src/context/profileContext/provider';
 import { internalApiInstance } from 'src/providers/authProvider';
 import { UserProfile } from 'src/types/user';
@@ -36,10 +38,11 @@ const useSignIn = () => {
 
       return signIn(request)
         .then((response) => {
-          enqueueSnackbar(t('messages.sign_in_success'), {
+          enqueueSnackbar('Đăng nhập thành công', {
             variant: 'success',
           });
           onUpdateProfile(response.data.profile);
+          router.push(Routes.ADMIN_DASHBOARD);
           return response;
         })
         .catch((error) => {
@@ -50,7 +53,7 @@ const useSignIn = () => {
         })
         .finally(() => setLoading(false));
     },
-    [enqueueSnackbar, onUpdateProfile, t],
+    [enqueueSnackbar, onUpdateProfile],
   );
 
   return {

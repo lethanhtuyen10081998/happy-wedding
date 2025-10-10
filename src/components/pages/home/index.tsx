@@ -7,15 +7,13 @@ import TestimonialsComponent from './components/testimonials';
 
 export default function HomePage() {
   return (
-    <Box sx={{ minHeight: '100vh' }}>
+    <Box>
       <HeroComponent />
 
-      {/* Popular Destinations */}
       <PopularComponent />
 
-      {/* Services Section */}
       <ServiceComponent />
-      {/* Testimonials */}
+
       <TestimonialsComponent />
     </Box>
   );

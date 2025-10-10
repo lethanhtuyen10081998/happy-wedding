@@ -1,5 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, ListItemIcon } from '@mui/material';
+import { ListItemIcon, Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -9,6 +9,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
+import { unionBy } from 'lodash';
+import { Crown } from 'lucide-react';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import * as React from 'react';
@@ -16,6 +18,7 @@ import { Icon, IconTypes } from 'src/components/icons';
 import Container from 'src/components/material/Container';
 import NextLink from 'src/components/material/NextLink';
 import { Routes } from 'src/constants/route';
+import useListCategory from 'src/services/admin/settings/categories/getList';
 import variables from 'src/themes/variables';
 
 const drawerWidth = '100%';
@@ -24,65 +27,11 @@ type NavItem = {
   link: string;
   icon: IconTypes;
 };
-const navItems: NavItem[] = [
+let navItems: NavItem[] = [
   {
-    label: 'menu.home',
+    label: 'Trang chủ',
     link: Routes.HOME,
     icon: 'home',
-  },
-  {
-    label: 'menu.wedding_dress',
-    link: Routes.WEDDING_DRESS,
-    icon: 'wedding_dress',
-  },
-
-  {
-    label: 'menu.wedding_photo',
-    link: Routes.WEDDING_PHOTO,
-    icon: 'wedding_photo',
-  },
-
-  {
-    label: 'menu.wedding_service',
-    link: Routes.WEDDING_SERVICE,
-    icon: 'wedding_service',
-  },
-
-  {
-    label: 'menu.shining_moment',
-    link: Routes.SHINING_MOMENT,
-    icon: 'shining_moment',
-  },
-];
-
-const navItemsDrawer: NavItem[] = [
-  {
-    label: 'menu.home',
-    link: Routes.HOME,
-    icon: 'home',
-  },
-  {
-    label: 'menu.wedding_dress',
-    link: Routes.WEDDING_DRESS,
-    icon: 'wedding_dress',
-  },
-
-  {
-    label: 'menu.wedding_photo',
-    link: Routes.WEDDING_PHOTO,
-    icon: 'wedding_photo',
-  },
-
-  {
-    label: 'menu.wedding_service',
-    link: Routes.WEDDING_SERVICE,
-    icon: 'wedding_service',
-  },
-
-  {
-    label: 'menu.shining_moment',
-    link: Routes.SHINING_MOMENT,
-    icon: 'shining_moment',
   },
 ];
 
@@ -92,7 +41,22 @@ export default function DrawerAppBar() {
   const [scrolled, setScrolled] = React.useState(false);
   const router = useRouter();
   const link = router.route;
+  const { data } = useListCategory({
+    limit: 100,
+    page: 1,
+  });
 
+  const menuItems = data.filter((item) => item.isMenu);
+
+  navItems = navItems.concat(
+    menuItems.map((item) => ({
+      label: item.name,
+      link: `/dich-vu/${item.slug}`,
+      icon: 'home',
+    })),
+  );
+
+  navItems = unionBy(navItems, 'link');
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -131,7 +95,7 @@ export default function DrawerAppBar() {
       </Box>
 
       <List sx={{ mx: 6 }}>
-        {navItemsDrawer.map((item) => (
+        {navItems.map((item) => (
           <ListItem key={item.link} disablePadding onClick={() => handleRouterLink(item.link)}>
             <ListItemButton
               sx={{
@@ -250,18 +214,28 @@ export default function DrawerAppBar() {
                   <MenuIcon />
                 </IconButton>
 
-                <Box ml='auto'>
-                  <NextLink href={Routes.PROFILE}>
-                    <Avatar
-                      sx={{
-                        background: (theme) => theme.palette.secondary.main,
-                      }}
-                    >
-                      T
-                    </Avatar>
-                  </NextLink>
-                </Box>
+                <NextLink href='/'>
+                  <Box ml='auto' display='flex' alignItems='center' gap={2} color='white'>
+                    <Box mt='2px'>
+                      <Crown size={24} />
+                    </Box>
+                    <Typography variant='h4' color='white' fontFamily='Atma'>
+                      Happy Wedding
+                    </Typography>
+                  </Box>
+                </NextLink>
               </Box>
+
+              <NextLink href='/'>
+                <Box sx={{ display: { xs: 'none', md: 'flex' }, color: 'white', gap: 1 }}>
+                  <Box mt='2px'>
+                    <Crown size={24} />
+                  </Box>
+                  <Typography variant='h3' color='white' fontFamily='Atma'>
+                    Happy Wedding
+                  </Typography>
+                </Box>
+              </NextLink>
 
               <Box
                 ml='auto'
@@ -271,13 +245,11 @@ export default function DrawerAppBar() {
                 }}
               >
                 {navItems.map((item) => {
-                  const active = router.pathname === item.link;
-
                   return (
                     <NextLink
                       key={item.link}
                       sx={{
-                        color: active ? 'primary.main' : 'white',
+                        color: 'white',
                         fontWeight: 'bold',
                       }}
                       href={item.link}

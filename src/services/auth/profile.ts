@@ -9,11 +9,7 @@ export type Response = {
 };
 
 export function getProfile(): Promise<Response> {
-  return internalApiInstance.get(endpoints.LOCAL_API_PREFIX_AUTH, {
-    params: {
-      url: endpoints.PROFILE,
-    },
-  });
+  return internalApiInstance.get(endpoints.PROFILE);
 }
 
 const useGetProfile = () => {

@@ -41,6 +41,9 @@ const filterReducer = (state: State, action: Actions): State => {
     case ActionsTypes.ON_SET_FILTER_BY_COLUMN:
       return { ...state, filterByColumn: action.payload, page: 1 };
 
+    case ActionsTypes.ON_SET_DEFAULT_FILTER:
+      return { ...state, filter: action.payload };
+
     default:
       return state;
   }
@@ -48,11 +51,10 @@ const filterReducer = (state: State, action: Actions): State => {
 
 const FilterAPIContext = createContext<API>({} as API);
 
-export const FilterContextProvider = ({ children, filter, defaultState }: { children: React.ReactNode; filter?: Object; defaultState?: State }) => {
+export const FilterContextProvider = ({ children, filter }: { children: React.ReactNode; filter?: Object; defaultState?: State }) => {
   const [state, dispatch] = useReducer(filterReducer, {
     ...initialState,
     filter,
-    ...defaultState,
   });
 
   const actionContext: API = useMemo(() => {
@@ -92,6 +94,10 @@ export const FilterContextProvider = ({ children, filter, defaultState }: { chil
       dispatch({ type: ActionsTypes.ON_SET_FILTER_BY_COLUMN, payload });
     };
 
+    const onSetDefaultFilter = (payload: Object) => {
+      dispatch({ type: ActionsTypes.ON_SET_DEFAULT_FILTER, payload });
+    };
+
     return {
       onChangeKeyword,
       onUpdateLimit,
@@ -102,6 +108,7 @@ export const FilterContextProvider = ({ children, filter, defaultState }: { chil
       onResetFilterObject,
       onSetFilterObject,
       onSetFilterByColumn,
+      onSetDefaultFilter,
     };
   }, []);
 

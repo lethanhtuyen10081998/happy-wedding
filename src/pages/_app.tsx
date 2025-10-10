@@ -14,10 +14,8 @@ import 'src/assets/themes.scss';
 import AlertContainer from 'src/components/material/Alert/alertContainer';
 import PageLoading from 'src/components/PageLoading';
 import { queryClient } from 'src/config/reactQuery';
-import { Routes } from 'src/constants/route';
-import AiAgentLayout from 'src/layout/AiAgentLayout/AiAgentLayout';
+import AdminLayout from 'src/layout/AdminLayout';
 import MainLayoutContainer from 'src/layout/MainLayout/MainLayout';
-import PublicLayout from 'src/layout/PublicLayout/PublicLayout';
 import getLocale, { useSetLocale } from 'src/libs/languageUtils';
 import { store } from 'src/redux/store';
 import themes from 'src/themes';
@@ -26,13 +24,17 @@ import nextI18NextConfig from '../../next-i18next.config.js';
 
 const locale = getLocale();
 
-const PickLayout = ({ isAiAgent, children, isPublicLayout }: { isAiAgent?: boolean; children: React.ReactChild; isPublicLayout?: boolean }) => {
-  if (isAiAgent) {
-    return <AiAgentLayout>{children}</AiAgentLayout>;
-  }
-
-  if (isPublicLayout) {
-    return <PublicLayout>{children}</PublicLayout>;
+const PickLayout = ({
+  children,
+  isPublicLayout,
+  isAdminLayout,
+}: {
+  children: React.ReactChild;
+  isPublicLayout?: boolean;
+  isAdminLayout?: boolean;
+}) => {
+  if (isAdminLayout) {
+    return <AdminLayout>{children}</AdminLayout>;
   }
 
   return <MainLayoutContainer>{children}</MainLayoutContainer>;
@@ -52,6 +54,13 @@ function App({ Component, pageProps, router }: AppProps) {
         <link href='https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap' rel='stylesheet'></link>
         <meta name='mobile-web-app-capable' content='yes' />
         <meta name='apple-mobile-web-app-capable' content='yes' />
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
+        <link href='https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&display=swap' rel='stylesheet' />
+
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
+        <link href='https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&display=swap' rel='stylesheet' />
       </Head>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
@@ -63,7 +72,7 @@ function App({ Component, pageProps, router }: AppProps) {
 
             <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
               <PageLoading />
-              <PickLayout isAiAgent={router.pathname === Routes.AI_AGENT} isPublicLayout={router.pathname === Routes.SIGN_IN}>
+              <PickLayout isAdminLayout={router.pathname.includes('/admin')}>
                 <Component {...pageProps} />
               </PickLayout>
             </SnackbarProvider>

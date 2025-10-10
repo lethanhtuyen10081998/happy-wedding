@@ -65,13 +65,13 @@
   "sub_total": "Tổng thu",
   "discount_commission": "Chiết khấu",
   "validity": "Hiệu lực",
-  "sim": "Sim",
-  "esim": "ESim",
   "add_to_cart": "Thêm vào giỏ hàng",
   "pay_now": "Mua ngay",
   "no_cart": "Bạn chưa có sản phẩm nào trong giỏ hàng!",
   "cancel": "Huỷ bỏ",
   "save": "Xác nhận",
+  "delete": "Xóa",
+  "ok": "Xác nhận",
   "not_yet_delivered": "Chưa giao hàng",
   "delivered": "Đã giao hàng",
   "active_date": "Ngày kích hoạt",
@@ -123,5 +123,6 @@
     "11": "Tháng 11",
     "12": "Tháng 12"
   },
-  "login_sign_up": "Đăng kí / Đăng nhập"
+  "login_sign_up": "Đăng kí / Đăng nhập",
+  "username": "Tên đăng nhập"
 }

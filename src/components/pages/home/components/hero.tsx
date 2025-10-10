@@ -1,4 +1,3 @@
-import { PlayArrow } from '@mui/icons-material';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import Button from 'src/components/material/Button';
 import SmoothScroll from 'src/components/SmoothScroll';
@@ -8,7 +7,7 @@ export default function HeroComponent() {
   return (
     <Box
       sx={{
-        height: { xs: '100vh', md: `calc(100vh - ${variables.paddingPage})` },
+        height: { xs: '50vh', md: `calc(80vh - ${variables.paddingPage})` },
         backgroundImage: 'url(https://images.pexels.com/photos/33937926/pexels-photo-33937926.jpeg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -57,12 +56,11 @@ export default function HeroComponent() {
                     size='large'
                     sx={{
                       fontWeight: 600,
-                      boxShadow: '0 10px 20px rgba(255, 56, 92, 0.35)',
                     }}
                   >
                     Khám phá ngay
                   </Button>
-                  <Button
+                  {/* <Button
                     variant='outlined'
                     size='large'
                     startIcon={<PlayArrow />}
@@ -78,7 +76,7 @@ export default function HeroComponent() {
                     }}
                   >
                     Xem video
-                  </Button>
+                  </Button> */}
                 </Box>
               </Box>
             </SmoothScroll>

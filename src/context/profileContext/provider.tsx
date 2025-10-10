@@ -65,7 +65,7 @@ export const ProfileContextProvider: React.FC<{
   }, []);
 
   useEffect(() => {
-    if (data) {
+    if (data?.data?.fullName) {
       dispatch({ type: ActionsTypes.ON_UPDATE_PROFILE, payload: data.data });
     }
   }, [data, dispatch]);

@@ -2,7 +2,7 @@ export type FormEditorProps<T> = {
   onSubmit(values: T): Promise<void>;
   loading: boolean;
   title?: string;
-  buttonLalel: string;
+  buttonLabel: string;
   defaultValues?: T;
   mode?: FormMode;
 };

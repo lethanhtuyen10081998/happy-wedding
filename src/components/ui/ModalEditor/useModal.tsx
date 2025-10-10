@@ -20,7 +20,7 @@ const ModalContent = ({ isOpen, onClosed, label, children, dialogProps }: ModalE
         </Toolbar>
       </AppBar>
 
-      <ScrollContent maxHeight='calc(100vh - 60px)'>
+      <ScrollContent maxHeight='calc(100vh - 60px)' height='100%'>
         <Box>{children}</Box>
       </ScrollContent>
     </Dialog>

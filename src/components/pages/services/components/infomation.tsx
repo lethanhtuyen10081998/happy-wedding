@@ -1,20 +1,22 @@
 'use client';
-import { Box, Card, CardContent, Divider, Typography } from '@mui/material';
-import { Icon } from 'src/components/icons';
+import { Box, Card, Typography } from '@mui/material';
 import Button from 'src/components/material/Button';
+import { SPACING } from 'src/constants/grid';
+import { formatMoney } from 'src/libs/utils';
 
-function Infomation({ price, originalPrice }: { price: string; originalPrice: string }) {
+function Infomation({ price, originalPrice }: { price: number; originalPrice: number }) {
   return (
     <Card>
-      <CardContent>
-        <Box sx={{ marginBottom: '24px' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant='h3' sx={{ marginBottom: '8px' }}>
             Dịch vụ cưới trọn gói combo số 2
           </Typography>
-          <Box sx={{ alignItems: 'baseline', justifyContent: 'center', gap: '12px', textAlign: 'center' }}>
-            <Box sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '12px', alignSelf: 'center' }}>
+
+          <Box sx={{ alignItems: 'baseline', justifyContent: 'center', gap: SPACING, textAlign: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: SPACING, alignSelf: 'center' }}>
               <Typography variant='h4' sx={{ fontWeight: 'bold', color: (theme) => theme.palette.primary.main }}>
-                {price}
+                {formatMoney(price)}
               </Typography>
               {originalPrice && (
                 <Typography
@@ -24,7 +26,7 @@ function Infomation({ price, originalPrice }: { price: string; originalPrice: st
                     textDecoration: 'line-through',
                   }}
                 >
-                  {originalPrice}
+                  {formatMoney(originalPrice)}
                 </Typography>
               )}
             </Box>
@@ -33,25 +35,12 @@ function Infomation({ price, originalPrice }: { price: string; originalPrice: st
           </Box>
         </Box>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <Button>Đặt lịch ngay</Button>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }}>
+          <Button>Liên hệ: 0977 432 412</Button>
 
-          <Button variant='outlined'>Tư vấn miễn phí</Button>
+          <Button variant='outlined'>Zalo: 0977 432 412</Button>
         </Box>
-
-        <Divider style={{ margin: '24px 0' }} />
-
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <Icon name='phone' sx={{ color: (theme) => theme.palette.primary.main }} size={20} />
-            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>0123 456 789</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <Icon name='mail' sx={{ color: (theme) => theme.palette.primary.main }} size={20} />
-            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>info@weddingservice.com</Typography>
-          </Box>
-        </Box>
-      </CardContent>
+      </Box>
     </Card>
   );
 }

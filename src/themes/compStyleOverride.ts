@@ -165,26 +165,26 @@ export default function componentStyleOverrides(theme: IThemeOption): Components
     //   },
     // },
 
-    MuiInputBase: {
-      styleOverrides: {
-        input: {
-          fontWeight: 700,
-          marginLeft: '8px',
-          color: 'primary.light',
-          mt: 0,
-          '&::placeholder': {
-            color: 'primary.light',
-            fontWeight: 700,
-          },
-        },
-        root: {
-          marginTop: 0,
-          '& .MuiSvgIcon-root': {
-            color: theme.colors.grey[500],
-          },
-        },
-      },
-    },
+    // MuiInputBase: {
+    //   styleOverrides: {
+    //     input: {
+    //       fontWeight: 700,
+    //       marginLeft: '8px',
+    //       color: 'primary.light',
+    //       mt: 0,
+    //       '&::placeholder': {
+    //         color: 'primary.light',
+    //         fontWeight: 700,
+    //       },
+    //     },
+    //     root: {
+    //       marginTop: 0,
+    //       '& .MuiSvgIcon-root': {
+    //         color: theme.colors.grey[500],
+    //       },
+    //     },
+    //   },
+    // },
     // MuiOutlinedInput: {
     //   styleOverrides: {
     //     root: {
@@ -209,14 +209,14 @@ export default function componentStyleOverrides(theme: IThemeOption): Components
     //     },
     //   },
     // },
-    MuiFormControl: {
-      styleOverrides: {
-        root: {
-          marginTop: 0,
-          marginBottom: 0,
-        },
-      },
-    },
+    // MuiFormControl: {
+    //   styleOverrides: {
+    //     root: {
+    //       marginTop: 0,
+    //       marginBottom: 0,
+    //     },
+    //   },
+    // },
 
     // MuiRadio: {
     //   styleOverrides: {
@@ -225,90 +225,90 @@ export default function componentStyleOverrides(theme: IThemeOption): Components
     //     },
     //   },
     // },
-    MuiButton: {
-      defaultProps: {
-        disableElevation: true,
-      },
-      styleOverrides: {
-        root: {
-          borderRadius: variables.borderRadius,
-          paddingLeft: 24,
-          paddingRight: 24,
-        },
-        endIcon: {
-          marginLeft: 12,
-        },
+    // MuiButton: {
+    //   defaultProps: {
+    //     disableElevation: true,
+    //   },
+    //   styleOverrides: {
+    //     root: {
+    //       borderRadius: variables.borderRadius,
+    //       paddingLeft: 24,
+    //       paddingRight: 24,
+    //     },
+    //     endIcon: {
+    //       marginLeft: 12,
+    //     },
 
-        sizeLarge: {
-          paddingLeft: 32,
-          paddingRight: 32,
-          height: 52,
-        },
+    //     sizeLarge: {
+    //       paddingLeft: 32,
+    //       paddingRight: 32,
+    //       height: 52,
+    //     },
 
-        containedError: {
-          color: theme.colors.common.white,
-        },
-        // outlined: {
-        //   borderWidth: '1.5px',
-        //   color: theme.colors.primary.main,
-        //   backgroundColor: theme.colors.common.white,
-        //   borderColor: theme.colors.primary.main,
-        //   '&:hover': {
-        //     borderWidth: '1.5px',
-        //     backgroundColor: theme.colors.primary.dark,
-        //     color: theme.colors.common.white,
-        //     borderColor: theme.colors.primary.dark,
-        //   },
-        // },
-        // contained: {
-        //   borderRadius: variables.borderRadius,
-        //   boxShadow: 'none',
-        //   color: theme.colors.common.white,
-        //   fontWeight: 700,
-        //   zIndex: 1,
-        //   '&.Mui-disabled': {
-        //     color: theme.colors.grey[700],
-        //     backgroundColor: theme.colors.grey[500],
-        //   },
+    //     containedError: {
+    //       color: theme.colors.common.white,
+    //     },
+    //     // outlined: {
+    //     //   borderWidth: '1.5px',
+    //     //   color: theme.colors.primary.main,
+    //     //   backgroundColor: theme.colors.common.white,
+    //     //   borderColor: theme.colors.primary.main,
+    //     //   '&:hover': {
+    //     //     borderWidth: '1.5px',
+    //     //     backgroundColor: theme.colors.primary.dark,
+    //     //     color: theme.colors.common.white,
+    //     //     borderColor: theme.colors.primary.dark,
+    //     //   },
+    //     // },
+    //     // contained: {
+    //     //   borderRadius: variables.borderRadius,
+    //     //   boxShadow: 'none',
+    //     //   color: theme.colors.common.white,
+    //     //   fontWeight: 700,
+    //     //   zIndex: 1,
+    //     //   '&.Mui-disabled': {
+    //     //     color: theme.colors.grey[700],
+    //     //     backgroundColor: theme.colors.grey[500],
+    //     //   },
 
-        //   position: 'relative',
-        //   overflow: 'hidden',
-        //   // "&::before": {
-        //   //   content: '""',
-        //   //   position: "absolute",
-        //   //   top: 0,
-        //   //   left: "-100%",
-        //   //   width: "100%",
-        //   //   height: "100%",
-        //   //   backgroundColor: theme.colors.primary.light,
-        //   //   transition: "all 0.3s ease-in-out",
-        //   //   opacity: 0.2,
-        //   // },
-        //   '&:not(:hover) .MuiButton-endIcon': {
-        //     left: 0,
-        //     transition: 'all 0.3s ease-in-out',
-        //   },
-        // },
-        // containedSecondary: {
-        //   '&:hover::before': {
-        //     left: 0,
-        //   },
-        //   '&:hover': {
-        //     backgroundColor: theme.colors.secondary.dark,
-        //   },
-        // },
-        // sizeSmall: {
-        //   borderRadius: variables.borderRadius,
-        // },
+    //     //   position: 'relative',
+    //     //   overflow: 'hidden',
+    //     //   // "&::before": {
+    //     //   //   content: '""',
+    //     //   //   position: "absolute",
+    //     //   //   top: 0,
+    //     //   //   left: "-100%",
+    //     //   //   width: "100%",
+    //     //   //   height: "100%",
+    //     //   //   backgroundColor: theme.colors.primary.light,
+    //     //   //   transition: "all 0.3s ease-in-out",
+    //     //   //   opacity: 0.2,
+    //     //   // },
+    //     //   '&:not(:hover) .MuiButton-endIcon': {
+    //     //     left: 0,
+    //     //     transition: 'all 0.3s ease-in-out',
+    //     //   },
+    //     // },
+    //     // containedSecondary: {
+    //     //   '&:hover::before': {
+    //     //     left: 0,
+    //     //   },
+    //     //   '&:hover': {
+    //     //     backgroundColor: theme.colors.secondary.dark,
+    //     //   },
+    //     // },
+    //     // sizeSmall: {
+    //     //   borderRadius: variables.borderRadius,
+    //     // },
 
-        // containedError: {
-        //   backgroundColor: theme.colors.error.main,
-        //   '&:hover': {
-        //     backgroundColor: theme.colors.error.dark,
-        //   },
-        // },
-      },
-    },
+    //     // containedError: {
+    //     //   backgroundColor: theme.colors.error.main,
+    //     //   '&:hover': {
+    //     //     backgroundColor: theme.colors.error.dark,
+    //     //   },
+    //     // },
+    //   },
+    // },
 
     // MuiRating: {
     //   defaultProps: {
@@ -463,15 +463,24 @@ export default function componentStyleOverrides(theme: IThemeOption): Components
     //     },
     //   },
     // },
-    MuiTextField: {
+    // MuiTextField: {
+    //   styleOverrides: {
+    //     root: {
+    //       '& .MuiOutlinedInput-root': {
+    //         borderRadius: variables.borderRadius,
+    //         backgroundColor: '#f8f9fa',
+    //         // '& fieldset': { borderColor: 'transparent' },
+    //         // '&:hover fieldset': { borderColor: '#e0e0e0' },
+    //       },
+    //     },
+    //   },
+    // },
+    MuiCard: {
       styleOverrides: {
         root: {
-          '& .MuiOutlinedInput-root': {
-            borderRadius: variables.borderRadius,
-            backgroundColor: '#f8f9fa',
-            '& fieldset': { borderColor: 'transparent' },
-            '&:hover fieldset': { borderColor: '#e0e0e0' },
-          },
+          borderRadius: variables.borderRadiusCard,
+          overflow: 'visible',
+          boxShadow: 'none',
         },
       },
     },

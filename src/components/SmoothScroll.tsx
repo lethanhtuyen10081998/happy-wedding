@@ -22,6 +22,7 @@ const SmoothScroll = ({ children }: SmoothScrollComponentProps) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.5,
+    rootMargin: '0px 0px 340px 0px',
   });
 
   return (
