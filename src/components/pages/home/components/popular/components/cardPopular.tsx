@@ -57,7 +57,7 @@ export function WeddingServiceCard({ title, price, originalPrice, features, imag
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <Badge sx={{ backgroundColor: 'primary.main', fontWeight: 'bold', borderRadius: variables.borderRadius, padding: '4px 8px' }}>
               <Typography variant='caption' sx={{ fontWeight: '500', color: 'white' }}>
-                Giảm giá {formatMoney(((originalPrice - price) * 100) / originalPrice)}%
+                Giảm giá {(((originalPrice - price) * 100) / originalPrice).toFixed(0)}%
               </Typography>
             </Badge>
           </div>
