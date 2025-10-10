@@ -22,28 +22,8 @@ function WeddingServiceDetail() {
 
           <Grid item xs={12} md={4}>
             <Infomation price={price as number} originalPrice={originalPrice as number} />
-          </Grid>
-        </Grid>
-
-        <Card>
-          <CardContent>
-            <Typography
-              variant='h3'
-              sx={{
-                fontWeight: 'bold',
-                marginBottom: '16px',
-              }}
-            >
-              Chi tiết gói dịch vụ
-            </Typography>
-
-            <Box dangerouslySetInnerHTML={{ __html: description }} />
-
-            <Divider style={{ margin: '24px 0' }} />
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <Typography variant='h3'>Dịch vụ bao gồm</Typography>
-
               <Box component='ul' sx={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {tags?.map((item, index) => (
                   <Box
@@ -64,8 +44,17 @@ function WeddingServiceDetail() {
                 ))}
               </Box>
             </Box>
+          </Grid>
+        </Grid>
+
+        <Divider />
+
+        <Card>
+          <CardContent>
+            <Box dangerouslySetInnerHTML={{ __html: description }} />
           </CardContent>
         </Card>
+        <Divider />
 
         {videoUrl && (
           <Card
@@ -83,8 +72,8 @@ function WeddingServiceDetail() {
                 }}
               >
                 <Video size={24} />
-                <Typography variant='h3' sx={{ fontWeight: 'bold', color: 'text.primary' }}>
-                  Video giới thiệu dịch vụ
+                <Typography variant='h3' sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                  * Video giới thiệu dịch vụ *
                 </Typography>
               </Box>
 

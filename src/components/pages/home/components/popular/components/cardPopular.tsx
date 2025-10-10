@@ -29,7 +29,11 @@ export function WeddingServiceCard({ title, price, originalPrice, features, imag
         position: 'relative',
         overflow: 'hidden',
         border: '1px solid primary.light',
+        transition: 'all 0.3s ease',
         height: '100%',
+        '&:hover': {
+          transform: 'translateY(-8px)',
+        },
       }}
     >
       {isPopular && (
