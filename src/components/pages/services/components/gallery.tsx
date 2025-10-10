@@ -2,6 +2,7 @@ import { Box, Card, IconButton } from '@mui/material';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import variables from 'src/themes/variables';
 
 export default function Gallery({ gallery, title }: { gallery: string[]; title: string }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -26,11 +27,10 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
 
   return (
     <Card sx={{ overflow: 'hidden' }}>
-      {/* Container giữ tỉ lệ ảnh */}
       <Box
         sx={{
           position: 'relative',
-          aspectRatio: '16/9', // Giữ tỉ lệ 16:9 cho ảnh
+          aspectRatio: '16/9',
           width: '100%',
           overflow: 'hidden',
         }}
@@ -44,6 +44,7 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
             objectFit: 'cover',
             opacity: fade ? 1 : 0,
             transition: 'opacity 0.5s ease-in-out',
+            borderRadius: variables.borderRadius,
           }}
         />
 

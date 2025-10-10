@@ -1,18 +1,20 @@
 'use client';
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Box, Card, Typography } from '@mui/material';
 import Button from 'src/components/material/Button';
+import { SPACING } from 'src/constants/grid';
 import { formatMoney } from 'src/libs/utils';
 
 function Infomation({ price, originalPrice }: { price: number; originalPrice: number }) {
   return (
     <Card>
-      <CardContent>
-        <Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant='h3' sx={{ marginBottom: '8px' }}>
             Dịch vụ cưới trọn gói combo số 2
           </Typography>
-          <Box sx={{ alignItems: 'baseline', justifyContent: 'center', gap: '12px', textAlign: 'center' }}>
-            <Box sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '12px', alignSelf: 'center' }}>
+
+          <Box sx={{ alignItems: 'baseline', justifyContent: 'center', gap: SPACING, textAlign: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: SPACING, alignSelf: 'center' }}>
               <Typography variant='h4' sx={{ fontWeight: 'bold', color: (theme) => theme.palette.primary.main }}>
                 {formatMoney(price)}
               </Typography>
@@ -33,12 +35,12 @@ function Infomation({ price, originalPrice }: { price: number; originalPrice: nu
           </Box>
         </Box>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }}>
           <Button>Liên hệ: 0977 432 412</Button>
 
           <Button variant='outlined'>Zalo: 0977 432 412</Button>
         </Box>
-      </CardContent>
+      </Box>
     </Card>
   );
 }

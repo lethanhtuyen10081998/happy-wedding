@@ -10,7 +10,7 @@ export default {
   drawerMobileWidth: 85,
   buttonMinWidth: 100,
   borderStyle: 'solid',
-  borderRadius: '24px',
+  borderRadius: '16px',
   borderRadiusSm: '8px',
   borderRadiusMd: '12px',
   borderRadiusLg: '16px',
