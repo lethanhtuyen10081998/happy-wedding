@@ -5,8 +5,9 @@ import { Avatar, Box, Container, Grid, Typography } from '@mui/material';
 import type React from 'react';
 import { useState } from 'react';
 import { Images } from 'src/constants/images';
+import { ProfileContextProvider } from 'src/context/profileContext/provider';
 
-export default function PublicLayout({ children }: { children: React.ReactNode }) {
+function PublicLayout({ children }: { children: React.ReactNode }) {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -246,3 +247,13 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
     </Box>
   );
 }
+
+const PublicLayoutWrapper = (props: any) => {
+  return (
+    <ProfileContextProvider>
+      <PublicLayout {...props} />
+    </ProfileContextProvider>
+  );
+};
+
+export default PublicLayoutWrapper;

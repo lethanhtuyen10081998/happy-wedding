@@ -8,7 +8,6 @@ import Button from 'src/components/material/Button';
 import FormTextField from 'src/components/material/form/FormTextField';
 import PasswordField from 'src/components/material/form/PasswordField';
 import { SPACING } from 'src/constants/grid';
-import { Routes } from 'src/constants/route';
 import useYupValidationResolver from 'src/helpers/useYupValidationResolver';
 import useSignIn from 'src/services/auth/signIn';
 
@@ -27,11 +26,9 @@ export default function SignIn() {
 
   const handleSubmit = useCallback(
     (values: SignFormRequest) => {
-      mutation(values).then(() => {
-        router.push(Routes.ADMIN_DASHBOARD);
-      });
+      mutation(values);
     },
-    [mutation, router],
+    [mutation],
   );
 
   return (

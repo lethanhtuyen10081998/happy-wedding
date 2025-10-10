@@ -19,9 +19,8 @@ export default withSession(async (request: NextIronRequest, res: NextApiResponse
     request.session.set(COOKIE_TOKEN_KEY, 'admin');
     request.session.set(COOKIE_REFRESH_TOKEN_KEY, 'admin');
     await request.session.save();
-    return res.status(200).json({ message: 'Sign in successful' });
+    return res.status(200).json({ message: 'Đăng nhập thành công' });
   }
 
-  return res.status(401).json({ message: 'Invalid username or password' });
-  return res.status(200).json({ message: 'Sign in successful' });
+  return res.status(401).json({ message: 'Tên đăng nhập hoặc mật khẩu không chính xác' });
 });

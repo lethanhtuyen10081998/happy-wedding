@@ -14,10 +14,8 @@ import 'src/assets/themes.scss';
 import AlertContainer from 'src/components/material/Alert/alertContainer';
 import PageLoading from 'src/components/PageLoading';
 import { queryClient } from 'src/config/reactQuery';
-import { Routes } from 'src/constants/route';
 import AdminLayout from 'src/layout/AdminLayout';
 import MainLayoutContainer from 'src/layout/MainLayout/MainLayout';
-import PublicLayout from 'src/layout/PublicLayout/PublicLayout';
 import getLocale, { useSetLocale } from 'src/libs/languageUtils';
 import { store } from 'src/redux/store';
 import themes from 'src/themes';
@@ -35,10 +33,6 @@ const PickLayout = ({
   isPublicLayout?: boolean;
   isAdminLayout?: boolean;
 }) => {
-  if (isPublicLayout) {
-    return <PublicLayout>{children}</PublicLayout>;
-  }
-
   if (isAdminLayout) {
     return <AdminLayout>{children}</AdminLayout>;
   }
@@ -78,7 +72,7 @@ function App({ Component, pageProps, router }: AppProps) {
 
             <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
               <PageLoading />
-              <PickLayout isPublicLayout={router.pathname === Routes.ADMIN_SIGN_IN} isAdminLayout={router.pathname.includes('/admin')}>
+              <PickLayout isAdminLayout={router.pathname.includes('/admin')}>
                 <Component {...pageProps} />
               </PickLayout>
             </SnackbarProvider>

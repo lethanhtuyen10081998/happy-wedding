@@ -10,7 +10,7 @@ export default {
   AGENCIES_REGISTER: '/agencies/register',
   SIGN_OUT: '/logout',
   SIGN_UP: '/sign-up',
-  PROFILE: '/manager-customer/customer/my-profile',
+  PROFILE: '/my-profile',
   REFRESH: '/token-refresh',
 
   //USER

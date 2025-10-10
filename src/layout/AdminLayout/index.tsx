@@ -11,8 +11,10 @@ import { FilterContextProvider } from 'src/context/filterContext/provider';
 import { useCollapsible } from 'src/context/layoutContext/hooksContext';
 import { LayoutContextProvider } from 'src/context/layoutContext/provider';
 import { PermissionContextProvider } from 'src/context/permissionContext/provider';
+import { useProfileContext } from 'src/context/profileContext/hooksContext';
 import { ProfileContextProvider } from 'src/context/profileContext/provider';
 
+import PublicLayout from '../PublicLayout/PublicLayout';
 import Header from './header/header';
 import { DrawerItemProps } from './navigation/components/drawerItem/types';
 import Navigation from './navigation/navigation';
@@ -25,6 +27,8 @@ interface Props {
 function ResponsiveDrawer(props: Props) {
   const collapsible = useCollapsible();
   const drawerWidth = collapsible ? 70 : 220;
+  const { profile } = useProfileContext();
+  console.log({ profile });
 
   let drawerItems: DrawerItemProps[] = [
     {
@@ -69,6 +73,10 @@ function ResponsiveDrawer(props: Props) {
   ];
 
   const { children } = props;
+
+  if (!profile) {
+    return <PublicLayout>{children}</PublicLayout>;
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
