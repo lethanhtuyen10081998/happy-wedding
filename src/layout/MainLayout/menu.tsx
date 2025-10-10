@@ -214,24 +214,28 @@ export default function DrawerAppBar() {
                   <MenuIcon />
                 </IconButton>
 
-                <Box ml='auto' display='flex' alignItems='center' gap={2} color='white'>
+                <NextLink href='/'>
+                  <Box ml='auto' display='flex' alignItems='center' gap={2} color='white'>
+                    <Box mt='2px'>
+                      <Crown size={24} />
+                    </Box>
+                    <Typography variant='h4' color='white' fontFamily='Atma'>
+                      Happy Wedding
+                    </Typography>
+                  </Box>
+                </NextLink>
+              </Box>
+
+              <NextLink href='/'>
+                <Box sx={{ display: { xs: 'none', md: 'flex' }, color: 'white', gap: 1 }}>
                   <Box mt='2px'>
                     <Crown size={24} />
                   </Box>
-                  <Typography variant='h4' color='white' fontFamily='Atma'>
+                  <Typography variant='h3' color='white' fontFamily='Atma'>
                     Happy Wedding
                   </Typography>
                 </Box>
-              </Box>
-
-              <Box sx={{ display: { xs: 'none', md: 'flex' }, color: 'white', gap: 1 }}>
-                <Box mt='2px'>
-                  <Crown size={24} />
-                </Box>
-                <Typography variant='h3' color='white' fontFamily='Atma'>
-                  Happy Wedding
-                </Typography>
-              </Box>
+              </NextLink>
 
               <Box
                 ml='auto'

@@ -14,6 +14,7 @@ import useYupValidationResolver from 'src/helpers/useYupValidationResolver';
 import { formatMoneyToNumber } from 'src/libs/utils';
 import { FormEditorProps } from 'src/types/formEditor';
 
+import DescriptionContent from './components/Description';
 import UploadArea from './components/UploadArea';
 import { EditorFormRequest } from './types';
 import { validation } from './validation';
@@ -61,7 +62,7 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
 
           <Box mt={2}>
             <ScrollContent height='calc(100vh - 250px)' maxHeight='calc(100vh - 250px)'>
-              <Grid container columnSpacing={SPACING.lg}>
+              <Grid container spacing={SPACING.lg}>
                 <Grid item md={6}>
                   <FormTextField
                     name='name'
@@ -108,8 +109,8 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
                   <FormArrayTextField name='tags' label='Danh sách ưu đãi' />
                 </Grid>
 
-                <Grid item md={3}>
-                  <FormTextField name='description' label='Mô tả' />
+                <Grid item md={12}>
+                  <DescriptionContent />
                 </Grid>
               </Grid>
             </ScrollContent>

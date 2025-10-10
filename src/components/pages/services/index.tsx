@@ -1,5 +1,5 @@
-import { Box, Card, CardContent, Chip, colors, Divider, Grid, Typography } from '@mui/material';
-import { Camera, Clock, MapPin, Video } from 'lucide-react';
+import { Box, Card, CardContent, colors, Grid, Typography } from '@mui/material';
+import { Video } from 'lucide-react';
 import { Icon } from 'src/components/icons';
 import Container from 'src/components/material/Container';
 import RatioBox from 'src/components/ui/RatioBox';
@@ -10,7 +10,7 @@ import Gallery from './components/gallery';
 import Infomation from './components/infomation';
 
 function WeddingServiceDetail() {
-  const { name, price, originalPrice, imagesList, videoUrl, tags } = useDetailDataContext<Product>();
+  const { name, price, originalPrice, imagesList, videoUrl, tags, description } = useDetailDataContext<Product>();
 
   return (
     <Container maxWidth='lg' sx={{ mt: 16 }}>
@@ -37,77 +37,7 @@ function WeddingServiceDetail() {
               Chi tiết gói dịch vụ
             </Typography>
 
-            <Grid container spacing={1}>
-              <Grid item xs={12} sm={6}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                  <Clock size={20} />
-
-                  <div>
-                    <Typography variant='body2' sx={{ color: 'text.secondary', margin: 0 }}>
-                      Thời gian
-                    </Typography>
-                    <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'text.primary', margin: 0 }}>
-                      {tags?.join(', ')}
-                    </Typography>
-                  </div>
-                </div>
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                  <MapPin size={20} />
-                  <div>
-                    <Typography variant='body2' sx={{ color: 'text.secondary', margin: 0 }}>
-                      Địa điểm
-                    </Typography>
-                    <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'text.primary', margin: 0 }}>
-                      {tags?.join(', ')}
-                    </Typography>
-                  </div>
-                </div>
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                  <Camera size={20} />
-                  <div>
-                    <Typography variant='body2' sx={{ color: 'text.secondary', margin: 0 }}>
-                      Photographer
-                    </Typography>
-                    <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'text.primary', margin: 0 }}>
-                      {tags?.join(', ')}
-                    </Typography>
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-
-            <Divider style={{ margin: '24px 0' }} />
-
-            <Box sx={{ marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <Typography
-                variant='h5'
-                sx={{
-                  fontWeight: 'bold',
-                }}
-              >
-                Thiết bị chuyên nghiệp
-              </Typography>
-
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {tags?.map((item, index) => (
-                  <Chip
-                    key={index}
-                    label={item}
-                    sx={{
-                      backgroundColor: 'primary.light',
-                      color: 'white',
-                      border: '1px solid primary.main',
-                    }}
-                  />
-                ))}
-              </Box>
-            </Box>
+            <Box dangerouslySetInnerHTML={{ __html: description }} />
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <Typography variant='h5'>Dịch vụ bao gồm</Typography>

@@ -4,6 +4,7 @@ import { Icon } from 'src/components/icons';
 import Button from 'src/components/material/Button';
 import { useModal } from 'src/components/ui/ModalEditor/useModal';
 import { useRefreshData } from 'src/context/dataContext/hooksContext';
+import useSpinner from 'src/hooks/useSpinner';
 import { formatMoneyToNumber } from 'src/libs/utils';
 import useCreate from 'src/services/admin/manage/product/create';
 import { uploadFile } from 'src/services/fileUpload/uploadFile';
@@ -16,6 +17,7 @@ const ButtonCreateCategory = () => {
   const { mutateAsync, status } = useCreate();
   const { enqueueSnackbar } = useSnackbar();
   const { Dialog, open, close } = useModal();
+  const { hideLoading, startLoading } = useSpinner();
 
   const handleUploadImage = useCallback(async (file: File) => {
     return await uploadFile({
@@ -28,19 +30,23 @@ const ButtonCreateCategory = () => {
 
   const handleUploadImages = useCallback(
     async (files: File[]) => {
+      startLoading();
       return await Promise.all(
         files.map(async (file) => {
           return await handleUploadImage(file);
         }),
-      );
+      ).finally(() => {
+        hideLoading();
+      });
     },
-    [handleUploadImage],
+    [handleUploadImage, hideLoading, startLoading],
   );
 
   const handleSubmit = useCallback(
     async (values: EditorFormRequest) => {
       const imagesList = await handleUploadImages(values.images?.map((image) => image.file) || []);
       const { images: _, ...rest } = values;
+      startLoading();
 
       return mutateAsync({
         ...rest,
@@ -55,6 +61,7 @@ const ButtonCreateCategory = () => {
         description: values.description || '',
         videoUrl: values.videoUrl || '',
         isShowHomePage: values.isShowHomePage || false,
+        slug: values.slug || '',
       })
         .then(() => {
           enqueueSnackbar('Tạo sản phẩm thành công!', { variant: 'success' });
@@ -65,9 +72,12 @@ const ButtonCreateCategory = () => {
           enqueueSnackbar('Tạo sản phẩm thất bại!', {
             variant: 'error',
           });
+        })
+        .finally(() => {
+          hideLoading();
         });
     },
-    [handleUploadImages, mutateAsync, enqueueSnackbar, refreshData, close],
+    [handleUploadImages, startLoading, mutateAsync, enqueueSnackbar, refreshData, close, hideLoading],
   );
 
   return (

@@ -480,7 +480,7 @@ export default function componentStyleOverrides(theme: IThemeOption): Components
         root: {
           borderRadius: variables.borderRadiusCard,
           overflow: 'visible',
-          boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 2px 0px',
+          boxShadow: 'none',
         },
       },
     },

@@ -11,9 +11,11 @@ function Navigation(props: LayoutProps) {
   return (
     <>
       <Box py={2.5} display='flex' alignItems='center' justifyContent='center'>
-        <Box>
-          <Typography variant='h6'>Happy Wedding</Typography>
-        </Box>
+        <NextLink href='/'>
+          <Box>
+            <Typography variant='h6'>Happy Wedding</Typography>
+          </Box>
+        </NextLink>
       </Box>
       <Box px={1}>
         <Divider />

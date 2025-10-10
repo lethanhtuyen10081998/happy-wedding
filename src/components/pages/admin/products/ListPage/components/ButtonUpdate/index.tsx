@@ -5,6 +5,7 @@ import { Icon } from 'src/components/icons';
 import { FileUpload } from 'src/components/ui/Dropzone';
 import { useModal } from 'src/components/ui/ModalEditor/useModal';
 import { useRefreshData } from 'src/context/dataContext/hooksContext';
+import useSpinner from 'src/hooks/useSpinner';
 import { formatMoneyToNumber } from 'src/libs/utils';
 import useUpdateProduct from 'src/services/admin/manage/product/update';
 import useListCategories from 'src/services/admin/settings/categories/getList';
@@ -22,6 +23,7 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { Dialog, open, close } = useModal();
   const { data: categories } = useListCategories({ limit: 100, page: 1 });
+  const { hideLoading, startLoading } = useSpinner();
 
   const handleUploadImage = useCallback(async (file: File) => {
     return await uploadFile({
@@ -34,13 +36,16 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
 
   const handleUploadImages = useCallback(
     async (files: File[]) => {
+      startLoading();
       return await Promise.all(
         files.map(async (file) => {
           return await handleUploadImage(file);
         }),
-      );
+      ).finally(() => {
+        hideLoading();
+      });
     },
-    [handleUploadImage],
+    [handleUploadImage, hideLoading, startLoading],
   );
 
   const handleDeleteImage = useCallback(async (url: string) => {
@@ -49,13 +54,16 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
 
   const handleDeleteImages = useCallback(
     async (urls: string[]) => {
+      startLoading();
       return await Promise.all(
         urls.map(async (url) => {
           return await handleDeleteImage(url);
         }),
-      );
+      ).finally(() => {
+        hideLoading();
+      });
     },
-    [handleDeleteImage],
+    [handleDeleteImage, hideLoading, startLoading],
   );
 
   const handleSubmit = useCallback(
@@ -67,6 +75,8 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
       const imagesDefault = values.images?.filter((image) => image.action === EditorFormAction.DEFAULT) || [];
       const imagesList = [...imagesDefault.map((image) => image.file.src as string), ...imagesListUpload];
       const { images: _, ...rest } = values;
+
+      startLoading();
 
       return mutateAsync({
         ...rest,
@@ -82,6 +92,7 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
         name: values.name || '',
         id: values.id || '',
         isShowHomePage: values.isShowHomePage || false,
+        slug: values.slug || '',
       })
         .then(() => {
           enqueueSnackbar('Cập nhật sản phẩm thành công!', { variant: 'success' });
@@ -89,13 +100,15 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
           close();
         })
         .catch((error) => {
-          console.log(error);
           enqueueSnackbar('Cập nhật sản phẩm thất bại!', {
             variant: 'error',
           });
+        })
+        .finally(() => {
+          hideLoading();
         });
     },
-    [handleUploadImages, handleDeleteImages, mutateAsync, enqueueSnackbar, refreshData, close],
+    [handleUploadImages, handleDeleteImages, startLoading, mutateAsync, enqueueSnackbar, refreshData, close, hideLoading],
   );
 
   return (
@@ -139,7 +152,7 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
               } as unknown as FileUpload,
             })),
             isShowHomePage: data.isShowHomePage || false,
-            slug: data.slug,
+            slug: data.slug || '',
           }}
           mode={FormMode.EDIT}
         />
