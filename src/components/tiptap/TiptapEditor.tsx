@@ -21,7 +21,7 @@ export const BlockEditor = ({ editor }: { editor: Editor }) => {
       <MenuBar editor={editor} />
 
       <Box sx={{ position: 'relative' }}>
-        <ScrollContent height={'calc(100vh - 200px)'}>
+        <ScrollContent height={'100%'} maxHeight={'100%'}>
           <EditorContent editor={editor} />
           <LinkMenu editor={editor} appendTo={menuContainerRef} />
           <TextMenu editor={editor} />

@@ -10,7 +10,7 @@ export const Routes = {
   SHINING_MOMENT: '/ao-vest-nam',
   SHINING_MOMENT_PHOTO: '/chup-anh-cuoi',
   SHINING_MOMENT_DRESS: '/ao-dai-cuoi',
-  SERVICES: '/dich-vu/:id',
+  SERVICES: '/san-pham/:id',
   // Admin
   ADMIN_DASHBOARD: '/admin/dashboard',
   ADMIN_SIGN_IN: '/admin/sign-in',

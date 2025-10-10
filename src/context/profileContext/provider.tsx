@@ -49,8 +49,6 @@ export const ProfileContextProvider: React.FC<{
 
   const { data } = useProfile();
 
-  console.log({ data });
-
   const actionContext: API = useMemo(() => {
     const onUpdateLoading = (payload: boolean) => {
       dispatch({ type: ActionsTypes.ON_UPDATE_LOADING, payload });
