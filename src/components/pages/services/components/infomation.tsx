@@ -9,7 +9,7 @@ function Infomation({ price, originalPrice }: { price: number; originalPrice: nu
     <Card>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }}>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography variant='h3' sx={{ marginBottom: '8px' }}>
+          <Typography variant='h2' sx={{ marginBottom: '8px' }}>
             Dịch vụ cưới trọn gói combo số 2
           </Typography>
 

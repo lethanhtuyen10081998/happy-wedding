@@ -12,38 +12,38 @@ export default function themeTypography(theme: IThemeOption): TypographyOptions 
     fontFamily: variables.fontFamily,
     h6: {
       color: theme.heading,
-      fontWeight: 400,
-      fontSize: '0.925rem',
+      fontWeight: 600,
+      fontSize: '1.25rem',
     },
 
     h5: {
       color: theme.heading,
-      fontWeight: 700,
-      fontSize: '1rem',
+      fontWeight: 600,
+      fontSize: '1.55rem',
     },
 
     h4: {
       color: theme.heading,
-      fontWeight: 700,
-      fontSize: '1.25rem',
+      fontWeight: 600,
+      fontSize: '1.65rem',
     },
     h3: {
       color: theme.heading,
-      fontWeight: 400,
-      fontSize: '1.625rem',
+      fontWeight: 600,
+      fontSize: '1.725rem',
     },
 
     h2: {
       color: theme.heading,
-      fontWeight: 400,
-      fontSize: '1.77689rem',
+      fontWeight: 600,
+      fontSize: '1.87689rem',
       lineHeight: 1.25,
     },
 
     h1: {
       fontSize: '2.5rem',
       color: theme.heading,
-      fontWeight: 400,
+      fontWeight: 600,
       lineHeight: 1.25,
     },
 
@@ -72,13 +72,13 @@ export default function themeTypography(theme: IThemeOption): TypographyOptions 
     },
 
     body1: {
-      fontSize: '0.955rem',
+      fontSize: '1.225rem',
       fontWeight: 400,
       lineHeight: '1.225em',
     },
 
     body2: {
-      fontSize: '0.955rem',
+      fontSize: '1.225rem',
       fontWeight: 400,
       lineHeight: '1.5em',
     },

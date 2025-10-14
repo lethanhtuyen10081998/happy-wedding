@@ -2,6 +2,7 @@ import { Box, Card, IconButton } from '@mui/material';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { SPACING } from 'src/constants/grid';
 import variables from 'src/themes/variables';
 
 export default function Gallery({ gallery, title }: { gallery: string[]; title: string }) {
@@ -103,22 +104,21 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
         </Box>
       </Box>
 
-      {/* Thumbnails */}
       <Box
         sx={{
-          padding: '16px',
+          paddingY: '8px',
           display: 'flex',
-          gap: '12px',
+          gap: SPACING,
           overflowX: 'auto',
         }}
       >
-        {gallery.map((image, index) => (
+        {[...gallery].map((image, index) => (
           <Box
             key={index}
             sx={{
               width: '80px',
               height: '80px',
-              borderRadius: '8px',
+              borderRadius: variables.borderRadius,
               cursor: 'pointer',
               border: (theme) => (index === currentImageIndex ? `3px solid ${theme.palette.primary.main}` : `1px solid ${theme.palette.grey[200]}`),
               backgroundImage: `url(${image})`,

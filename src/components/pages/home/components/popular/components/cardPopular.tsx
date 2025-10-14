@@ -54,7 +54,6 @@ export function WeddingServiceCard({ title, price, originalPrice, features, imag
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent)',
           }}
         />
         <div style={{ position: 'absolute', bottom: '8px', left: '8px', color: 'white' }}>
@@ -73,7 +72,6 @@ export function WeddingServiceCard({ title, price, originalPrice, features, imag
           <Typography
             variant='h4'
             sx={{
-              fontWeight: 'bold',
               marginBottom: '8px',
               textWrap: 'balance',
             }}

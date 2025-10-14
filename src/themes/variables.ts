@@ -10,12 +10,12 @@ export default {
   drawerMobileWidth: 85,
   buttonMinWidth: 100,
   borderStyle: 'solid',
-  borderRadius: '16px',
-  borderRadiusSm: '8px',
-  borderRadiusMd: '12px',
-  borderRadiusLg: '16px',
-  borderRadiusXl: '20px',
-  borderRadiusCard: '12px',
+  borderRadius: '2px',
+  borderRadiusSm: '4px',
+  borderRadiusMd: '8px',
+  borderRadiusLg: '8px',
+  borderRadiusXl: '8px',
+  borderRadiusCard: '8px',
   overflowHidden: 'hidden',
   fontWeightExBold: 800,
   fontWeightBold: 600,
@@ -24,7 +24,7 @@ export default {
   titleFontSize: '1.25rem',
   fontSize: '1rem',
   cardDisableShowdown: '0px 0px 15px rgba(0, 0, 0, 0.15)',
-  fontFamily: 'Libre Bodoni',
+  fontFamily: 'EB Garamond',
   fontSizeHeading1: '2rem', // 32px
   fontSizeHeading2: '1.875rem', // 30px
   fontSizeHeading3: '1.5rem', // 24px
