@@ -124,22 +124,22 @@ export default function DrawerAppBar() {
     </Box>
   );
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
+  // React.useEffect(() => {
+  //   const handleScroll = () => {
+  //     const offset = window.scrollY;
+  //     if (offset > 10) {
+  //       setScrolled(true);
+  //     } else {
+  //       setScrolled(false);
+  //     }
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
+  //   window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   return (
     <Box position='relative'>

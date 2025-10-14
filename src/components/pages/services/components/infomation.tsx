@@ -4,13 +4,13 @@ import Button from 'src/components/material/Button';
 import { SPACING } from 'src/constants/grid';
 import { formatMoney } from 'src/libs/utils';
 
-function Infomation({ price, originalPrice }: { price: number; originalPrice: number }) {
+function Infomation({ price, originalPrice, name }: { price: number; originalPrice: number; name: string }) {
   return (
     <Card>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }}>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant='h2' sx={{ marginBottom: '8px' }}>
-            Dịch vụ cưới trọn gói combo số 2
+            {name}
           </Typography>
 
           <Box sx={{ alignItems: 'baseline', justifyContent: 'center', gap: SPACING, textAlign: 'center' }}>

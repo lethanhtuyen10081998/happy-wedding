@@ -5,8 +5,6 @@ import { useDetailDataContext } from 'src/context/detailContext/hooksContext';
 import { Product } from 'src/types/product';
 
 const Description = ({ content }: { content: string }) => {
-  const product = useDetailDataContext<Product>();
-
   const { setValue } = useFormContext();
 
   const debounceUpdate = (content: string) => {
@@ -26,7 +24,7 @@ const Description = ({ content }: { content: string }) => {
 const DescriptionContent = () => {
   const product = useDetailDataContext<Product>();
 
-  return <Description content={product.description || ''} />;
+  return <Description content={product?.description || ''} />;
 };
 
 export default DescriptionContent;

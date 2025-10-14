@@ -23,7 +23,7 @@ function WeddingServiceDetail() {
 
           <Grid item xs={12} md={4}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }}>
-              <Infomation price={price as number} originalPrice={originalPrice as number} />
+              <Infomation price={price as number} originalPrice={originalPrice as number} name={name} />
             </Box>
           </Grid>
         </Grid>
