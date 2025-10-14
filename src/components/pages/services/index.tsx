@@ -41,10 +41,7 @@ function WeddingServiceDetail() {
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Typography variant='h3' sx={{ mb: 2, fontWeight: 600, color: 'primary.main' }}>
-              Ưu đãi
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }} mt={7}>
               <Box component='ul' sx={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: SPACING }}>
                 {tags?.map((item, index) => (
                   <Box

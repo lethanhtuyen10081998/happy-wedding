@@ -1,5 +1,5 @@
 'use client';
-import { Box, Card, Typography } from '@mui/material';
+import { Box, Card, Divider, Typography } from '@mui/material';
 import Button from 'src/components/material/Button';
 import { SPACING } from 'src/constants/grid';
 import { formatMoney } from 'src/libs/utils';
@@ -21,7 +21,6 @@ function Infomation({ price, originalPrice }: { price: number; originalPrice: nu
               {originalPrice && (
                 <Typography
                   sx={{
-                    fontSize: '12px',
                     color: (theme) => theme.palette.text.secondary,
                     textDecoration: 'line-through',
                   }}
@@ -39,6 +38,12 @@ function Infomation({ price, originalPrice }: { price: number; originalPrice: nu
           <Button>Liên hệ: 0977 432 412</Button>
 
           <Button variant='outlined'>Zalo: 0977 432 412</Button>
+        </Box>
+
+        <Divider />
+
+        <Box>
+          <Typography sx={{ mb: 2 }}>*Cam kết cung cấp dịch vụ chất lượng, uy tín. Chất lượng cao, giá cả hợp lý.*</Typography>
         </Box>
       </Box>
     </Card>
