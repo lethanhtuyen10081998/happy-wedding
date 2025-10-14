@@ -130,8 +130,10 @@ export class FirestoreService {
 
       // filter
       if (conditions && conditions.length > 0) {
+        console.log('Firebase service - Conditions:', conditions);
         const filters = conditions.map((c) => where(c.field, c.op, c.value));
         q = query(q, ...filters);
+        console.log('Firebase service - Query filters applied');
       }
 
       // orderBy (quan trọng khi dùng paging)
@@ -149,6 +151,11 @@ export class FirestoreService {
       }
 
       const snapshot = await getDocs(q);
+      console.log('Firebase service - Query result:', {
+        docsCount: snapshot.docs.length,
+        isEmpty: snapshot.empty,
+        docs: snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })),
+      });
 
       const docs = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as T) }));
 

@@ -11,6 +11,9 @@ const CategoryDetailPage = () => {
     slug: id as string,
   });
 
+  console.log('CategoryDetailPage - URL id:', id);
+  console.log('CategoryDetailPage - categoryDetail:', categoryDetail);
+
   if (!categoryDetail) {
     return <SpinnerCenter />;
   }

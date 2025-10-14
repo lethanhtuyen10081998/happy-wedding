@@ -40,13 +40,12 @@ export function getList(request: Request) {
     conditions.push({ field: 'isShowHomePage', op: '==', value: request.isShowHomePage });
   }
 
-  console.log({ conditions });
-
   return firestoreService.list<Product>('product', {
     pageSize: request.limit,
     conditions,
-    orderByField: orderByField || undefined,
-    orderDirection: orderDirection || undefined,
+    // Temporarily disable orderBy to test without index
+    // orderByField: orderByField || undefined,
+    // orderDirection: orderDirection || undefined,
   });
 }
 
