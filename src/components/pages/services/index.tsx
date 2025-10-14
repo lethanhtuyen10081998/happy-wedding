@@ -24,37 +24,45 @@ function WeddingServiceDetail() {
           <Grid item xs={12} md={4}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }}>
               <Infomation price={price as number} originalPrice={originalPrice as number} />
+            </Box>
+          </Grid>
+        </Grid>
 
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }}>
-                <Box component='ul' sx={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: SPACING }}>
-                  {tags?.map((item, index) => (
-                    <Box
-                      component='li'
-                      key={index}
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        gap: SPACING,
-                      }}
-                    >
-                      <Icon name='heart' sx={{ width: '20px', height: '20px', color: colors.pink[500] }} />
+        <Divider sx={{ my: 0 }} />
 
-                      <Typography variant='subtitle2' sx={{ color: 'text.secondary' }}>
-                        {item}
-                      </Typography>
-                    </Box>
-                  ))}
-                </Box>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={8}>
+            <Card>
+              <Typography variant='h3' sx={{ mb: 2, fontWeight: 600, color: 'primary.main' }}>
+                Mô tả dịch vụ
+              </Typography>
+
+              <Box dangerouslySetInnerHTML={{ __html: description }} />
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: SPACING }} mt={7}>
+              <Box component='ul' sx={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: SPACING }}>
+                {tags?.map((item, index) => (
+                  <Box
+                    component='li'
+                    key={index}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: SPACING,
+                    }}
+                  >
+                    <Icon name='heart' sx={{ width: '20px', height: '20px', color: colors.pink[500] }} />
+
+                    <Typography sx={{ color: 'text.secondary' }}>{item}</Typography>
+                  </Box>
+                ))}
               </Box>
             </Box>
           </Grid>
         </Grid>
 
-        <Divider />
-
-        <Card>
-          <Box dangerouslySetInnerHTML={{ __html: description }} />
-        </Card>
         <Divider />
 
         {videoUrl && (
