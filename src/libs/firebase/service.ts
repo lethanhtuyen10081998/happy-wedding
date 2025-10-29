@@ -130,10 +130,10 @@ export class FirestoreService {
 
       // filter
       if (conditions && conditions.length > 0) {
-        console.log('Firebase service - Conditions:', conditions);
+        // console.log('Firebase service - Conditions:', conditions);
         const filters = conditions.map((c) => where(c.field, c.op, c.value));
         q = query(q, ...filters);
-        console.log('Firebase service - Query filters applied');
+        // console.log('Firebase service - Query filters applied');
       }
 
       // orderBy (quan trọng khi dùng paging)

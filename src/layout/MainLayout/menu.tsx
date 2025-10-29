@@ -9,7 +9,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import { unionBy } from 'lodash';
+import { startCase, unionBy } from 'lodash';
 import { Crown } from 'lucide-react';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
@@ -115,7 +115,7 @@ export default function DrawerAppBar() {
                 sx={{
                   color: link === item.link ? 'black' : 'white',
                 }}
-                primary={t(item.label)}
+                primary={startCase(item.label)}
               />
             </ListItemButton>
           </ListItem>
@@ -254,7 +254,9 @@ export default function DrawerAppBar() {
                       }}
                       href={item.link}
                     >
-                      {t(item.label)}
+                      <Typography variant='subtitle2' color='white' fontWeight='bold' textTransform='capitalize'>
+                        {item.label.toLowerCase()}
+                      </Typography>
                     </NextLink>
                   );
                 })}

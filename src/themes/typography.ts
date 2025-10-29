@@ -72,13 +72,13 @@ export default function themeTypography(theme: IThemeOption): TypographyOptions 
     },
 
     body1: {
-      fontSize: '1.225rem',
+      fontSize: '1rem',
       fontWeight: 400,
       lineHeight: '1.225em',
     },
 
     body2: {
-      fontSize: '1.225rem',
+      fontSize: '1rem',
       fontWeight: 400,
       lineHeight: '1.5em',
     },

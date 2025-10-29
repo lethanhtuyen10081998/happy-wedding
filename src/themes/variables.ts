@@ -24,7 +24,7 @@ export default {
   titleFontSize: '1.25rem',
   fontSize: '1rem',
   cardDisableShowdown: '0px 0px 15px rgba(0, 0, 0, 0.15)',
-  fontFamily: 'EB Garamond',
+  fontFamily: 'Roboto',
   fontSizeHeading1: '2rem', // 32px
   fontSizeHeading2: '1.875rem', // 30px
   fontSizeHeading3: '1.5rem', // 24px

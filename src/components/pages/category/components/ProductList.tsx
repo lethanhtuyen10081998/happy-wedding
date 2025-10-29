@@ -4,7 +4,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import StarIcon from '@mui/icons-material/Star';
 import { Box, Button, Card, CardContent, Chip, IconButton, Paper, Skeleton, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -71,9 +70,9 @@ export default function ProductList() {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: 500,
-          border: '2px dashed #e0e0e0',
+          border: '2px dashed grey.300',
           borderRadius: 2,
-          bgcolor: '#fafafa',
+          bgcolor: 'grey.50',
           p: 6,
           textAlign: 'center',
         }}
@@ -86,16 +85,16 @@ export default function ProductList() {
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: '50%',
-            bgcolor: '#f5f5f5',
+            bgcolor: 'grey.100',
             mb: 2,
           }}
         >
-          <LocalOfferIcon sx={{ fontSize: 40, color: '#999' }} />
+          <LocalOfferIcon sx={{ fontSize: 40, color: 'grey.500' }} />
         </Box>
-        <Typography variant='h5' sx={{ fontWeight: 600, color: '#1a1a1a', mb: 1 }}>
+        <Typography variant='h5' sx={{ fontWeight: 600, color: 'text.primary', mb: 1 }}>
           Không tìm thấy sản phẩm
         </Typography>
-        <Typography variant='body1' sx={{ color: '#666' }}>
+        <Typography variant='body1' sx={{ color: 'text.secondary' }}>
           Vui lòng thử điều chỉnh bộ lọc của bạn hoặc tìm kiếm từ khóa khác
         </Typography>
       </Box>
@@ -110,7 +109,7 @@ export default function ProductList() {
           alignItems: 'center',
           justifyContent: 'space-between',
           pb: 2.5,
-          borderBottom: '1px solid #e0e0e0',
+          borderBottom: '1px solid grey.300',
         }}
       >
         <Box>
@@ -119,19 +118,19 @@ export default function ProductList() {
             sx={{
               fontSize: '1.875rem',
               fontWeight: 600,
-              color: '#1a1a1a',
+              color: 'text.primary',
               mb: 1,
             }}
           >
             Tất cả sản phẩm
           </Typography>
-          <Typography variant='body1' sx={{ color: '#666' }}>
+          <Typography variant='body1'>
             Hiển thị{' '}
-            <Box component='span' sx={{ fontWeight: 600, color: '#1a1a1a' }}>
+            <Box component='span' sx={{ fontWeight: 600, color: 'text.primary' }}>
               {data.length}
             </Box>{' '}
             trong tổng số{' '}
-            <Box component='span' sx={{ fontWeight: 600, color: '#1a1a1a' }}>
+            <Box component='span' sx={{ fontWeight: 600, color: 'text.primary' }}>
               {total}
             </Box>{' '}
             sản phẩm
@@ -151,15 +150,16 @@ export default function ProductList() {
         }}
       >
         {data.map((service) => (
-          <Link key={service.id} href={`/product/${service.slug}`} style={{ textDecoration: 'none' }}>
+          <Link key={service.id} href={`/san-pham/${service.slug}?productId=${service.id}`} style={{ textDecoration: 'none' }}>
             <Card
               sx={{
                 overflow: 'hidden',
-                border: '1px solid #e0e0e0',
+                border: '1px solid grey.300',
                 borderRadius: 2,
+                height: '100%',
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  borderColor: '#d4a574',
+                  borderColor: 'primary.main',
                   boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
                   '& .product-image': {
                     transform: 'scale(1.1)',
@@ -173,9 +173,9 @@ export default function ProductList() {
               <Box
                 sx={{
                   position: 'relative',
-                  aspectRatio: '3/4',
+                  aspectRatio: '6/4',
                   overflow: 'hidden',
-                  bgcolor: '#f5f5f5',
+                  bgcolor: 'grey.100',
                 }}
               >
                 {service.imagesList?.[0] ? (
@@ -197,10 +197,10 @@ export default function ProductList() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
+                      background: 'linear-gradient(135deg, grey.100 0%, grey.300 100%)',
                     }}
                   >
-                    <LocalOfferIcon sx={{ fontSize: 64, color: '#ccc' }} />
+                    <LocalOfferIcon sx={{ fontSize: 64, color: 'grey.500' }} />
                   </Box>
                 )}
 
@@ -211,8 +211,8 @@ export default function ProductList() {
                       position: 'absolute',
                       top: 12,
                       right: 12,
-                      bgcolor: '#f44336',
-                      color: '#fff',
+                      bgcolor: 'error.main',
+                      color: 'common.white',
                       fontWeight: 600,
                       fontSize: '0.875rem',
                       height: 28,
@@ -228,7 +228,7 @@ export default function ProductList() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    bgcolor: 'rgba(0,0,0,0.4)',
+                    bgcolor: 'rgba(0,0,0,0.4)', // TODO: change to theme color or remove
                     opacity: 0,
                     transition: 'opacity 0.3s ease',
                   }}
@@ -238,12 +238,12 @@ export default function ProductList() {
                     size='small'
                     startIcon={<ShoppingCartIcon />}
                     sx={{
-                      bgcolor: '#fff',
-                      color: '#1a1a1a',
+                      bgcolor: 'common.white',
+                      color: 'text.primary',
                       fontWeight: 500,
                       textTransform: 'none',
                       '&:hover': {
-                        bgcolor: '#f5f5f5',
+                        bgcolor: 'grey.100',
                       },
                     }}
                   >
@@ -253,6 +253,54 @@ export default function ProductList() {
               </Box>
 
               <CardContent sx={{ p: 2.5 }}>
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                    color: 'text.primary',
+                    mb: 1,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    lineHeight: 1.4,
+                    transition: 'color 0.2s ease',
+                    '&:hover': {
+                      color: 'primary.main',
+                    },
+                    textTransform: 'capitalize',
+                  }}
+                >
+                  {service.name.toLowerCase()}
+                </Typography>
+
+                {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 1.5 }}>
+                  {[...Array(5)].map((_, i) => (
+                    <StarIcon key={i} sx={{ fontSize: 16, color: 'warning.main' }} />
+                  ))}
+                  <Typography variant='caption' sx={{ ml: 0.5, color: 'text.secondary' }}>
+                    (4.8)
+                  </Typography>
+                </Box> */}
+
+                {service.description && (
+                  <Typography
+                    variant='caption'
+                    sx={{
+                      color: 'text.secondary',
+                      mb: 2,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      lineHeight: 1.6,
+                      fontSize: '0.875rem',
+                    }}
+                    dangerouslySetInnerHTML={{ __html: service.description }}
+                  />
+                )}
+
                 {service.tags && service.tags.length > 0 && (
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75, mb: 1.5 }}>
                     {service.tags.slice(0, 2).map((tag, idx) => (
@@ -264,62 +312,12 @@ export default function ProductList() {
                           height: 22,
                           fontSize: '0.75rem',
                           fontWeight: 500,
-                          bgcolor: '#f5f5f5',
-                          color: '#666',
+                          bgcolor: 'grey.100',
+                          color: 'text.secondary',
                         }}
                       />
                     ))}
                   </Box>
-                )}
-
-                <Typography
-                  variant='h6'
-                  sx={{
-                    fontSize: '1.125rem',
-                    fontWeight: 600,
-                    color: '#1a1a1a',
-                    mb: 1,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    lineHeight: 1.4,
-                    transition: 'color 0.2s ease',
-                    '&:hover': {
-                      color: '#d4a574',
-                    },
-                  }}
-                >
-                  {service.name}
-                </Typography>
-
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 1.5 }}>
-                  {[...Array(5)].map((_, i) => (
-                    <StarIcon key={i} sx={{ fontSize: 16, color: '#ffc107' }} />
-                  ))}
-                  <Typography variant='caption' sx={{ ml: 0.5, color: '#999' }}>
-                    (4.8)
-                  </Typography>
-                </Box>
-
-                {service.description && (
-                  <Typography
-                    variant='body2'
-                    sx={{
-                      color: '#666',
-                      mb: 2,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
-                      lineHeight: 1.6,
-                      fontSize: '0.875rem',
-                    }}
-                  >
-                    {service.description}
-                  </Typography>
                 )}
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -328,7 +326,7 @@ export default function ProductList() {
                     sx={{
                       fontSize: '1.5rem',
                       fontWeight: 700,
-                      color: '#1a1a1a',
+                      color: 'text.primary',
                     }}
                   >
                     {(service.price as number).toLocaleString('vi-VN')}₫
@@ -339,7 +337,7 @@ export default function ProductList() {
                       sx={{
                         fontSize: '0.875rem',
                         fontWeight: 500,
-                        color: '#999',
+                        color: 'text.secondary',
                         textDecoration: 'line-through',
                       }}
                     >
@@ -362,7 +360,7 @@ export default function ProductList() {
               alignItems: 'center',
               gap: 1,
               p: 1,
-              border: '1px solid #e0e0e0',
+              border: '1px solid grey.300',
               borderRadius: 1.5,
             }}
           >
@@ -394,11 +392,11 @@ export default function ProductList() {
                     width: 36,
                     height: 36,
                     p: 0,
-                    bgcolor: page === pageNum ? '#d4a574' : 'transparent',
-                    color: page === pageNum ? '#fff' : '#1a1a1a',
+                    bgcolor: page === pageNum ? 'primary.main' : 'transparent',
+                    color: page === pageNum ? 'common.white' : 'text.primary',
                     fontWeight: 500,
                     '&:hover': {
-                      bgcolor: page === pageNum ? '#c49563' : '#f5f5f5',
+                      bgcolor: page === pageNum ? 'primary.dark' : 'transparent',
                     },
                   }}
                 >

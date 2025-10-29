@@ -51,7 +51,7 @@ export function getList(request: Request) {
 
 const useList = (request: Request) => {
   const { data, ...others } = useQuery({
-    queryKey: [endpoints.ADMIN_MANAGE_PRODUCTS_GET_LIST, request],
+    queryKey: [`${endpoints.ADMIN_MANAGE_PRODUCTS_GET_LIST}-${request.categoryId}`, request],
     queryFn: () => getList(request),
   });
 
