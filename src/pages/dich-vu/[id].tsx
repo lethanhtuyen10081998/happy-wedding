@@ -8,7 +8,7 @@ import useCategoryDetail from 'src/services/admin/settings/categories/detail';
 
 const CategoryDetailPage = () => {
   const { id } = useParams();
-  const { data: categoryDetail } = useCategoryDetail({
+  const { data: categoryDetail, refetch } = useCategoryDetail({
     slug: id as string,
   });
 
