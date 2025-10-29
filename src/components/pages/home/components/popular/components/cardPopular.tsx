@@ -1,4 +1,5 @@
-import { Badge, Box, CardActions, CardContent, Paper, Typography } from '@mui/material';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import { Badge, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { Heart, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import NextLink from 'next/link';
@@ -21,19 +22,26 @@ interface WeddingServiceCardProps {
   id: string;
 }
 
-export function WeddingServiceCard({ title, price, originalPrice, features, image, isPopular = false, slug, id }: WeddingServiceCardProps) {
+export function WeddingServiceCard({
+  title,
+  price,
+  originalPrice,
+  features,
+  image,
+  isPopular = false,
+  slug,
+  id,
+  description,
+}: WeddingServiceCardProps) {
   return (
-    <Box
-      component={Paper}
+    <Card
       sx={{
         position: 'relative',
         overflow: 'hidden',
         border: '1px solid primary.light',
         transition: 'all 0.3s ease',
         height: '100%',
-        '&:hover': {
-          transform: 'translateY(-8px)',
-        },
+        '&:hover': { transform: 'translateY(-8px)', boxShadow: '0 8px 24px rgba(0,0,0,0.12)' },
       }}
     >
       {isPopular && (
@@ -47,15 +55,30 @@ export function WeddingServiceCard({ title, price, originalPrice, features, imag
         </Box>
       )}
 
-      <div style={{ position: 'relative', height: '192px', overflow: 'hidden' }}>
-        <Image src={image || '/placeholder.svg'} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} width={384} height={192} />
+      <Box sx={{ position: 'relative', height: '192px', overflow: 'hidden', borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}>
+        {image ? (
+          <Image
+            src={image || '/placeholder.svg'}
+            alt={title}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            width={384}
+            height={192}
+          />
+        ) : (
+          <Box
+            sx={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, grey.100 0%, grey.300 100%)',
+            }}
+          >
+            <LocalOfferIcon sx={{ fontSize: 64, color: 'grey.500' }} />
+          </Box>
+        )}
 
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-          }}
-        />
         <div style={{ position: 'absolute', bottom: '8px', left: '8px', color: 'white' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <Badge sx={{ backgroundColor: 'primary.main', fontWeight: 'bold', borderRadius: variables.borderRadius, padding: '4px 8px' }}>
@@ -65,15 +88,26 @@ export function WeddingServiceCard({ title, price, originalPrice, features, imag
             </Badge>
           </div>
         </div>
-      </div>
+      </Box>
 
       <CardContent style={{ padding: '12px' }}>
         <div style={{ marginBottom: '16px' }}>
           <Typography
-            variant='h4'
             sx={{
               marginBottom: '8px',
               textWrap: 'balance',
+              fontWeight: 600,
+              color: 'text.primary',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              transition: 'color 0.2s ease',
+              '&:hover': {
+                color: 'primary.main',
+              },
+              textTransform: 'capitalize',
             }}
           >
             {title}
@@ -82,7 +116,7 @@ export function WeddingServiceCard({ title, price, originalPrice, features, imag
 
         <div style={{ marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-            <Typography variant='h4' sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+            <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'primary.main' }}>
               {formatMoney(price)}
             </Typography>
             {originalPrice && (
@@ -93,34 +127,56 @@ export function WeddingServiceCard({ title, price, originalPrice, features, imag
           </div>
         </div>
 
+        <Typography
+          variant='caption'
+          sx={{
+            color: 'grey.500',
+            mb: 2,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            lineHeight: 1.6,
+            fontSize: '0.875rem',
+            height: 40,
+          }}
+          dangerouslySetInnerHTML={{
+            __html: description ? description.replace(/<[^>]*>/g, '').toLowerCase() : 'Chưa có mô tả',
+          }}
+        />
+
         <Box>
           <Box component='ul' sx={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            {features.slice(0, 4).map((feature, index) => (
-              <Box
-                component='li'
-                key={index}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '8px',
-                  fontSize: '14px',
-                  marginBottom: '8px',
-                }}
-              >
-                <Heart
-                  style={{
-                    width: '16px',
-                    height: '16px',
-                    color: '#f48fb1',
-                    marginTop: '2px',
-                    flexShrink: 0,
+            {features
+              .filter(Boolean)
+              .slice(0, 4)
+              .map((feature, index) => (
+                <Box
+                  component='li'
+                  key={index}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '8px',
+                    fontSize: '14px',
+                    marginBottom: '8px',
                   }}
-                />
-                <Typography variant='subtitle2' sx={{ color: 'text.secondary' }}>
-                  {feature}
-                </Typography>
-              </Box>
-            ))}
+                >
+                  <Heart
+                    style={{
+                      width: '16px',
+                      height: '16px',
+                      color: '#f48fb1',
+                      marginTop: '2px',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <Typography variant='subtitle2' sx={{ color: 'text.secondary' }}>
+                    {feature}
+                  </Typography>
+                </Box>
+              ))}
 
             {features.length - 4 > 0 && (
               <Box
@@ -161,6 +217,6 @@ export function WeddingServiceCard({ title, price, originalPrice, features, imag
           </Box>
         </Box>
       </CardActions>
-    </Box>
+    </Card>
   );
 }

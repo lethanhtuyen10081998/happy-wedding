@@ -44,14 +44,14 @@ export function getList(request: Request) {
     pageSize: request.limit,
     conditions,
     // Temporarily disable orderBy to test without index
-    // orderByField: orderByField || undefined,
-    // orderDirection: orderDirection || undefined,
+    orderByField: orderByField || undefined,
+    orderDirection: orderDirection || undefined,
   });
 }
 
 const useList = (request: Request) => {
   const { data, ...others } = useQuery({
-    queryKey: [endpoints.ADMIN_MANAGE_PRODUCTS_GET_LIST, request],
+    queryKey: [`${endpoints.ADMIN_MANAGE_PRODUCTS_GET_LIST}-${request.categoryId}`, request],
     queryFn: () => getList(request),
   });
 

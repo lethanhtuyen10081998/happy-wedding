@@ -1,3 +1,4 @@
+import { startCase } from 'lodash';
 import Head from 'next/head';
 import { useParams } from 'next/navigation';
 import SpinnerCenter from 'src/components/material/Spinner/SpinnerCenter';
@@ -7,12 +8,9 @@ import useCategoryDetail from 'src/services/admin/settings/categories/detail';
 
 const CategoryDetailPage = () => {
   const { id } = useParams();
-  const { data: categoryDetail } = useCategoryDetail({
+  const { data: categoryDetail, refetch } = useCategoryDetail({
     slug: id as string,
   });
-
-  console.log('CategoryDetailPage - URL id:', id);
-  console.log('CategoryDetailPage - categoryDetail:', categoryDetail);
 
   if (!categoryDetail) {
     return <SpinnerCenter />;
@@ -21,7 +19,7 @@ const CategoryDetailPage = () => {
   return (
     <>
       <Head>
-        <title>{categoryDetail.name}</title>
+        <title>{startCase(categoryDetail.name.toLowerCase())}</title>
         <meta name='description' content={categoryDetail.description} />
         <meta name='robots' content='index, follow' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
