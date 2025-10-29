@@ -44,8 +44,8 @@ export function getList(request: Request) {
     pageSize: request.limit,
     conditions,
     // Temporarily disable orderBy to test without index
-    // orderByField: orderByField || undefined,
-    // orderDirection: orderDirection || undefined,
+    orderByField: orderByField || undefined,
+    orderDirection: orderDirection || undefined,
   });
 }
 

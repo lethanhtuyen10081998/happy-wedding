@@ -1,12 +1,11 @@
+import { FirebaseError } from 'firebase/app';
 import {
   addDoc,
   collection,
-  count,
   deleteDoc,
   doc,
   DocumentData,
   Firestore,
-  getAggregateFromServer,
   getDoc,
   getDocs,
   limit,
@@ -97,51 +96,57 @@ export class FirestoreService {
     await deleteDoc(ref);
   }
 
-  async countDocuments(collectionName: string, conditions?: { field: string; op: WhereFilterOp; value: unknown }[]): Promise<number> {
-    let colRef: any = collection(this.db, collectionName);
-
-    if (conditions && conditions.length > 0) {
-      const filters = conditions.map((c) => where(c.field, c.op, c.value));
-      colRef = query(colRef, ...filters);
-    }
-
-    const snapshot = await getAggregateFromServer(colRef, { total: count() });
-    return snapshot.data().total;
-  }
-
   async list<T = DocumentData>(
     collectionName: string,
     options?: {
       conditions?: { field: string; op: WhereFilterOp; value: unknown }[];
-      orderByField?: string; // sắp xếp theo field
+      orderByField?: string;
       orderDirection?: 'asc' | 'desc';
-      pageSize?: number; // số lượng mỗi trang
-      startAfterDoc?: QueryDocumentSnapshot; // doc bắt đầu (cho load more)
+      pageSize?: number;
+      startAfterDoc?: QueryDocumentSnapshot;
     },
   ): Promise<{
     rows: (T & { id: string })[];
     total: number;
-    lastDoc: QueryDocumentSnapshot | null; // để load trang tiếp theo
+    lastDoc: QueryDocumentSnapshot | null;
   }> {
     try {
       let q: any = collection(this.db, collectionName);
-
       const { conditions, orderByField, orderDirection, pageSize, startAfterDoc } = options || {};
 
-      // filter
+      // 🧩 Kiểm tra trước khi build query
       if (conditions && conditions.length > 0) {
-        // console.log('Firebase service - Conditions:', conditions);
-        const filters = conditions.map((c) => where(c.field, c.op, c.value));
-        q = query(q, ...filters);
-        // console.log('Firebase service - Query filters applied');
+        // Nếu có mảng rỗng trong điều kiện 'in' hoặc 'array-contains-any' → trả về rỗng luôn
+        const hasEmptyInFilter = conditions.some(
+          (c) => (c.op === 'in' || c.op === 'array-contains-any') && (!Array.isArray(c.value) || c.value.length === 0),
+        );
+
+        if (hasEmptyInFilter) {
+          console.warn('⚠️ Bỏ qua truy vấn vì có điều kiện "in" hoặc "array-contains-any" với mảng rỗng.');
+          return { rows: [], total: 0, lastDoc: null };
+        }
+
+        // Lọc chỉ giữ lại điều kiện hợp lệ
+        const validConditions = conditions.filter((c) => {
+          if ((c.op === 'in' || c.op === 'array-contains-any') && (!Array.isArray(c.value) || c.value.length === 0)) {
+            console.warn(`⚠️ Bỏ qua điều kiện '${c.field}' vì mảng rỗng.`);
+            return false;
+          }
+          return true;
+        });
+
+        if (validConditions.length > 0) {
+          const filters = validConditions.map((c) => where(c.field, c.op, c.value));
+          q = query(q, ...filters);
+        }
       }
 
-      // orderBy (quan trọng khi dùng paging)
+      // 🧭 Sắp xếp
       if (orderByField) {
         q = query(q, orderBy(orderByField, orderDirection || 'asc'));
       }
 
-      // paging
+      // ⏩ Phân trang
       if (startAfterDoc) {
         q = query(q, startAfter(startAfterDoc));
       }
@@ -150,31 +155,63 @@ export class FirestoreService {
         q = query(q, limit(pageSize));
       }
 
+      // 🔍 Lấy dữ liệu
       const snapshot = await getDocs(q);
-      console.log('Firebase service - Query result:', {
+      console.log('📘 FirebaseService - Query result:', {
         docsCount: snapshot.docs.length,
         isEmpty: snapshot.empty,
         docs: snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })),
       });
 
-      const docs = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as T) }));
+      const docs = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as T),
+      }));
 
       const lastDocSnap = snapshot.docs.length > 0 ? snapshot.docs[snapshot.docs.length - 1] : null;
+
+      // 🔢 Đếm tổng số (nếu bạn có method riêng countDocuments)
       const total = await this.countDocuments(collectionName, conditions);
 
       return {
         rows: docs,
-        lastDoc: lastDocSnap as QueryDocumentSnapshot<DocumentData, DocumentData> | null,
-        total: total,
+        lastDoc: lastDocSnap as QueryDocumentSnapshot<DocumentData> | null,
+        total,
       };
     } catch (error) {
-      console.error(error);
+      if (error instanceof FirebaseError) {
+        console.error(`🔥 FirebaseError [${error.code}]: ${error.message}`);
+      } else {
+        console.error('🔥 Unknown error:', error);
+      }
+
       return {
         rows: [],
         total: 0,
         lastDoc: null,
       };
     }
+  }
+
+  private async countDocuments(collectionName: string, conditions?: { field: string; op: WhereFilterOp; value: unknown }[]): Promise<number> {
+    let q: any = collection(this.db, collectionName);
+
+    if (conditions && conditions.length > 0) {
+      const validConditions = conditions.filter((c) => {
+        if ((c.op === 'in' || c.op === 'array-contains-any') && (!Array.isArray(c.value) || c.value.length === 0)) {
+          return false;
+        }
+        return true;
+      });
+
+      if (validConditions.length > 0) {
+        const filters = validConditions.map((c) => where(c.field, c.op, c.value));
+        q = query(q, ...filters);
+      }
+    }
+
+    const snapshot = await getDocs(q);
+    return snapshot.size;
   }
 }
 

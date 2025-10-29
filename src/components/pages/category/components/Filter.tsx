@@ -17,14 +17,13 @@ export type FilterProps = {
 };
 
 export default function Filter() {
-  const { onSetFilterObject } = useAPIFilterContext();
+  const { onUpdateFilterObject } = useAPIFilterContext();
   const methods = useForm<FilterProps>({
     defaultValues: { name: '', sortOrder: 'asc' },
   });
 
   const handleSubmit = (values: FilterProps) => {
-    console.log('Filter - Submitting values:', values);
-    onSetFilterObject(values);
+    onUpdateFilterObject(values);
   };
 
   return (
