@@ -153,21 +153,12 @@ export default function ProductList() {
           <Link key={service.id} href={`/san-pham/${service.slug}?productId=${service.id}`} style={{ textDecoration: 'none' }}>
             <Card
               sx={{
+                position: 'relative',
                 overflow: 'hidden',
-                border: '1px solid grey.300',
-                borderRadius: 2,
-                height: '100%',
+                border: '1px solid primary.light',
                 transition: 'all 0.3s ease',
-                '&:hover': {
-                  borderColor: 'primary.main',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
-                  '& .product-image': {
-                    transform: 'scale(1.1)',
-                  },
-                  '& .quick-view': {
-                    opacity: 1,
-                  },
-                },
+                height: '100%',
+                '&:hover': { transform: 'translateY(-8px)', boxShadow: '0 8px 24px rgba(0,0,0,0.12)' },
               }}
             >
               <Box

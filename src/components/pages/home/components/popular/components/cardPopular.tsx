@@ -1,4 +1,4 @@
-import { Badge, Box, CardActions, CardContent, Paper, Typography } from '@mui/material';
+import { Badge, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { Heart, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import NextLink from 'next/link';
@@ -23,17 +23,14 @@ interface WeddingServiceCardProps {
 
 export function WeddingServiceCard({ title, price, originalPrice, features, image, isPopular = false, slug, id }: WeddingServiceCardProps) {
   return (
-    <Box
-      component={Paper}
+    <Card
       sx={{
         position: 'relative',
         overflow: 'hidden',
         border: '1px solid primary.light',
         transition: 'all 0.3s ease',
         height: '100%',
-        '&:hover': {
-          transform: 'translateY(-8px)',
-        },
+        '&:hover': { transform: 'translateY(-8px)', boxShadow: '0 8px 24px rgba(0,0,0,0.12)' },
       }}
     >
       {isPopular && (
@@ -161,6 +158,6 @@ export function WeddingServiceCard({ title, price, originalPrice, features, imag
           </Box>
         </Box>
       </CardActions>
-    </Box>
+    </Card>
   );
 }
