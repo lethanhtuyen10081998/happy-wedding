@@ -88,30 +88,7 @@ const TravelFooter = () => {
             >
               Dịch vụ
             </Link>
-            <Link
-              href='#'
-              underline='hover'
-              sx={{
-                display: 'block',
-                mb: 1.5,
-                color: 'white',
-                '&:hover': { color: '#4FC3F7' },
-              }}
-            >
-              Điểm đến
-            </Link>
-            <Link
-              href='#'
-              underline='hover'
-              sx={{
-                display: 'block',
-                mb: 1.5,
-                color: 'white',
-                '&:hover': { color: '#4FC3F7' },
-              }}
-            >
-              Khách sạn
-            </Link>
+
             <Link
               href='#'
               underline='hover'
@@ -152,11 +129,11 @@ const TravelFooter = () => {
             </Typography>
             <Box sx={{ display: 'flex', mb: 2, alignItems: 'center' }}>
               <LocationOn sx={{ mr: 1, color: '#4FC3F7' }} />
-              <Typography variant='body2'>123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</Typography>
+              <Typography variant='body2'>156 Lê đình thám Tân quý Tân Phú hcm</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 2, alignItems: 'center' }}>
               <Phone sx={{ mr: 1, color: '#4FC3F7' }} />
-              <Typography variant='body2'>+84 0977 432 789</Typography>
+              <Typography variant='body2'>0377 002 994</Typography>
             </Box>
             {/* <Box sx={{ display: 'flex', mb: 2, alignItems: 'center' }}>
               <Email sx={{ mr: 1, color: '#4FC3F7' }} />

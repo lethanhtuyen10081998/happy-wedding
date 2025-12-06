@@ -150,7 +150,7 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
               textTransform: 'none',
             }}
           >
-            Liên hệ: 0977 432 412
+            Liên hệ: 0377 002 994
           </Button>
           <Button
             variant='outlined'
@@ -164,7 +164,7 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
               textTransform: 'none',
             }}
           >
-            Zalo: 0977 432 412
+            Zalo: 0377 002 994
           </Button>
         </Stack>
 
