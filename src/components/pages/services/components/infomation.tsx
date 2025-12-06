@@ -1,11 +1,8 @@
 'use client';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PhoneIcon from '@mui/icons-material/Phone';
-import ShareIcon from '@mui/icons-material/Share';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { Box, Button, Card, CardContent, Chip, Divider, IconButton, Rating, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Chip, Divider, Rating, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useDetailDataContext } from 'src/context/detailContext/hooksContext';
 import { formatMoney } from 'src/libs/utils';
@@ -25,7 +22,7 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
   const discountPercent = originalPrice && originalPrice > price ? Math.round((1 - price / originalPrice) * 100) : 0;
 
   const handleQuantityChange = (delta: number) => {
-    setQuantity((prev) => Math.max(1, Math.min(stockCount, prev + delta)));
+    setQuantity((prev) => Math.max(1, Math.min(Number(stockCount), prev + delta)));
   };
 
   return (
@@ -47,7 +44,7 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
         {/* Rating & Reviews */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            <Rating value={rating} readOnly size='small' precision={0.5} />
+            <Rating value={Number(rating)} readOnly size='small' precision={0.5} />
             <Typography variant='body2' sx={{ ml: 0.5, fontWeight: 600 }}>
               {rating}
             </Typography>
@@ -168,70 +165,6 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
           </Button>
         </Stack>
 
-        {/* Quantity Selector */}
-        <Box sx={{ mb: 3 }}>
-          <Typography variant='body2' sx={{ fontWeight: 600, mb: 1.5 }}>
-            Số lượng:
-          </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', border: '1px solid', borderColor: 'grey.300', borderRadius: 1 }}>
-              <IconButton size='small' onClick={() => handleQuantityChange(-1)} disabled={quantity <= 1} sx={{ borderRadius: 0 }}>
-                -
-              </IconButton>
-              <TextField
-                value={quantity}
-                onChange={(e) => {
-                  const val = parseInt(e.target.value) || 1;
-                  setQuantity(Math.max(1, Math.min(stockCount, val)));
-                }}
-                inputProps={{
-                  style: { textAlign: 'center', width: 60, padding: '8px 4px' },
-                }}
-                variant='standard'
-                sx={{ '& .MuiInput-underline:before': { display: 'none' } }}
-              />
-              <IconButton size='small' onClick={() => handleQuantityChange(1)} disabled={quantity >= stockCount} sx={{ borderRadius: 0 }}>
-                +
-              </IconButton>
-            </Box>
-            <Typography variant='caption' sx={{ color: 'text.secondary' }}>
-              (Tối đa {stockCount} sản phẩm)
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* Action Icons */}
-        <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
-          <IconButton
-            sx={{
-              border: '1px solid',
-              borderColor: 'grey.300',
-              borderRadius: 2,
-              '&:hover': {
-                bgcolor: 'error.main',
-                color: 'common.white',
-                borderColor: 'error.main',
-              },
-            }}
-          >
-            <FavoriteBorderIcon />
-          </IconButton>
-          <IconButton
-            sx={{
-              border: '1px solid',
-              borderColor: 'grey.300',
-              borderRadius: 2,
-              '&:hover': {
-                bgcolor: 'primary.main',
-                color: 'common.white',
-                borderColor: 'primary.main',
-              },
-            }}
-          >
-            <ShareIcon />
-          </IconButton>
-        </Box>
-
         <Divider sx={{ my: 3 }} />
 
         {/* Features */}
@@ -249,30 +182,6 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
               </Box>
             ))}
           </Stack>
-        </Box>
-
-        <Divider sx={{ my: 3 }} />
-
-        {/* Shipping Info */}
-        <Box sx={{ bgcolor: 'info.light', p: 2, borderRadius: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-            <LocalShippingIcon sx={{ color: 'info.main', mt: 0.5 }} />
-            <Box>
-              <Typography variant='subtitle2' sx={{ fontWeight: 600, mb: 0.5 }}>
-                Giao hàng nhanh
-              </Typography>
-              <Typography variant='caption' sx={{ color: 'text.secondary' }}>
-                Miễn phí vận chuyển cho đơn hàng trên 500.000₫. Giao hàng trong 24h tại TP.HCM
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-
-        {/* Guarantee */}
-        <Box sx={{ mt: 3, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
-          <Typography variant='body2' sx={{ color: 'text.secondary', textAlign: 'center', fontStyle: 'italic' }}>
-            *Cam kết cung cấp dịch vụ chất lượng, uy tín. Chất lượng cao, giá cả hợp lý.*
-          </Typography>
         </Box>
       </CardContent>
     </Card>

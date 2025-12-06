@@ -9,7 +9,7 @@ export default function RelatedProducts({ currentProductId }: { currentProductId
   const { data: products } = useList({ limit: 100, page: 1 });
   const relatedProducts = products.filter((product) => product.id !== currentProductId && product.categoryId === currentProductId);
 
-  if (!relatedProducts) {
+  if (!relatedProducts || relatedProducts.length === 0) {
     return null;
   }
 

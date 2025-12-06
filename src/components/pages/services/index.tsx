@@ -15,7 +15,7 @@ import ProductSpecs from './components/ProductSpecs';
 import RelatedProducts from './components/RelatedProducts';
 
 function WeddingServiceDetail() {
-  const { id, name, price, originalPrice, imagesList, videoUrl, tags, description, reviewCount } = useDetailDataContext<Product>();
+  const { id, name, price, originalPrice, imagesList, videoUrl, tags, description, reviewCount = 0 } = useDetailDataContext<Product>();
   const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -57,7 +57,7 @@ function WeddingServiceDetail() {
               >
                 <Tab label='Mô tả sản phẩm' />
                 <Tab label='Thông số kỹ thuật' />
-                <Tab label={`Đánh giá (${reviewCount || 128})`} />
+                <Tab label={`Đánh giá (${reviewCount || 0})`} />
               </Tabs>
             </Box>
 
