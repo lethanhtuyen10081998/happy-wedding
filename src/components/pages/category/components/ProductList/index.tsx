@@ -40,18 +40,20 @@ export default function ProductList() {
             gridTemplateColumns: {
               xs: '1fr',
               sm: 'repeat(2, 1fr)',
-              lg: 'repeat(3, 1fr)',
+              md: 'repeat(3, 1fr)',
+              lg: 'repeat(4, 1fr)',
             },
-            gap: 3,
+            gap: { xs: 2, sm: 2.5, md: 3 },
           }}
         >
-          {[...Array(6)].map((_, i) => (
-            <Card key={i} sx={{ overflow: 'hidden' }}>
-              <Skeleton variant='rectangular' sx={{ aspectRatio: '3/4' }} />
-              <CardContent>
+          {[...Array(8)].map((_, i) => (
+            <Card key={i} sx={{ overflow: 'hidden', borderRadius: 2 }}>
+              <Skeleton variant='rectangular' sx={{ aspectRatio: '4/3' }} />
+              <CardContent sx={{ p: 2.5 }}>
                 <Skeleton variant='text' width='75%' height={24} sx={{ mb: 1 }} />
+                <Skeleton variant='text' width='50%' height={20} sx={{ mb: 1 }} />
                 <Skeleton variant='text' width='100%' height={20} />
-                <Skeleton variant='text' width='66%' height={20} sx={{ mt: 1 }} />
+                <Skeleton variant='text' width='60%' height={28} sx={{ mt: 1.5 }} />
               </CardContent>
             </Card>
           ))}
@@ -107,22 +109,23 @@ export default function ProductList() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderBottom: '1px solid grey.300',
+          pb: 2,
+          mb: 3,
+          borderBottom: '2px solid',
+          borderColor: 'grey.200',
         }}
       >
-        <Box>
-          <Typography variant='body1'>
-            Hiển thị{' '}
-            <Box component='span' sx={{ fontWeight: 600, color: 'text.primary' }}>
-              {data.length}
-            </Box>{' '}
-            trong tổng số{' '}
-            <Box component='span' sx={{ fontWeight: 600, color: 'text.primary' }}>
-              {total}
-            </Box>{' '}
-            sản phẩm
-          </Typography>
-        </Box>
+        <Typography variant='body1' sx={{ fontWeight: 500, color: 'text.secondary' }}>
+          Hiển thị{' '}
+          <Box component='span' sx={{ fontWeight: 700, color: 'primary.main' }}>
+            {data.length}
+          </Box>{' '}
+          trong tổng số{' '}
+          <Box component='span' sx={{ fontWeight: 700, color: 'primary.main' }}>
+            {total}
+          </Box>{' '}
+          sản phẩm
+        </Typography>
       </Box>
 
       <Box
@@ -131,9 +134,10 @@ export default function ProductList() {
           gridTemplateColumns: {
             xs: '1fr',
             sm: 'repeat(2, 1fr)',
-            lg: 'repeat(3, 1fr)',
+            md: 'repeat(3, 1fr)',
+            lg: 'repeat(4, 1fr)',
           },
-          gap: 3,
+          gap: { xs: 2, sm: 2.5, md: 3 },
         }}
       >
         {data.map((service) => (
@@ -142,16 +146,18 @@ export default function ProductList() {
       </Box>
 
       {total > 12 && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', pt: 5, pb: 2 }}>
           <Paper
             elevation={0}
             sx={{
               display: 'flex',
               alignItems: 'center',
-              gap: 1,
-              p: 1,
-              border: '1px solid #e0e0e0',
-              borderRadius: 1.5,
+              gap: 0.5,
+              p: 0.5,
+              border: '1px solid',
+              borderColor: 'grey.300',
+              borderRadius: 2,
+              bgcolor: 'common.white',
             }}
           >
             <IconButton
@@ -159,10 +165,15 @@ export default function ProductList() {
               onClick={() => onUpdatePage(page - 1)}
               disabled={page === 1}
               sx={{
-                width: 36,
-                height: 36,
+                width: 40,
+                height: 40,
+                borderRadius: 1.5,
                 '&:disabled': {
-                  opacity: 0.5,
+                  opacity: 0.4,
+                },
+                '&:hover:not(:disabled)': {
+                  bgcolor: 'primary.light',
+                  color: 'common.white',
                 },
               }}
             >
@@ -178,15 +189,17 @@ export default function ProductList() {
                   size='small'
                   onClick={() => onUpdatePage(pageNum)}
                   sx={{
-                    minWidth: 36,
-                    width: 36,
-                    height: 36,
+                    minWidth: 40,
+                    width: 40,
+                    height: 40,
                     p: 0,
+                    borderRadius: 1.5,
                     bgcolor: page === pageNum ? 'primary.main' : 'transparent',
                     color: page === pageNum ? 'common.white' : 'text.primary',
-                    fontWeight: 500,
+                    fontWeight: 600,
+                    fontSize: '0.875rem',
                     '&:hover': {
-                      bgcolor: page === pageNum ? 'primary.dark' : 'transparent',
+                      bgcolor: page === pageNum ? 'primary.dark' : 'grey.100',
                     },
                   }}
                 >
@@ -200,10 +213,15 @@ export default function ProductList() {
               onClick={() => onUpdatePage(page + 1)}
               disabled={page >= Math.ceil(total / 12)}
               sx={{
-                width: 36,
-                height: 36,
+                width: 40,
+                height: 40,
+                borderRadius: 1.5,
                 '&:disabled': {
-                  opacity: 0.5,
+                  opacity: 0.4,
+                },
+                '&:hover:not(:disabled)': {
+                  bgcolor: 'primary.light',
+                  color: 'common.white',
                 },
               }}
             >

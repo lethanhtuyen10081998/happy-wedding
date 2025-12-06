@@ -1,11 +1,10 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, FormControl, MenuItem, Select, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
-import { DetailDataContextProvider } from 'src/context/detailContext/provider';
+import Link from 'next/link';
+import { Icon } from 'src/components/icons';
 import { formatMoney } from 'src/libs/utils';
 import useListCategories from 'src/services/admin/settings/categories/getList';
 import { Product } from 'src/types/product';
-
-import ButtonUpdateCategory from '../ButtonUpdate';
 
 const useColumns = () => {
   const { data: categories } = useListCategories({ limit: 100, page: 1 });
@@ -25,6 +24,35 @@ const useColumns = () => {
       header: 'Danh Mục',
       Cell: ({ row }) => {
         return <Typography>{categories.find((category) => category.id === row.original.categoryId)?.name}</Typography>;
+      },
+      filterVariant: 'select',
+      filterSelectOptions: categories.map((category) => ({
+        text: category.name,
+        value: category.id,
+      })),
+      Filter: ({ column }) => {
+        const filterValue = column.getFilterValue() as string;
+        const selectedCategory = categories.find((cat) => cat.id === filterValue);
+
+        return (
+          <FormControl fullWidth size='small' variant='standard'>
+            <Select
+              value={filterValue || ''}
+              onChange={(e) => column.setFilterValue(e.target.value || undefined)}
+              displayEmpty
+              sx={{ minWidth: 120 }}
+            >
+              <MenuItem value=''>
+                <em>Tất cả</em>
+              </MenuItem>
+              {categories.map((category) => (
+                <MenuItem key={category.id} value={category.id}>
+                  {category.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        );
       },
     },
     {
@@ -74,9 +102,11 @@ const useColumns = () => {
       Cell: ({ row }) => {
         return (
           <Box display='flex' gap={2} position='relative'>
-            <DetailDataContextProvider data={row.original}>
-              <ButtonUpdateCategory data={row.original} />
-            </DetailDataContextProvider>
+            <Link href={`/admin/manage/products/${row.original.id}`}>
+              <Button>
+                <Icon name='edit' />
+              </Button>
+            </Link>
           </Box>
         );
       },

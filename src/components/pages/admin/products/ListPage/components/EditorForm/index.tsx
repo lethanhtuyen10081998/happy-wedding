@@ -14,6 +14,8 @@ import { formatMoneyToNumber } from 'src/libs/utils';
 import { FormEditorProps } from 'src/types/formEditor';
 
 import DescriptionContent from './components/Description';
+import ReviewsField from './components/ReviewsField';
+import SpecificationsField from './components/SpecificationsField';
 import UploadArea from './components/UploadArea';
 import { EditorFormRequest } from './types';
 import { validation } from './validation';
@@ -25,6 +27,9 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
     defaultValues: {
       ...defaultValues,
       tags: defaultValues?.tags?.length ? defaultValues?.tags?.map((tag) => tag.trim()) : [''],
+      reviews: defaultValues?.reviews || [],
+      specifications: defaultValues?.specifications || [],
+      highlights: defaultValues?.highlights || [],
     },
   });
 
@@ -60,7 +65,7 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
           <UploadArea />
 
           <Box mt={2}>
-            <Grid container spacing={SPACING.lg}>
+            <Grid container spacing={SPACING.xs}>
               <Grid item md={6}>
                 <FormTextField
                   name='name'
@@ -77,22 +82,17 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
                 <AutoCompleteCategoriesField name='categoryId' label='Danh mục' getItemValue={(item) => item.id} getItemLabel={(item) => item.name} />
               </Grid>
 
-              <Grid item md={3}>
+              <Grid item md={2}>
                 <NumberField name='price' label='Giá' />
               </Grid>
-              <Grid item md={3}>
+              <Grid item md={2}>
                 <NumberField name='originalPrice' label='Giá gốc' />
               </Grid>
-              <Grid item md={3}>
+              <Grid item md={2}>
                 <NumberField name='quantity' label='Số lượng' />
               </Grid>
-              <Grid item md={3}>
+              <Grid item md={2}>
                 <FormTextField name='unit' label='Đơn vị' />
-              </Grid>
-              <Grid item md={3}>
-                <Box display='flex' alignItems='center'>
-                  <CheckboxField name='isShowHomePage' label='Hiển thị trang chủ' />
-                </Box>
               </Grid>
 
               <Grid item md={12}>
@@ -100,6 +100,45 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
               </Grid>
               <Grid item md={4}>
                 <FormArrayTextField name='tags' label='Danh sách ưu đãi' />
+              </Grid>
+              <Grid item md={4}>
+                <FormArrayTextField name='highlights' label='Điểm nổi bật' />
+              </Grid>
+
+              <Grid item md={4}>
+                <Box display='flex' alignItems='center'>
+                  <CheckboxField name='isShowHomePage' label='Hiển thị trang chủ' />
+                </Box>
+              </Grid>
+
+              <Grid item md={12}>
+                <Box sx={{ mt: 3, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
+                  <SpecificationsField />
+                </Box>
+              </Grid>
+
+              <Grid item md={12}>
+                <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
+                  <ReviewsField />
+                </Box>
+              </Grid>
+
+              <Grid item md={3}>
+                <NumberField name='rating' label='Đánh giá trung bình (0-5)' />
+              </Grid>
+              <Grid item md={3}>
+                <NumberField name='reviewCount' label='Số lượng đánh giá' />
+              </Grid>
+              <Grid item md={3}>
+                <NumberField name='soldCount' label='Số lượng đã bán' />
+              </Grid>
+              <Grid item md={3}>
+                <NumberField name='stockCount' label='Số lượng tồn kho' />
+              </Grid>
+              <Grid item md={3}>
+                <Box display='flex' alignItems='center'>
+                  <CheckboxField name='inStock' label='Còn hàng' />
+                </Box>
               </Grid>
 
               <Grid item md={12}>

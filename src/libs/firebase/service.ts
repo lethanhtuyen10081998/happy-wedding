@@ -146,31 +146,74 @@ export class FirestoreService {
         q = query(q, orderBy(orderByField, orderDirection || 'asc'));
       }
 
-      // ⏩ Phân trang
-      if (startAfterDoc) {
-        q = query(q, startAfter(startAfterDoc));
-      }
-
-      if (pageSize) {
-        q = query(q, limit(pageSize));
-      }
-
       // 🔍 Lấy dữ liệu
-      const snapshot = await getDocs(q);
-      console.log('📘 FirebaseService - Query result:', {
-        docsCount: snapshot.docs.length,
-        isEmpty: snapshot.empty,
-        docs: snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })),
-      });
+      let allDocs: QueryDocumentSnapshot<DocumentData>[] = [];
+      
+      if (pageSize) {
+        // Fetch with limit and startAfter
+        if (startAfterDoc) {
+          q = query(q, startAfter(startAfterDoc));
+        }
+        q = query(q, limit(pageSize));
+        const snapshot = await getDocs(q);
+        allDocs = snapshot.docs;
+      } else {
+        // Fetch all documents by looping through batches
+        const batchSize = 1000; // Firestore limit per query
+        let currentLastDoc: QueryDocumentSnapshot<DocumentData> | null = startAfterDoc || null;
+        let hasMore = true;
 
-      const docs = snapshot.docs.map((doc) => ({
+        while (hasMore) {
+          // Build query for this batch
+          let batchQuery: any = collection(this.db, collectionName);
+          
+          // Apply conditions
+          if (conditions && conditions.length > 0) {
+            const validConditions = conditions.filter((c) => {
+              if ((c.op === 'in' || c.op === 'array-contains-any') && (!Array.isArray(c.value) || c.value.length === 0)) {
+                return false;
+              }
+              return true;
+            });
+            if (validConditions.length > 0) {
+              const filters = validConditions.map((c) => where(c.field, c.op, c.value));
+              batchQuery = query(batchQuery, ...filters);
+            }
+          }
+          
+          // Apply orderBy
+          if (orderByField) {
+            batchQuery = query(batchQuery, orderBy(orderByField, orderDirection || 'asc'));
+          }
+          
+          // Apply startAfter for pagination
+          if (currentLastDoc) {
+            batchQuery = query(batchQuery, startAfter(currentLastDoc));
+          }
+          
+          // Apply limit
+          batchQuery = query(batchQuery, limit(batchSize));
+          
+          const snapshot = await getDocs(batchQuery);
+          allDocs = [...allDocs, ...snapshot.docs];
+          
+          hasMore = snapshot.docs.length === batchSize;
+          if (hasMore && snapshot.docs.length > 0) {
+            currentLastDoc = snapshot.docs[snapshot.docs.length - 1];
+          } else {
+            hasMore = false;
+          }
+        }
+      }
+
+      const docs = allDocs.map((doc) => ({
         id: doc.id,
         ...(doc.data() as T),
       }));
 
-      const lastDocSnap = snapshot.docs.length > 0 ? snapshot.docs[snapshot.docs.length - 1] : null;
+      const lastDocSnap = allDocs.length > 0 ? allDocs[allDocs.length - 1] : null;
 
-      // 🔢 Đếm tổng số (nếu bạn có method riêng countDocuments)
+      // 🔢 Đếm tổng số
       const total = await this.countDocuments(collectionName, conditions);
 
       return {

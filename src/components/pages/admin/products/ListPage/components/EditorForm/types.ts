@@ -1,10 +1,13 @@
 import { FileUpload } from 'src/components/ui/Dropzone';
 import { Category } from 'src/types/admin/categories';
-import { Product } from 'src/types/product';
+import { Product, ProductReview, ProductSpecification } from 'src/types/product';
 
 export type EditorFormRequest = Omit<Product, 'categoryId' | 'imagesList'> & {
   categoryId?: Category | null;
   images?: EditorFormImage[];
+  specifications?: ProductSpecification[];
+  reviews?: ProductReview[];
+  highlights?: string[];
 };
 
 export enum EditorFormAction {

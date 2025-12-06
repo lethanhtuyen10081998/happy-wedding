@@ -62,6 +62,14 @@ const ButtonCreateCategory = () => {
         videoUrl: values.videoUrl || '',
         isShowHomePage: values.isShowHomePage || false,
         slug: values.slug || '',
+        specifications: values.specifications || [],
+        reviews: values.reviews || [],
+        highlights: values.highlights || [],
+        rating: values.rating ? Number(values.rating) : undefined,
+        reviewCount: values.reviewCount ? Number(values.reviewCount) : undefined,
+        soldCount: values.soldCount ? Number(values.soldCount) : undefined,
+        stockCount: values.stockCount ? Number(values.stockCount) : undefined,
+        inStock: values.inStock !== undefined ? values.inStock : true,
       })
         .then(() => {
           enqueueSnackbar('Tạo sản phẩm thành công!', { variant: 'success' });

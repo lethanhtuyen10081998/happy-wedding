@@ -1,5 +1,6 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import PagePadding from 'src/components/PagePadding';
+import Container from 'src/components/material/Container';
 
 import Filter from './components/Filter';
 import ProductList from './components/ProductList';
@@ -7,8 +8,8 @@ import ProductList from './components/ProductList';
 export default function CategoryDetail() {
   return (
     <PagePadding>
-      <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
-        <Container maxWidth='lg' sx={{ py: 4 }}>
+      <Box sx={{ minHeight: '100vh', bgcolor: 'common.white' }}>
+        <Container sx={{ py: 4 }}>
           <Box
             sx={{
               display: 'flex',

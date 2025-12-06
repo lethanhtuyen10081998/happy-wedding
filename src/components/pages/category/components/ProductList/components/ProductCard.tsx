@@ -1,39 +1,63 @@
 'use client';
 
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Box, Button, Card, CardContent, Chip, Typography } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+import { Box, Button, Card, CardContent, Chip, IconButton, Rating, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from 'src/types/product';
 
 export default function ProductCard({ service }: { service: Product }) {
+  // Get data from product
+  const rating = service.rating || 4.5;
+  const reviewCount = service.reviewCount || 128;
+  const inStock = service.inStock !== undefined ? service.inStock : true;
+  const isNew = false; // Can be added to Product type later
+  const discountPercent = service.originalPrice && Number(service.originalPrice) > Number(service.price) 
+    ? Math.round((1 - Number(service.price) / Number(service.originalPrice)) * 100) 
+    : 0;
+
   return (
-    <Link key={service.id} href={`/san-pham/${service.slug}?productId=${service.id}`} style={{ textDecoration: 'none' }}>
-      <Card
-        sx={{
-          position: 'relative',
-          overflow: 'hidden',
-          border: '1px solid primary.light',
-          transition: 'all 0.3s ease',
-          '&:hover': {
-            transform: 'translateY(-8px)',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
-            '& .product-image': {
-              transform: 'scale(1.1)',
-            },
-            '& .quick-view': {
-              opacity: 1,
-            },
+    <Card
+      sx={{
+        position: 'relative',
+        overflow: 'visible',
+        border: '1px solid',
+        borderColor: 'grey.200',
+        borderRadius: 2,
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        bgcolor: 'common.white',
+        '&:hover': {
+          transform: 'translateY(-8px)',
+          boxShadow: '0 12px 32px rgba(0,0,0,0.15)',
+          borderColor: 'primary.main',
+          '& .product-image': {
+            transform: 'scale(1.05)',
           },
-        }}
+          '& .quick-view': {
+            opacity: 1,
+            visibility: 'visible',
+          },
+          '& .wishlist-btn': {
+            opacity: 1,
+            visibility: 'visible',
+          },
+        },
+      }}
+    >
+      <Link 
+        href={`/san-pham/${service.slug}?productId=${service.id}`} 
+        style={{ textDecoration: 'none', display: 'block' }}
       >
         <Box
           sx={{
             position: 'relative',
-            aspectRatio: '6/4',
+            aspectRatio: '4/3',
             overflow: 'hidden',
-            bgcolor: 'grey.100',
+            bgcolor: 'grey.50',
+            borderRadius: '8px 8px 0 0',
           }}
         >
           {service.imagesList?.[0] ? (
@@ -43,8 +67,9 @@ export default function ProductCard({ service }: { service: Product }) {
               fill
               className='product-image'
               style={{
-                objectFit: 'cover',
-                transition: 'transform 0.5s ease',
+                objectFit: 'contain',
+                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                backgroundColor: '#f8f9fa',
               }}
             />
           ) : (
@@ -55,29 +80,72 @@ export default function ProductCard({ service }: { service: Product }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'linear-gradient(135deg, grey.100 0%, grey.300 100%)',
+                background: 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
               }}
             >
-              <LocalOfferIcon sx={{ fontSize: 64, color: 'grey.500' }} />
+              <LocalOfferIcon sx={{ fontSize: 64, color: 'grey.400' }} />
             </Box>
           )}
 
-          {service.originalPrice && Number(service.originalPrice) > Number(service.price) && (
-            <Chip
-              label={`-${Math.round((1 - Number(service.price) / Number(service.originalPrice)) * 100)}%`}
-              sx={{
-                position: 'absolute',
-                top: 12,
-                right: 12,
+          {/* Badges */}
+          <Box sx={{ position: 'absolute', top: 12, left: 12, display: 'flex', flexDirection: 'column', gap: 1 }}>
+            {discountPercent > 0 && (
+              <Chip
+                label={`-${discountPercent}%`}
+                sx={{
+                  bgcolor: 'error.main',
+                  color: 'common.white',
+                  fontWeight: 700,
+                  fontSize: '0.75rem',
+                  height: 28,
+                  boxShadow: '0 2px 8px rgba(229, 0, 0, 0.3)',
+                }}
+              />
+            )}
+            {isNew && (
+              <Chip
+                label='MỚI'
+                sx={{
+                  bgcolor: 'success.main',
+                  color: 'common.white',
+                  fontWeight: 700,
+                  fontSize: '0.75rem',
+                  height: 28,
+                  boxShadow: '0 2px 8px rgba(5, 180, 106, 0.3)',
+                }}
+              />
+            )}
+          </Box>
+
+          {/* Wishlist Button */}
+          <IconButton
+            className='wishlist-btn'
+            sx={{
+              position: 'absolute',
+              top: 12,
+              right: 12,
+              bgcolor: 'common.white',
+              width: 40,
+              height: 40,
+              opacity: 0,
+              visibility: 'hidden',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              '&:hover': {
                 bgcolor: 'error.main',
                 color: 'common.white',
-                fontWeight: 600,
-                fontSize: '0.875rem',
-                height: 28,
-              }}
-            />
-          )}
+                transform: 'scale(1.1)',
+              },
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+          >
+            <FavoriteBorderIcon fontSize='small' />
+          </IconButton>
 
+          {/* Quick View Overlay */}
           <Box
             className='quick-view'
             sx={{
@@ -86,31 +154,64 @@ export default function ProductCard({ service }: { service: Product }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              bgcolor: 'rgba(0,0,0,0.4)', // TODO: change to theme color
+              bgcolor: 'rgba(0,0,0,0.5)',
               opacity: 0,
-              transition: 'opacity 0.3s ease',
+              visibility: 'hidden',
+              transition: 'all 0.3s ease',
+              backdropFilter: 'blur(2px)',
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
             }}
           >
             <Button
               variant='contained'
-              size='small'
+              size='medium'
               startIcon={<ShoppingCartIcon />}
               sx={{
                 bgcolor: 'common.white',
                 color: 'text.primary',
-                fontWeight: 500,
+                fontWeight: 600,
                 textTransform: 'none',
+                px: 3,
+                py: 1.5,
+                borderRadius: 2,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
                 '&:hover': {
-                  bgcolor: 'grey.100',
+                  bgcolor: 'primary.main',
+                  color: 'common.white',
+                  transform: 'scale(1.05)',
                 },
               }}
             >
               Xem nhanh
             </Button>
           </Box>
+
+          {/* Stock Badge */}
+          {!inStock && (
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                bgcolor: 'rgba(0,0,0,0.7)',
+                color: 'common.white',
+                textAlign: 'center',
+                py: 1,
+                fontWeight: 600,
+                fontSize: '0.875rem',
+              }}
+            >
+              Hết hàng
+            </Box>
+          )}
         </Box>
 
-        <CardContent sx={{ px: 1, position: 'relative', height: 1 }}>
+        <CardContent sx={{ p: 2.5 }}>
+          {/* Product Name */}
           <Typography
             sx={{
               fontWeight: 600,
@@ -122,64 +223,68 @@ export default function ProductCard({ service }: { service: Product }) {
               WebkitLineClamp: 2,
               WebkitBoxOrient: 'vertical',
               lineHeight: 1.4,
+              fontSize: '1rem',
+              minHeight: 48,
               transition: 'color 0.2s ease',
-              height: 40,
               '&:hover': {
                 color: 'primary.main',
               },
-              textTransform: 'capitalize',
             }}
           >
-            {service.name.toLowerCase()}
+            {service.name}
           </Typography>
 
-          <Typography
-            variant='caption'
-            sx={{
-              color: 'grey.500',
-              mb: 2,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-              lineHeight: 1.6,
-              fontSize: '0.875rem',
-              height: 40,
-            }}
-            dangerouslySetInnerHTML={{
-              __html: service.description ? service.description.replace(/<[^>]*>/g, '').toLowerCase() : 'Chưa có mô tả',
-            }}
-          />
+          {/* Rating */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
+            <Rating
+              value={rating}
+              readOnly
+              size='small'
+              sx={{
+                '& .MuiRating-iconFilled': {
+                  color: 'warning.main',
+                },
+              }}
+            />
+            <Typography variant='caption' sx={{ color: 'text.secondary', fontSize: '0.75rem' }}>
+              ({reviewCount})
+            </Typography>
+          </Box>
 
+          {/* Tags */}
           {service.tags && service.tags.length > 0 && (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75, mb: 1.5 }}>
-              {(service.tags.slice(0, 2) || ['Chưa có tag']).map((tag, idx) => (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 1.5 }}>
+              {service.tags.slice(0, 2).map((tag, idx) => (
                 <Chip
                   key={idx}
-                  label={tag ? tag.slice(0, 20) + '...' : 'Chưa có tag'}
+                  label={tag}
                   size='small'
                   sx={{
-                    height: 22,
-                    fontSize: '0.75rem',
+                    height: 20,
+                    fontSize: '0.7rem',
                     fontWeight: 500,
-                    bgcolor: 'grey.100',
-                    color: 'text.secondary',
+                    bgcolor: 'primary.light',
+                    color: 'common.white',
+                    '& .MuiChip-label': {
+                      px: 1,
+                    },
                   }}
                 />
               ))}
             </Box>
           )}
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {/* Price */}
+          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1, mt: 'auto' }}>
             <Typography
               variant='h6'
               sx={{
                 fontWeight: 700,
-                color: (theme) => theme.palette.primary.main,
+                color: 'primary.main',
+                fontSize: '1.25rem',
               }}
             >
-              {(service.price as number).toLocaleString('vi-VN')}₫
+              {Number(service.price).toLocaleString('vi-VN')}₫
             </Typography>
 
             {service.originalPrice && Number(service.originalPrice) > Number(service.price) && (
@@ -192,12 +297,19 @@ export default function ProductCard({ service }: { service: Product }) {
                   textDecoration: 'line-through',
                 }}
               >
-                {service.originalPrice.toLocaleString('vi-VN')}₫
+                {Number(service.originalPrice).toLocaleString('vi-VN')}₫
               </Typography>
             )}
           </Box>
+
+          {/* Stock Status */}
+          {inStock && (
+            <Typography variant='caption' sx={{ color: 'success.main', fontWeight: 500, display: 'block', mt: 0.5 }}>
+              ✓ Còn hàng
+            </Typography>
+          )}
         </CardContent>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   );
 }

@@ -1,12 +1,16 @@
-import { IconButton } from '@mui/material';
+import { Card } from '@mui/material';
+import { useParams } from 'next/navigation';
 import { useSnackbar } from 'notistack';
 import { useCallback } from 'react';
-import { Icon } from 'src/components/icons';
+import SpinnerCenter from 'src/components/material/Spinner/SpinnerCenter';
+import EditorForm from 'src/components/pages/admin/products/ListPage/components/EditorForm';
+import { EditorFormAction, EditorFormRequest } from 'src/components/pages/admin/products/ListPage/components/EditorForm/types';
 import { FileUpload } from 'src/components/ui/Dropzone';
-import { useModal } from 'src/components/ui/ModalEditor/useModal';
 import { useRefreshData } from 'src/context/dataContext/hooksContext';
+import { DetailDataContextProvider } from 'src/context/detailContext/provider';
 import useSpinner from 'src/hooks/useSpinner';
 import { formatMoneyToNumber } from 'src/libs/utils';
+import useDetail from 'src/services/admin/manage/product/detail';
 import useUpdateProduct from 'src/services/admin/manage/product/update';
 import useListCategories from 'src/services/admin/settings/categories/getList';
 import { deleteFile } from 'src/services/fileUpload/deleteFile';
@@ -14,14 +18,10 @@ import { uploadFile } from 'src/services/fileUpload/uploadFile';
 import { FormMode } from 'src/types/formEditor';
 import { Product } from 'src/types/product';
 
-import EditorForm from '../EditorForm';
-import { EditorFormAction, EditorFormRequest } from '../EditorForm/types';
-
-const ButtonUpdateCategory = ({ data }: { data: Product }) => {
+const ProductDetailPage = ({ data }: { data: Product }) => {
   const refreshData = useRefreshData();
   const { mutateAsync, status } = useUpdateProduct();
   const { enqueueSnackbar } = useSnackbar();
-  const { Dialog, open, close } = useModal();
   const { data: categories } = useListCategories({ limit: 100, page: 1 });
   const { hideLoading, startLoading } = useSpinner();
 
@@ -96,16 +96,15 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
         specifications: values.specifications || [],
         reviews: values.reviews || [],
         highlights: values.highlights || [],
-        rating: values.rating ? Number(values.rating) : undefined,
-        reviewCount: values.reviewCount ? Number(values.reviewCount) : undefined,
-        soldCount: values.soldCount ? Number(values.soldCount) : undefined,
-        stockCount: values.stockCount ? Number(values.stockCount) : undefined,
+        rating: values.rating ? values.rating : undefined,
+        reviewCount: values.reviewCount ? values.reviewCount : undefined,
+        soldCount: values.soldCount ? values.soldCount : undefined,
+        stockCount: values.stockCount ? values.stockCount : undefined,
         inStock: values.inStock !== undefined ? values.inStock : true,
       })
         .then(() => {
           enqueueSnackbar('Cập nhật sản phẩm thành công!', { variant: 'success' });
           refreshData();
-          close();
         })
         .catch((error) => {
           enqueueSnackbar('Cập nhật sản phẩm thất bại!', {
@@ -116,65 +115,69 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
           hideLoading();
         });
     },
-    [handleUploadImages, handleDeleteImages, startLoading, mutateAsync, enqueueSnackbar, refreshData, close, hideLoading],
+    [handleUploadImages, handleDeleteImages, startLoading, mutateAsync, enqueueSnackbar, refreshData, hideLoading],
   );
 
   return (
-    <>
-      <IconButton onClick={open}>
-        <Icon name='edit' />
-      </IconButton>
-
-      <Dialog
+    <Card sx={{ p: 2 }}>
+      <EditorForm
+        onSubmit={handleSubmit}
         loading={status === 'pending'}
-        label='Cập Nhật Sản Phẩm'
-        dialogProps={{
-          fullScreen: true,
+        buttonLabel='Cập Nhật Sản Phẩm'
+        title='Cập Nhật Sản Phẩm'
+        defaultValues={{
+          name: data.name,
+          id: data.id,
+          categoryId: categories.find((category) => category.id === data.categoryId) || null,
+          price: data.price?.toString() || '',
+          quantity: data.quantity?.toString() || '',
+          unit: data.unit,
+          originalPrice: data.originalPrice?.toString() || '',
+          tags: data.tags,
+          description: data.description,
+          videoUrl: data.videoUrl,
+          images: data?.imagesList?.map((image) => ({
+            action: EditorFormAction.DEFAULT,
+            file: {
+              src: image,
+              name: image.split('/').pop(),
+              type: image.split('/').pop()?.split('.').pop(),
+              size: image.split('/').pop()?.length,
+              lastModified: image.split('/').pop()?.length,
+              webkitRelativePath: image.split('/').pop()?.length,
+            } as unknown as FileUpload,
+          })),
+          isShowHomePage: data.isShowHomePage || false,
+          slug: data.slug || '',
+          specifications: data.specifications || [],
+          reviews: data.reviews || [],
+          highlights: data.highlights || [],
+          rating: data.rating?.toString() || '',
+          reviewCount: data.reviewCount?.toString() || '',
+          soldCount: data.soldCount?.toString() || '',
+          stockCount: data.stockCount?.toString() || '',
+          inStock: data.inStock !== undefined ? data.inStock : true,
         }}
-      >
-        <EditorForm
-          onSubmit={handleSubmit}
-          loading={status === 'pending'}
-          buttonLabel='Cập Nhật Sản Phẩm'
-          title='Cập Nhật Sản Phẩm'
-          defaultValues={{
-            name: data.name,
-            id: data.id,
-            categoryId: categories.find((category) => category.id === data.categoryId) || null,
-            price: data.price?.toString() || '',
-            quantity: data.quantity?.toString() || '',
-            unit: data.unit,
-            originalPrice: data.originalPrice?.toString() || '',
-            tags: data.tags,
-            description: data.description,
-            videoUrl: data.videoUrl,
-            images: data?.imagesList?.map((image) => ({
-              action: EditorFormAction.DEFAULT,
-              file: {
-                src: image,
-                name: image.split('/').pop(),
-                type: image.split('/').pop()?.split('.').pop(),
-                size: image.split('/').pop()?.length,
-                lastModified: image.split('/').pop()?.length,
-                webkitRelativePath: image.split('/').pop()?.length,
-              } as unknown as FileUpload,
-            })),
-            isShowHomePage: data.isShowHomePage || false,
-            slug: data.slug || '',
-            specifications: data.specifications || [],
-            reviews: data.reviews || [],
-            highlights: data.highlights || [],
-            rating: data.rating?.toString() || '',
-            reviewCount: data.reviewCount?.toString() || '',
-            soldCount: data.soldCount?.toString() || '',
-            stockCount: data.stockCount?.toString() || '',
-            inStock: data.inStock !== undefined ? data.inStock : true,
-          }}
-          mode={FormMode.EDIT}
-        />
-      </Dialog>
-    </>
+        mode={FormMode.EDIT}
+      />
+    </Card>
   );
 };
 
-export default ButtonUpdateCategory;
+const ProductDetailPageWrapper = () => {
+  const { id } = useParams();
+  const { data: product } = useDetail({ id: id as string });
+  const { data, isFetching } = useListCategories({ limit: 100, page: 1 });
+
+  if (!product || isFetching || !data) {
+    return <SpinnerCenter />;
+  }
+  console.log({ product });
+  return (
+    <DetailDataContextProvider data={product}>
+      <ProductDetailPage data={product} />
+    </DetailDataContextProvider>
+  );
+};
+
+export default ProductDetailPageWrapper;

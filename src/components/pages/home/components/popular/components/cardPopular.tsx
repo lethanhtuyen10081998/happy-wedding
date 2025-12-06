@@ -2,9 +2,9 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { Badge, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { Heart, Sparkles } from 'lucide-react';
 import Image from 'next/image';
-import NextLink from 'next/link';
 import type React from 'react';
 import Button from 'src/components/material/Button';
+import NextLink from 'src/components/material/NextLink';
 import { Routes } from 'src/constants/route';
 import { formatMoney } from 'src/libs/utils';
 import variables from 'src/themes/variables';
@@ -56,29 +56,30 @@ export function WeddingServiceCard({
       )}
 
       <Box sx={{ position: 'relative', height: '192px', overflow: 'hidden', borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}>
-        {image ? (
-          <Image
-            src={image || '/placeholder.svg'}
-            alt={title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            width={384}
-            height={192}
-          />
-        ) : (
-          <Box
-            sx={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'linear-gradient(135deg, grey.100 0%, grey.300 100%)',
-            }}
-          >
-            <LocalOfferIcon sx={{ fontSize: 64, color: 'grey.500' }} />
-          </Box>
-        )}
-
+        <NextLink href={`${Routes.SERVICES.replace(':id', slug)}?productId=${id}`}>
+          {image ? (
+            <Image
+              src={image || '/placeholder.svg'}
+              alt={title}
+              style={{ width: '100%', height: '100%', objectFit: 'contain', backgroundColor: 'black' }}
+              width={384}
+              height={192}
+            />
+          ) : (
+            <Box
+              sx={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'linear-gradient(135deg, grey.100 0%, grey.300 100%)',
+              }}
+            >
+              <LocalOfferIcon sx={{ fontSize: 64, color: 'grey.500' }} />
+            </Box>
+          )}
+        </NextLink>
         <div style={{ position: 'absolute', bottom: '8px', left: '8px', color: 'white' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <Badge sx={{ backgroundColor: 'primary.main', fontWeight: 'bold', borderRadius: variables.borderRadius, padding: '4px 8px' }}>
@@ -91,29 +92,30 @@ export function WeddingServiceCard({
       </Box>
 
       <CardContent style={{ padding: '12px' }}>
-        <div style={{ marginBottom: '16px' }}>
-          <Typography
-            sx={{
-              marginBottom: '8px',
-              textWrap: 'balance',
-              fontWeight: 600,
-              color: 'text.primary',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-              transition: 'color 0.2s ease',
-              '&:hover': {
-                color: 'primary.main',
-              },
-              textTransform: 'capitalize',
-            }}
-          >
-            {title}
-          </Typography>
-        </div>
-
+        <NextLink href={`${Routes.SERVICES.replace(':id', slug)}?productId=${id}`}>
+          <div style={{ marginBottom: '16px' }}>
+            <Typography
+              sx={{
+                marginBottom: '8px',
+                textWrap: 'balance',
+                fontWeight: 600,
+                color: 'text.primary',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                transition: 'color 0.2s ease',
+                '&:hover': {
+                  color: 'primary.main',
+                },
+                textTransform: 'capitalize',
+              }}
+            >
+              {title}
+            </Typography>
+          </div>
+        </NextLink>
         <div style={{ marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
             <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'primary.main' }}>
