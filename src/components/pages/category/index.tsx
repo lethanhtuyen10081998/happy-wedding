@@ -8,7 +8,7 @@ import ProductList from './components/ProductList';
 export default function CategoryDetail() {
   return (
     <PagePadding>
-      <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
+      <Box sx={{ minHeight: '100vh', bgcolor: 'common.white' }}>
         <Container sx={{ py: 4 }}>
           <Box
             sx={{
