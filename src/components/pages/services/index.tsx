@@ -1,18 +1,17 @@
 'use client';
 
-import { Box, Card, CardContent, Chip, Divider, Grid, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Card, Chip, Grid, Tab, Tabs, Typography } from '@mui/material';
+import { useState } from 'react';
 import Container from 'src/components/material/Container';
 import RatioBox from 'src/components/ui/RatioBox';
-import { SPACING } from 'src/constants/grid';
 import { useDetailDataContext } from 'src/context/detailContext/hooksContext';
 import variables from 'src/themes/variables';
 import { Product } from 'src/types/product';
-import { useState } from 'react';
 
 import Gallery from './components/gallery';
 import Infomation from './components/infomation';
-import ProductSpecs from './components/ProductSpecs';
 import ProductReviews from './components/ProductReviews';
+import ProductSpecs from './components/ProductSpecs';
 import RelatedProducts from './components/RelatedProducts';
 
 function WeddingServiceDetail() {
@@ -78,15 +77,12 @@ function WeddingServiceDetail() {
 
                   {/* Tags */}
                   {tags && tags.length > 0 && (
-                    <Box sx={{ mt: 4, pt: 3, borderTop: '1px solid', borderColor: 'grey.200' }}>
-                      <Typography variant='subtitle1' sx={{ fontWeight: 600, mb: 2 }}>
-                        Tags:
-                      </Typography>
+                    <Box sx={{ mt: 4, pt: 3, borderTop: '1px solid', borderColor: 'grey.200', display: 'flex', alignItems: 'center', gap: 1 }}>
                       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                         {tags.map((tag, index) => (
                           <Chip
                             key={index}
-                            label={tag}
+                            label={tag || 'Chưa có ưu đãi'}
                             sx={{
                               bgcolor: 'primary.light',
                               color: 'common.white',
