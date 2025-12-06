@@ -43,8 +43,9 @@ export default function ProductCard({ service }: { service: Product }) {
               fill
               className='product-image'
               style={{
-                objectFit: 'cover',
+                objectFit: 'contain',
                 transition: 'transform 0.5s ease',
+                backgroundColor: 'black',
               }}
             />
           ) : (

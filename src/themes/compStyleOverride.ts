@@ -74,23 +74,23 @@ export default function componentStyleOverrides(theme: IThemeOption): Components
     //   },
     // },
 
-    // MuiContainer: {
-    //   styleOverrides: {
-    //     root: {
-    //       '@media (min-width: 1500px)': {
-    //         maxWidth: '1500px',
-    //       },
-    //     },
-    //     maxWidthLg: 1700,
-    //     maxWidthMd: 1700,
-    //     maxWidthSm: 1440,
-    //     maxWidthXl: 1440,
-    //     maxWidthXs: 1440,
-    //     fixed: {
-    //       width: '100%',
-    //     },
-    //   },
-    // },
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          '@media (min-width: 1500px)': {
+            maxWidth: '1500px',
+          },
+        },
+        maxWidthLg: 1700,
+        maxWidthMd: 1700,
+        maxWidthSm: 1440,
+        maxWidthXl: 1440,
+        maxWidthXs: 1440,
+        fixed: {
+          width: '100%',
+        },
+      },
+    },
 
     // // MuiInput: {
     // //   styleOverrides: {
