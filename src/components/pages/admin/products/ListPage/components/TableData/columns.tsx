@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, FormControl, MenuItem, Select, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 import Link from 'next/link';
 import { Icon } from 'src/components/icons';
@@ -24,6 +24,35 @@ const useColumns = () => {
       header: 'Danh Mục',
       Cell: ({ row }) => {
         return <Typography>{categories.find((category) => category.id === row.original.categoryId)?.name}</Typography>;
+      },
+      filterVariant: 'select',
+      filterSelectOptions: categories.map((category) => ({
+        text: category.name,
+        value: category.id,
+      })),
+      Filter: ({ column }) => {
+        const filterValue = column.getFilterValue() as string;
+        const selectedCategory = categories.find((cat) => cat.id === filterValue);
+
+        return (
+          <FormControl fullWidth size='small' variant='standard'>
+            <Select
+              value={filterValue || ''}
+              onChange={(e) => column.setFilterValue(e.target.value || undefined)}
+              displayEmpty
+              sx={{ minWidth: 120 }}
+            >
+              <MenuItem value=''>
+                <em>Tất cả</em>
+              </MenuItem>
+              {categories.map((category) => (
+                <MenuItem key={category.id} value={category.id}>
+                  {category.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        );
       },
     },
     {
