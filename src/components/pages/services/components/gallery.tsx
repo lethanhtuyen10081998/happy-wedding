@@ -31,9 +31,10 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
       <Box
         sx={{
           position: 'relative',
-          aspectRatio: '16/9',
+          aspectRatio: '16/10',
           width: '100%',
           overflow: 'hidden',
+          backgroundColor: 'black',
         }}
       >
         <Image
@@ -42,7 +43,7 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
           src={gallery[currentImageIndex] || '/placeholder.svg?height=500&width=800'}
           alt={`${title} - Ảnh ${currentImageIndex + 1}`}
           style={{
-            objectFit: 'cover',
+            objectFit: 'contain',
             opacity: fade ? 1 : 0,
             transition: 'opacity 0.5s ease-in-out',
             borderRadius: variables.borderRadius,
