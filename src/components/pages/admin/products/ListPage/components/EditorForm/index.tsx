@@ -65,7 +65,7 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
           <UploadArea />
 
           <Box mt={2}>
-            <Grid container spacing={SPACING.lg}>
+            <Grid container spacing={SPACING.xs}>
               <Grid item md={6}>
                 <FormTextField
                   name='name'
@@ -82,22 +82,17 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
                 <AutoCompleteCategoriesField name='categoryId' label='Danh mục' getItemValue={(item) => item.id} getItemLabel={(item) => item.name} />
               </Grid>
 
-              <Grid item md={3}>
+              <Grid item md={2}>
                 <NumberField name='price' label='Giá' />
               </Grid>
-              <Grid item md={3}>
+              <Grid item md={2}>
                 <NumberField name='originalPrice' label='Giá gốc' />
               </Grid>
-              <Grid item md={3}>
+              <Grid item md={2}>
                 <NumberField name='quantity' label='Số lượng' />
               </Grid>
-              <Grid item md={3}>
+              <Grid item md={2}>
                 <FormTextField name='unit' label='Đơn vị' />
-              </Grid>
-              <Grid item md={3}>
-                <Box display='flex' alignItems='center'>
-                  <CheckboxField name='isShowHomePage' label='Hiển thị trang chủ' />
-                </Box>
               </Grid>
 
               <Grid item md={12}>
@@ -106,8 +101,14 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
               <Grid item md={4}>
                 <FormArrayTextField name='tags' label='Danh sách ưu đãi' />
               </Grid>
-              <Grid item md={8}>
+              <Grid item md={4}>
                 <FormArrayTextField name='highlights' label='Điểm nổi bật' />
+              </Grid>
+
+              <Grid item md={4}>
+                <Box display='flex' alignItems='center'>
+                  <CheckboxField name='isShowHomePage' label='Hiển thị trang chủ' />
+                </Box>
               </Grid>
 
               <Grid item md={12}>
