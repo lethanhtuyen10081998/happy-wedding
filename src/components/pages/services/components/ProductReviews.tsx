@@ -2,12 +2,16 @@
 
 import { Avatar, Box, Chip, Divider, Rating, Stack, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import { useDetailDataContext } from 'src/context/detailContext/hooksContext';
+import { Product } from 'src/types/product';
 
 export default function ProductReviews() {
-  // Hardcoded reviews - will be from database later
-  const reviews = [
+  const { reviews, rating, reviewCount } = useDetailDataContext<Product>();
+
+  // Default reviews if not provided
+  const defaultReviews = [
     {
-      id: 1,
+      id: '1',
       userName: 'Nguyễn Văn A',
       avatar: '',
       rating: 5,
@@ -16,7 +20,7 @@ export default function ProductReviews() {
       verified: true,
     },
     {
-      id: 2,
+      id: '2',
       userName: 'Trần Thị B',
       avatar: '',
       rating: 5,
@@ -25,7 +29,7 @@ export default function ProductReviews() {
       verified: true,
     },
     {
-      id: 3,
+      id: '3',
       userName: 'Lê Văn C',
       avatar: '',
       rating: 4,
@@ -34,7 +38,7 @@ export default function ProductReviews() {
       verified: false,
     },
     {
-      id: 4,
+      id: '4',
       userName: 'Phạm Thị D',
       avatar: '',
       rating: 5,
@@ -44,16 +48,26 @@ export default function ProductReviews() {
     },
   ];
 
+  const reviewsList = reviews && reviews.length > 0 ? reviews : defaultReviews;
+  const totalReviews = reviewCount || reviewsList.length;
+  const averageRating = rating || 4.5;
+
+  // Calculate rating distribution from reviews
+  const calculateDistribution = () => {
+    const dist = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+    reviewsList.forEach((review) => {
+      const r = Math.round(review.rating);
+      if (r >= 1 && r <= 5) {
+        dist[r as keyof typeof dist]++;
+      }
+    });
+    return dist;
+  };
+
   const ratingStats = {
-    total: 128,
-    average: 4.5,
-    distribution: {
-      5: 85,
-      4: 30,
-      3: 8,
-      2: 3,
-      1: 2,
-    },
+    total: totalReviews,
+    average: averageRating,
+    distribution: calculateDistribution(),
   };
 
   return (
@@ -106,7 +120,7 @@ export default function ProductReviews() {
 
         {/* Reviews List */}
         <Stack spacing={3}>
-          {reviews.map((review) => (
+          {reviewsList.map((review) => (
             <Box key={review.id}>
               <Box sx={{ display: 'flex', gap: 2, mb: 1.5 }}>
                 <Avatar sx={{ bgcolor: 'primary.main', width: 48, height: 48 }}>
@@ -141,7 +155,7 @@ export default function ProductReviews() {
                   </Typography>
                 </Box>
               </Box>
-              {review.id < reviews.length && <Divider sx={{ mt: 2 }} />}
+              {review.id !== reviewsList[reviewsList.length - 1]?.id && <Divider sx={{ mt: 2 }} />}
             </Box>
           ))}
         </Stack>
@@ -159,7 +173,7 @@ export default function ProductReviews() {
               },
             }}
           >
-            Xem thêm đánh giá ({ratingStats.total - reviews.length} đánh giá khác)
+            Xem thêm đánh giá ({Math.max(0, ratingStats.total - reviewsList.length)} đánh giá khác)
           </Typography>
         </Box>
     </Box>

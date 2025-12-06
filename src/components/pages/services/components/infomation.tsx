@@ -1,16 +1,32 @@
 'use client';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PhoneIcon from '@mui/icons-material/Phone';
-import { Box, Button, Card, CardContent, Chip, Divider, Rating, Stack, Typography } from '@mui/material';
+import ShareIcon from '@mui/icons-material/Share';
+import VerifiedIcon from '@mui/icons-material/Verified';
+import { Box, Button, Card, CardContent, Chip, Divider, IconButton, Rating, Stack, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
+import { useDetailDataContext } from 'src/context/detailContext/hooksContext';
 import { formatMoney } from 'src/libs/utils';
+import { Product } from 'src/types/product';
 
 function Infomation({ price, originalPrice, name }: { price: number; originalPrice: number; name: string }) {
-  const rating = 4.5;
+  const [quantity, setQuantity] = useState(1);
+  const productData = useDetailDataContext<Product>();
 
-  const inStock = true;
-  const stockCount = 50;
+  const rating = productData.rating || 4.5;
+  const reviewCount = productData.reviewCount || 128;
+  const soldCount = productData.soldCount || 523;
+  const inStock = productData.inStock !== undefined ? productData.inStock : true;
+  const stockCount = productData.stockCount || 50;
+  const highlights = productData.highlights || ['Chất lượng cao, uy tín', 'Giao hàng nhanh chóng', 'Đổi trả trong 7 ngày', 'Bảo hành chính hãng'];
+
   const discountPercent = originalPrice && originalPrice > price ? Math.round((1 - price / originalPrice) * 100) : 0;
+
+  const handleQuantityChange = (delta: number) => {
+    setQuantity((prev) => Math.max(1, Math.min(stockCount, prev + delta)));
+  };
 
   return (
     <Card sx={{ borderRadius: 2, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
@@ -28,8 +44,26 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
           {name}
         </Typography>
 
+        {/* Rating & Reviews */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <Rating value={rating} readOnly size='small' precision={0.5} />
+            <Typography variant='body2' sx={{ ml: 0.5, fontWeight: 600 }}>
+              {rating}
+            </Typography>
+          </Box>
+          <Divider orientation='vertical' flexItem />
+          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+            {reviewCount} đánh giá
+          </Typography>
+          <Divider orientation='vertical' flexItem />
+          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+            Đã bán {soldCount}
+          </Typography>
+        </Box>
+
         {/* Price Section */}
-        <Box sx={{ bgcolor: 'grey.50', p: 2, borderRadius: 2, mb: 3 }} position={'relative'}>
+        <Box sx={{ bgcolor: 'grey.50', p: 2, borderRadius: 2, mb: 3 }}>
           <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 2, mb: 1 }}>
             <Typography
               variant='h3'
@@ -41,49 +75,33 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
             >
               {formatMoney(price)}
             </Typography>
-            <Box>
-              {originalPrice && originalPrice > price && (
-                <>
-                  <Typography
-                    variant='h6'
-                    sx={{
-                      color: 'text.secondary',
-                      textDecoration: 'line-through',
-                      fontWeight: 500,
-                    }}
-                  >
-                    {formatMoney(originalPrice)}
-                  </Typography>
-                  <Chip
-                    label={`-${discountPercent}%`}
-                    sx={{
-                      bgcolor: 'error.main',
-                      color: 'common.white',
-                      fontWeight: 700,
-                      height: 20,
-                      position: 'absolute',
-                      top: 5,
-                      right: 10,
-                    }}
-                  />
-                </>
-              )}
-            </Box>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                <Rating value={rating} readOnly size='small' precision={0.5} />
-                <Typography variant='body2' sx={{ ml: 0.5, fontWeight: 600 }}>
-                  {rating}
+            {originalPrice && originalPrice > price && (
+              <>
+                <Typography
+                  variant='h6'
+                  sx={{
+                    color: 'text.secondary',
+                    textDecoration: 'line-through',
+                    fontWeight: 500,
+                  }}
+                >
+                  {formatMoney(originalPrice)}
                 </Typography>
-              </Box>
-            </Box>
-
-            <Typography variant='caption' sx={{ color: 'text.secondary' }}>
-              Giá đã bao gồm VAT
-            </Typography>
+                <Chip
+                  label={`-${discountPercent}%`}
+                  sx={{
+                    bgcolor: 'error.main',
+                    color: 'common.white',
+                    fontWeight: 700,
+                    height: 28,
+                  }}
+                />
+              </>
+            )}
           </Box>
+          <Typography variant='caption' sx={{ color: 'text.secondary' }}>
+            Giá đã bao gồm VAT
+          </Typography>
         </Box>
 
         {/* Stock Status */}
@@ -150,7 +168,90 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
           </Button>
         </Stack>
 
-        <Divider sx={{ my: 2 }} />
+        {/* Quantity Selector */}
+        <Box sx={{ mb: 3 }}>
+          <Typography variant='body2' sx={{ fontWeight: 600, mb: 1.5 }}>
+            Số lượng:
+          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', border: '1px solid', borderColor: 'grey.300', borderRadius: 1 }}>
+              <IconButton size='small' onClick={() => handleQuantityChange(-1)} disabled={quantity <= 1} sx={{ borderRadius: 0 }}>
+                -
+              </IconButton>
+              <TextField
+                value={quantity}
+                onChange={(e) => {
+                  const val = parseInt(e.target.value) || 1;
+                  setQuantity(Math.max(1, Math.min(stockCount, val)));
+                }}
+                inputProps={{
+                  style: { textAlign: 'center', width: 60, padding: '8px 4px' },
+                }}
+                variant='standard'
+                sx={{ '& .MuiInput-underline:before': { display: 'none' } }}
+              />
+              <IconButton size='small' onClick={() => handleQuantityChange(1)} disabled={quantity >= stockCount} sx={{ borderRadius: 0 }}>
+                +
+              </IconButton>
+            </Box>
+            <Typography variant='caption' sx={{ color: 'text.secondary' }}>
+              (Tối đa {stockCount} sản phẩm)
+            </Typography>
+          </Box>
+        </Box>
+
+        {/* Action Icons */}
+        <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
+          <IconButton
+            sx={{
+              border: '1px solid',
+              borderColor: 'grey.300',
+              borderRadius: 2,
+              '&:hover': {
+                bgcolor: 'error.main',
+                color: 'common.white',
+                borderColor: 'error.main',
+              },
+            }}
+          >
+            <FavoriteBorderIcon />
+          </IconButton>
+          <IconButton
+            sx={{
+              border: '1px solid',
+              borderColor: 'grey.300',
+              borderRadius: 2,
+              '&:hover': {
+                bgcolor: 'primary.main',
+                color: 'common.white',
+                borderColor: 'primary.main',
+              },
+            }}
+          >
+            <ShareIcon />
+          </IconButton>
+        </Box>
+
+        <Divider sx={{ my: 3 }} />
+
+        {/* Features */}
+        <Box>
+          <Typography variant='subtitle1' sx={{ fontWeight: 600, mb: 2 }}>
+            Ưu điểm nổi bật:
+          </Typography>
+          <Stack spacing={1.5}>
+            {highlights.map((feature, index) => (
+              <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <VerifiedIcon sx={{ fontSize: 20, color: 'success.main' }} />
+                <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+                  {feature}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </Box>
+
+        <Divider sx={{ my: 3 }} />
 
         {/* Shipping Info */}
         <Box sx={{ bgcolor: 'info.light', p: 2, borderRadius: 2 }}>

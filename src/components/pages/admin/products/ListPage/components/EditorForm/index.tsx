@@ -14,6 +14,8 @@ import { formatMoneyToNumber } from 'src/libs/utils';
 import { FormEditorProps } from 'src/types/formEditor';
 
 import DescriptionContent from './components/Description';
+import ReviewsField from './components/ReviewsField';
+import SpecificationsField from './components/SpecificationsField';
 import UploadArea from './components/UploadArea';
 import { EditorFormRequest } from './types';
 import { validation } from './validation';
@@ -25,6 +27,9 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
     defaultValues: {
       ...defaultValues,
       tags: defaultValues?.tags?.length ? defaultValues?.tags?.map((tag) => tag.trim()) : [''],
+      reviews: defaultValues?.reviews || [],
+      specifications: defaultValues?.specifications || [],
+      highlights: defaultValues?.highlights || [],
     },
   });
 
@@ -101,9 +106,42 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
               <Grid item md={4}>
                 <FormArrayTextField name='tags' label='Danh sách ưu đãi' />
               </Grid>
+              <Grid item md={8}>
+                <FormArrayTextField name='highlights' label='Điểm nổi bật' />
+              </Grid>
 
               <Grid item md={12}>
                 <DescriptionContent />
+              </Grid>
+
+              <Grid item md={12}>
+                <Box sx={{ mt: 3, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
+                  <SpecificationsField />
+                </Box>
+              </Grid>
+
+              <Grid item md={12}>
+                <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
+                  <ReviewsField />
+                </Box>
+              </Grid>
+
+              <Grid item md={3}>
+                <NumberField name='rating' label='Đánh giá trung bình (0-5)' />
+              </Grid>
+              <Grid item md={3}>
+                <NumberField name='reviewCount' label='Số lượng đánh giá' />
+              </Grid>
+              <Grid item md={3}>
+                <NumberField name='soldCount' label='Số lượng đã bán' />
+              </Grid>
+              <Grid item md={3}>
+                <NumberField name='stockCount' label='Số lượng tồn kho' />
+              </Grid>
+              <Grid item md={3}>
+                <Box display='flex' alignItems='center'>
+                  <CheckboxField name='inStock' label='Còn hàng' />
+                </Box>
               </Grid>
             </Grid>
           </Box>

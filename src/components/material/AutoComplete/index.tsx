@@ -2,7 +2,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { Autocomplete } from '@mui/material';
 import { isEqual } from 'lodash';
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 
 import Checkbox from '../Checkbox';
 import TextField from '../TextField';
@@ -11,7 +11,10 @@ export * from './types';
 
 const getItemDefault = (item: any) => `${item}`;
 
-const AutoComplete = <E extends unknown = string | number>(props: Props<E>) => {
+function AutoCompleteInner<E extends unknown = string | number>(
+  props: Props<E>,
+  ref: React.ForwardedRef<HTMLDivElement>
+) {
   const {
     label,
     controlProps,
@@ -36,6 +39,7 @@ const AutoComplete = <E extends unknown = string | number>(props: Props<E>) => {
 
   return (
     <Autocomplete
+      ref={ref}
       options={itemList}
       getOptionLabel={(option: string | E | any) => getItemLabel(option)?.toString() || ''}
       renderOption={(props, option, { selected }) => {
@@ -79,5 +83,10 @@ const AutoComplete = <E extends unknown = string | number>(props: Props<E>) => {
     />
   );
 };
+
+// Wrap with forwardRef for generic component
+const AutoComplete = forwardRef(AutoCompleteInner) as <E extends unknown = string | number>(
+  props: Props<E> & { ref?: React.ForwardedRef<HTMLDivElement> }
+) => React.ReactElement;
 
 export default AutoComplete;

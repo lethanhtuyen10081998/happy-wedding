@@ -10,11 +10,11 @@ import Link from 'next/link';
 import { Product } from 'src/types/product';
 
 export default function ProductCard({ service }: { service: Product }) {
-  // Hardcoded data for E-commerce features
-  const rating = 4.5; // Will be from database later
-  const reviewCount = 128; // Will be from database later
-  const inStock = true; // Will be from database later
-  const isNew = false; // Will be from database later
+  // Get data from product
+  const rating = service.rating || 4.5;
+  const reviewCount = service.reviewCount || 128;
+  const inStock = service.inStock !== undefined ? service.inStock : true;
+  const isNew = false; // Can be added to Product type later
   const discountPercent = service.originalPrice && Number(service.originalPrice) > Number(service.price) 
     ? Math.round((1 - Number(service.price) / Number(service.originalPrice)) * 100) 
     : 0;

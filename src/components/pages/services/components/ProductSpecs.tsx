@@ -2,10 +2,14 @@
 
 import { Box, Chip, Divider, Grid, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useDetailDataContext } from 'src/context/detailContext/hooksContext';
+import { Product } from 'src/types/product';
 
 export default function ProductSpecs() {
-  // Hardcoded specifications - will be from database later
-  const specifications = [
+  const { specifications, highlights } = useDetailDataContext<Product>();
+
+  // Default values if not provided
+  const defaultSpecifications = [
     { label: 'Thương hiệu', value: 'Happy Wedding' },
     { label: 'Xuất xứ', value: 'Việt Nam' },
     { label: 'Chất liệu', value: 'Cao cấp, nhập khẩu' },
@@ -16,13 +20,16 @@ export default function ProductSpecs() {
     { label: 'Thời gian giao hàng', value: '3-7 ngày' },
   ];
 
-  const highlights = [
+  const defaultHighlights = [
     'Chất lượng cao, uy tín',
     'Thiết kế độc đáo, sang trọng',
     'Giá cả hợp lý',
     'Dịch vụ chuyên nghiệp',
     'Hỗ trợ tư vấn 24/7',
   ];
+
+  const specs = specifications && specifications.length > 0 ? specifications : defaultSpecifications;
+  const highlightsList = highlights && highlights.length > 0 ? highlights : defaultHighlights;
 
   return (
     <Box>
@@ -36,7 +43,7 @@ export default function ProductSpecs() {
             Điểm nổi bật:
           </Typography>
           <Grid container spacing={2}>
-            {highlights.map((highlight, index) => (
+            {highlightsList.map((highlight, index) => (
               <Grid item xs={12} sm={6} key={index}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <CheckCircleIcon sx={{ fontSize: 20, color: 'success.main' }} />
@@ -58,7 +65,7 @@ export default function ProductSpecs() {
           </Typography>
           <Table>
             <TableBody>
-              {specifications.map((spec, index) => (
+              {specs.map((spec, index) => (
                 <TableRow
                   key={index}
                   sx={{

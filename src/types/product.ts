@@ -1,3 +1,18 @@
+export type ProductSpecification = {
+  label: string;
+  value: string;
+};
+
+export type ProductReview = {
+  id: string;
+  userName: string;
+  avatar?: string;
+  rating: string;
+  date: string;
+  comment: string;
+  verified?: boolean;
+};
+
 export type Product = {
   id: string;
   name: string;
@@ -12,4 +27,13 @@ export type Product = {
   videoUrl?: string;
   isShowHomePage?: boolean;
   slug?: string;
+  // E-commerce fields
+  specifications?: ProductSpecification[];
+  highlights?: string[];
+  reviews?: ProductReview[];
+  rating?: number;
+  reviewCount?: number;
+  soldCount?: number;
+  inStock?: boolean;
+  stockCount?: number;
 };
