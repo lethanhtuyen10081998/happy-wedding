@@ -157,11 +157,6 @@ export class FirestoreService {
 
       // 🔍 Lấy dữ liệu
       const snapshot = await getDocs(q);
-      console.log('📘 FirebaseService - Query result:', {
-        docsCount: snapshot.docs.length,
-        isEmpty: snapshot.empty,
-        docs: snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })),
-      });
 
       const docs = snapshot.docs.map((doc) => ({
         id: doc.id,

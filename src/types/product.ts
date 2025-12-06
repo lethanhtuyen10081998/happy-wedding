@@ -31,9 +31,9 @@ export type Product = {
   specifications?: ProductSpecification[];
   highlights?: string[];
   reviews?: ProductReview[];
-  rating?: number;
-  reviewCount?: number;
-  soldCount?: number;
+  rating?: string;
+  reviewCount?: string;
+  soldCount?: string;
   inStock?: boolean;
-  stockCount?: number;
+  stockCount?: string;
 };

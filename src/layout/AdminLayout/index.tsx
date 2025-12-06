@@ -28,7 +28,6 @@ function ResponsiveDrawer(props: Props) {
   const collapsible = useCollapsible();
   const drawerWidth = collapsible ? 70 : 220;
   const { profile } = useProfileContext();
-  console.log({ profile });
 
   let drawerItems: DrawerItemProps[] = [
     {

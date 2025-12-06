@@ -111,10 +111,6 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
               </Grid>
 
               <Grid item md={12}>
-                <DescriptionContent />
-              </Grid>
-
-              <Grid item md={12}>
                 <Box sx={{ mt: 3, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
                   <SpecificationsField />
                 </Box>
@@ -142,6 +138,10 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
                 <Box display='flex' alignItems='center'>
                   <CheckboxField name='inStock' label='Còn hàng' />
                 </Box>
+              </Grid>
+
+              <Grid item md={12}>
+                <DescriptionContent />
               </Grid>
             </Grid>
           </Box>
