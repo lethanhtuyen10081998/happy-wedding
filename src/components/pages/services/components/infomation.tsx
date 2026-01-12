@@ -126,14 +126,17 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
           </Box> */}
         </Box>
 
-        <Box sx={{ display: 'flex', gap: 1 }}>
-          <Button variant='contained' size='medium' startIcon={<PhoneIcon />} sx={{ flex: 1 }}>
-            Liên hệ: 0377 002 994
-          </Button>
-          <Button variant='outlined' size='medium' sx={{ flex: 1 }}>
-            Zalo: 0377 002 994
-          </Button>
-        </Box>
+        <Button
+          variant='contained'
+          size='medium'
+          fullWidth
+          startIcon={<PhoneIcon />}
+          component='a'
+          href='tel:0377002994'
+          sx={{ textTransform: 'none' }}
+        >
+          Liên hệ
+        </Button>
       </Box>
     </CardContent>
   );
