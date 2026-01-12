@@ -9,6 +9,7 @@ import { FileUpload } from 'src/components/ui/Dropzone';
 import { useRefreshData } from 'src/context/dataContext/hooksContext';
 import { DetailDataContextProvider } from 'src/context/detailContext/provider';
 import useSpinner from 'src/hooks/useSpinner';
+import AdminLayout from 'src/layout/AdminLayout';
 import { formatMoneyToNumber } from 'src/libs/utils';
 import useDetail from 'src/services/admin/manage/product/detail';
 import useUpdateProduct from 'src/services/admin/manage/product/update';
@@ -96,10 +97,10 @@ const ProductDetailPage = ({ data }: { data: Product }) => {
         specifications: values.specifications || [],
         reviews: values.reviews || [],
         highlights: values.highlights || [],
-        rating: values.rating ? values.rating : undefined,
-        reviewCount: values.reviewCount ? values.reviewCount : undefined,
-        soldCount: values.soldCount ? values.soldCount : undefined,
-        stockCount: values.stockCount ? values.stockCount : undefined,
+        rating: values.rating ? values.rating : '5',
+        reviewCount: values.reviewCount ? values.reviewCount : '1',
+        soldCount: values.soldCount ? values.soldCount : '1',
+        stockCount: values.stockCount ? values.stockCount : '1',
         inStock: values.inStock !== undefined ? values.inStock : true,
       })
         .then(() => {
@@ -172,12 +173,14 @@ const ProductDetailPageWrapper = () => {
   if (!product || isFetching || !data) {
     return <SpinnerCenter />;
   }
-  console.log({ product });
+
   return (
     <DetailDataContextProvider data={product}>
       <ProductDetailPage data={product} />
     </DetailDataContextProvider>
   );
 };
+
+ProductDetailPageWrapper.Layout = AdminLayout;
 
 export default ProductDetailPageWrapper;

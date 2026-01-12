@@ -1,4 +1,3 @@
-import useTranslation from 'next-translate/useTranslation';
 import router from 'next/router';
 import { useCallback, useState } from 'react';
 import useSnackbar from 'src/components/material/Snackbar/useSnackbar';
@@ -28,7 +27,6 @@ export function signIn(request: RequestSignIn): Promise<ResponseSignIn> {
 
 const useSignIn = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { t } = useTranslation('sign-in');
   const { enqueueSnackbar } = useSnackbar();
   const { onUpdateProfile } = useAPIProfileContext();
 
@@ -41,8 +39,9 @@ const useSignIn = () => {
           enqueueSnackbar('Đăng nhập thành công', {
             variant: 'success',
           });
+          console.log(response);
           onUpdateProfile(response.data.profile);
-          router.push(Routes.ADMIN_DASHBOARD);
+          router.push(Routes.ADMIN_MANAGE_PRODUCTS);
           return response;
         })
         .catch((error) => {

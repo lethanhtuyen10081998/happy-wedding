@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
 import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Icon } from 'src/components/icons';
@@ -15,7 +14,6 @@ import { SignFormRequest } from './types';
 import { validation } from './validation';
 
 export default function SignIn() {
-  const router = useRouter();
   const { mutation, loading } = useSignIn();
   const { t } = useTranslation('sign-in');
 

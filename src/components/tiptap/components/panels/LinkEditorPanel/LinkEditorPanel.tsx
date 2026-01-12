@@ -56,24 +56,41 @@ export const LinkEditorPanel = ({
 
   return (
     <Box className='p-2' component={Paper} padding={2} width={300}>
-      <form onSubmit={state.handleSubmit}>
+      <Box component='div'>
         <label>
           <TextField
             type='url'
             placeholder='Enter URL'
             value={state.url}
             onChange={state.onChange}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && state.isValidUrl) {
+                e.preventDefault();
+                e.stopPropagation();
+                state.handleSubmit(e as any);
+              }
+            }}
             InputProps={{
               startAdornment: <Icon name='Link' className='flex-none text-black dark:text-white' />,
             }}
           />
         </label>
         <Box mt={1}>
-          <Button type='submit' disabled={!state.isValidUrl}>
+          <Button
+            type='button'
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (state.isValidUrl) {
+                state.handleSubmit(e as any);
+              }
+            }}
+            disabled={!state.isValidUrl}
+          >
             Set Link
           </Button>
         </Box>
-      </form>
+      </Box>
       <div className='mt-3'>
         <label>
           Open in new tab

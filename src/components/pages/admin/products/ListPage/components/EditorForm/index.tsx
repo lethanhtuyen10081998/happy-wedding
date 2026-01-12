@@ -8,12 +8,10 @@ import FormTextField from 'src/components/material/form/FormTextField';
 import NumberField from 'src/components/material/form/NumberField';
 import { AutoCompleteCategoriesField } from 'src/components/ui/AutoCompleteCategories';
 import { SPACING } from 'src/constants/grid';
-import { DetailDataContextProvider } from 'src/context/detailContext/provider';
 import useYupValidationResolver from 'src/helpers/useYupValidationResolver';
 import { formatMoneyToNumber } from 'src/libs/utils';
 import { FormEditorProps } from 'src/types/formEditor';
 
-import DescriptionContent from './components/Description';
 import ReviewsField from './components/ReviewsField';
 import SpecificationsField from './components/SpecificationsField';
 import UploadArea from './components/UploadArea';
@@ -113,13 +111,14 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
 
               <Grid item md={12}>
                 <Box sx={{ mt: 3, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
-                  <SpecificationsField />
+                  {' '}
+                  <SpecificationsField />{' '}
                 </Box>
               </Grid>
 
               <Grid item md={12}>
                 <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
-                  <ReviewsField />
+                  <ReviewsField />{' '}
                 </Box>
               </Grid>
 
@@ -142,7 +141,7 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
               </Grid>
 
               <Grid item md={12}>
-                <DescriptionContent />
+                {/* <DescriptionContent /> */}
               </Grid>
             </Grid>
           </Box>
@@ -156,9 +155,5 @@ function EditorForm({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading
 }
 
 export default function EditorFormWrapper({ onSubmit, defaultValues, buttonLabel: buttonLalel, loading }: FormEditorProps<EditorFormRequest>) {
-  return (
-    <DetailDataContextProvider data={defaultValues}>
-      <EditorForm onSubmit={onSubmit} defaultValues={defaultValues} buttonLabel={buttonLalel} loading={loading} />
-    </DetailDataContextProvider>
-  );
+  return <EditorForm onSubmit={onSubmit} defaultValues={defaultValues} buttonLabel={buttonLalel} loading={loading} />;
 }

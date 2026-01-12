@@ -14,19 +14,18 @@ const AutoCompleteCategories = forwardRef<HTMLDivElement, Omit<Props<Category>, 
   }
 
   return (
-    <div ref={ref}>
-      <AutoComplete
-        {...props}
-        label='Danh mục'
-        options={data}
-        loading={isFetching}
-        getItemLabel={(item) => item.name}
-        getItemValue={(item) => item}
-        onOpen={() => setOpen(true)}
-        open={open}
-        onClose={() => setOpen(false)}
-      />
-    </div>
+    <AutoComplete
+      {...props}
+      ref={ref}
+      label='Danh mục'
+      options={data}
+      loading={isFetching}
+      getItemLabel={(item) => item.name}
+      getItemValue={(item) => item}
+      onOpen={() => setOpen(true)}
+      open={open}
+      onClose={() => setOpen(false)}
+    />
   );
 });
 
@@ -43,9 +42,10 @@ export const AutoCompleteCategoriesField = (props: AutoCompleteCategoriesFieldPr
   return (
     <Controller
       name={props.name}
-      render={({ field: { value, onChange, onBlur }, fieldState: { invalid, error } }) => {
+      render={({ field: { value, onChange, onBlur, ref }, fieldState: { invalid, error } }) => {
         return (
           <AutoCompleteCategories
+            ref={ref}
             value={value}
             onChange={(_e, value) => {
               onChange(value);

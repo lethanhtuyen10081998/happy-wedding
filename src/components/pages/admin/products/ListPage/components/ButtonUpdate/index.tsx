@@ -31,6 +31,9 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
       folder: 'products',
       contentType: file.type,
       file,
+    }).catch((error) => {
+      console.log(error);
+      return null;
     });
   }, []);
 
@@ -41,9 +44,14 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
         files.map(async (file) => {
           return await handleUploadImage(file);
         }),
-      ).finally(() => {
-        hideLoading();
-      });
+      )
+        .finally(() => {
+          hideLoading();
+        })
+        .catch((error) => {
+          console.log(error);
+          return [];
+        });
     },
     [handleUploadImage, hideLoading, startLoading],
   );
@@ -77,8 +85,7 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
       const { images: _, ...rest } = values;
 
       startLoading();
-
-      return mutateAsync({
+      const saveValue = {
         ...rest,
         categoryId: values.categoryId?.id,
         imagesList: imagesList,
@@ -96,18 +103,23 @@ const ButtonUpdateCategory = ({ data }: { data: Product }) => {
         specifications: values.specifications || [],
         reviews: values.reviews || [],
         highlights: values.highlights || [],
-        rating: values.rating ? Number(values.rating) : undefined,
-        reviewCount: values.reviewCount ? Number(values.reviewCount) : undefined,
-        soldCount: values.soldCount ? Number(values.soldCount) : undefined,
-        stockCount: values.stockCount ? Number(values.stockCount) : undefined,
+        rating: values.rating ? Number(values.rating) : 5,
+        reviewCount: values.reviewCount ? Number(values.reviewCount) : 1,
+        soldCount: values.soldCount ? Number(values.soldCount) : 1,
+        stockCount: values.stockCount ? Number(values.stockCount) : 1,
         inStock: values.inStock !== undefined ? values.inStock : true,
-      })
+      };
+
+      console.log(saveValue);
+
+      return mutateAsync(saveValue)
         .then(() => {
           enqueueSnackbar('Cập nhật sản phẩm thành công!', { variant: 'success' });
           refreshData();
           close();
         })
         .catch((error) => {
+          console.log(error);
           enqueueSnackbar('Cập nhật sản phẩm thất bại!', {
             variant: 'error',
           });

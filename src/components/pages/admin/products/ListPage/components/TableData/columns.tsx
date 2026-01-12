@@ -1,10 +1,37 @@
-import { Box, Button, FormControl, MenuItem, Select, Typography } from '@mui/material';
+import { Box, Button, FormControl, MenuItem, Select, SelectProps, Typography } from '@mui/material';
 import { MRT_ColumnDef } from 'material-react-table';
 import Link from 'next/link';
+import { forwardRef } from 'react';
 import { Icon } from 'src/components/icons';
 import { formatMoney } from 'src/libs/utils';
 import useListCategories from 'src/services/admin/settings/categories/getList';
 import { Product } from 'src/types/product';
+
+const CategoryFilterSelect = forwardRef<HTMLDivElement, { value: string; onChange: (value: string | undefined) => void; categories: Array<{ id: string; name: string }> }>(
+  ({ value, onChange, categories }, ref) => {
+    return (
+      <FormControl fullWidth size='small' variant='standard' ref={ref}>
+        <Select
+          value={value || ''}
+          onChange={(e) => onChange(e.target.value || undefined)}
+          displayEmpty
+          sx={{ minWidth: 120 }}
+        >
+          <MenuItem value=''>
+            <em>Tất cả</em>
+          </MenuItem>
+          {categories.map((category) => (
+            <MenuItem key={category.id} value={category.id}>
+              {category.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
+  }
+);
+
+CategoryFilterSelect.displayName = 'CategoryFilterSelect';
 
 const useColumns = () => {
   const { data: categories } = useListCategories({ limit: 100, page: 1 });
@@ -32,26 +59,13 @@ const useColumns = () => {
       })),
       Filter: ({ column }) => {
         const filterValue = column.getFilterValue() as string;
-        const selectedCategory = categories.find((cat) => cat.id === filterValue);
 
         return (
-          <FormControl fullWidth size='small' variant='standard'>
-            <Select
-              value={filterValue || ''}
-              onChange={(e) => column.setFilterValue(e.target.value || undefined)}
-              displayEmpty
-              sx={{ minWidth: 120 }}
-            >
-              <MenuItem value=''>
-                <em>Tất cả</em>
-              </MenuItem>
-              {categories.map((category) => (
-                <MenuItem key={category.id} value={category.id}>
-                  {category.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <CategoryFilterSelect
+            value={filterValue || ''}
+            onChange={(value) => column.setFilterValue(value)}
+            categories={categories}
+          />
         );
       },
     },

@@ -85,7 +85,10 @@ export class FirestoreService {
    */
   async update<T extends Partial<DocumentData>>(collectionName: string, id: string, partialData: T): Promise<void> {
     const ref = doc(this.db, collectionName, id);
-    await updateDoc(ref, partialData as DocumentData);
+    await updateDoc(ref, partialData as DocumentData).catch((error) => {
+      console.log(error);
+      throw error;
+    });
   }
 
   /**
@@ -148,7 +151,7 @@ export class FirestoreService {
 
       // 🔍 Lấy dữ liệu
       let allDocs: QueryDocumentSnapshot<DocumentData>[] = [];
-      
+
       if (pageSize) {
         // Fetch with limit and startAfter
         if (startAfterDoc) {
@@ -166,7 +169,7 @@ export class FirestoreService {
         while (hasMore) {
           // Build query for this batch
           let batchQuery: any = collection(this.db, collectionName);
-          
+
           // Apply conditions
           if (conditions && conditions.length > 0) {
             const validConditions = conditions.filter((c) => {
@@ -180,23 +183,23 @@ export class FirestoreService {
               batchQuery = query(batchQuery, ...filters);
             }
           }
-          
+
           // Apply orderBy
           if (orderByField) {
             batchQuery = query(batchQuery, orderBy(orderByField, orderDirection || 'asc'));
           }
-          
+
           // Apply startAfter for pagination
           if (currentLastDoc) {
             batchQuery = query(batchQuery, startAfter(currentLastDoc));
           }
-          
+
           // Apply limit
           batchQuery = query(batchQuery, limit(batchSize));
-          
+
           const snapshot = await getDocs(batchQuery);
           allDocs = [...allDocs, ...snapshot.docs];
-          
+
           hasMore = snapshot.docs.length === batchSize;
           if (hasMore && snapshot.docs.length > 0) {
             currentLastDoc = snapshot.docs[snapshot.docs.length - 1];

@@ -14,6 +14,7 @@ import 'src/assets/themes.scss';
 import AlertContainer from 'src/components/material/Alert/alertContainer';
 import PageLoading from 'src/components/PageLoading';
 import { queryClient } from 'src/config/reactQuery';
+import { ProfileContextProvider } from 'src/context/profileContext/provider';
 import AdminLayout from 'src/layout/AdminLayout';
 import MainLayoutContainer from 'src/layout/MainLayout/MainLayout';
 import getLocale, { useSetLocale } from 'src/libs/languageUtils';
@@ -78,17 +79,19 @@ function App({ Component, pageProps, router }: AppProps) {
         <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
 
         <Provider store={store}>
-          <ThemeProvider theme={themes()}>
-            <CssBaseline />
-            <AlertContainer />
+          <ProfileContextProvider>
+            <ThemeProvider theme={themes()}>
+              <CssBaseline />
+              <AlertContainer />
 
-            <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-              <PageLoading />
-              <PickLayout isAdminLayout={router.pathname.includes('/admin')}>
-                <Component {...pageProps} />
-              </PickLayout>
-            </SnackbarProvider>
-          </ThemeProvider>
+              <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+                <PageLoading />
+                <PickLayout isAdminLayout={router.pathname.includes('/admin')}>
+                  <Component {...pageProps} />
+                </PickLayout>
+              </SnackbarProvider>
+            </ThemeProvider>
+          </ProfileContextProvider>
         </Provider>
       </QueryClientProvider>
     </>

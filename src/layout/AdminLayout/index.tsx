@@ -12,7 +12,6 @@ import { useCollapsible } from 'src/context/layoutContext/hooksContext';
 import { LayoutContextProvider } from 'src/context/layoutContext/provider';
 import { PermissionContextProvider } from 'src/context/permissionContext/provider';
 import { useProfileContext } from 'src/context/profileContext/hooksContext';
-import { ProfileContextProvider } from 'src/context/profileContext/provider';
 
 import PublicLayout from '../PublicLayout/PublicLayout';
 import Header from './header/header';
@@ -142,11 +141,9 @@ const AdminLayout = (props: Props) => {
     <PermissionContextProvider>
       <FilterContextProvider>
         <DataContextProvider>
-          <ProfileContextProvider>
-            <LayoutContextProvider>
-              <ResponsiveDrawer {...props} />
-            </LayoutContextProvider>
-          </ProfileContextProvider>
+          <LayoutContextProvider>
+            <ResponsiveDrawer {...props} />
+          </LayoutContextProvider>
         </DataContextProvider>
       </FilterContextProvider>
     </PermissionContextProvider>

@@ -2,7 +2,7 @@ import useTranslation from 'next-translate/useTranslation';
 import Head from 'next/head';
 import { serverSideUnAuthentication } from 'src/auth/session';
 import SignIn from 'src/components/pages/admin/signIn';
-import PublicLayout from 'src/layout/PublicLayout/PublicLayout';
+import AdminLayout from 'src/layout/AdminLayout';
 
 const SignInPage = () => {
   const { t } = useTranslation('common');
@@ -18,7 +18,7 @@ const SignInPage = () => {
   );
 };
 
-SignInPage.Layout = PublicLayout;
+SignInPage.Layout = AdminLayout;
 
 export const getServerSideProps = serverSideUnAuthentication(async () => {
   return {
