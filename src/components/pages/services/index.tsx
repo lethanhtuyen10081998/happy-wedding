@@ -13,18 +13,46 @@ import Infomation from './components/infomation';
 import ProductReviews from './components/ProductReviews';
 import ProductSpecs from './components/ProductSpecs';
 import RelatedProducts from './components/RelatedProducts';
+import SEOPreview from './components/SEOPreview';
 
 function WeddingServiceDetail() {
   const { id, name, price, originalPrice, imagesList, videoUrl, tags, description, reviewCount = 0 } = useDetailDataContext<Product>();
   const [tabValue, setTabValue] = useState(0);
+  const [seoPreviewOpen, setSeoPreviewOpen] = useState(false);
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
 
+  // Strip HTML from description for SEO preview
+  const stripHtml = (html: string) => {
+    if (!html) return '';
+    return html.replace(/<[^>]*>/g, '').substring(0, 160);
+  };
+
+  const siteUrl = typeof window !== 'undefined' ? window.location.origin : '';
+  const currentUrl = `${siteUrl}/san-pham/${id}`;
+  const imageUrl = imagesList?.[0] || '';
+  const seoDescription = stripHtml(description || '');
+
   return (
     <Box sx={{ bgcolor: 'grey.50', minHeight: '100vh', pt: { xs: 12, md: 14 }, pb: 6 }}>
       <Container maxWidth='lg' sx={{ py: 3 }}>
+        {/* SEO Preview Button */}
+        {/* <Box sx={{ mb: 2, display: 'flex', justifyContent: 'flex-end' }}>
+          <Button
+            variant='outlined'
+            size='small'
+            onClick={() => setSeoPreviewOpen(true)}
+            sx={{
+              textTransform: 'none',
+              fontSize: '0.875rem',
+            }}
+          >
+            👁️ Preview SEO
+          </Button>
+        </Box> */}
+
         <Box display={'flex'} flexDirection={'column'} gap={3}>
           {/* Main Product Info */}
           <Grid container spacing={3}>
@@ -129,6 +157,17 @@ function WeddingServiceDetail() {
           <RelatedProducts currentProductId={id} />
         </Box>
       </Container>
+
+      {/* SEO Preview Dialog */}
+      <SEOPreview
+        open={seoPreviewOpen}
+        onClose={() => setSeoPreviewOpen(false)}
+        title={name}
+        description={seoDescription}
+        imageUrl={imageUrl}
+        url={currentUrl}
+        siteName='Happy Wedding'
+      />
     </Box>
   );
 }
