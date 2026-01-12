@@ -54,9 +54,6 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
             {reviewCount} đánh giá
           </Typography>
           <Divider orientation='vertical' flexItem />
-          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-            Đã bán {soldCount}
-          </Typography>
         </Box>
 
         {/* Price Section */}

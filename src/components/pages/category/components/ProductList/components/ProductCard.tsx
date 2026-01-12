@@ -3,7 +3,6 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import StarIcon from '@mui/icons-material/Star';
 import { Box, Button, Card, CardContent, Chip, IconButton, Rating, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,12 +11,13 @@ import { Product } from 'src/types/product';
 export default function ProductCard({ service }: { service: Product }) {
   // Get data from product
   const rating = service.rating || 4.5;
-  const reviewCount = service.reviewCount || 128;
+  const reviewCount = service.reviewCount || 0;
   const inStock = service.inStock !== undefined ? service.inStock : true;
   const isNew = false; // Can be added to Product type later
-  const discountPercent = service.originalPrice && Number(service.originalPrice) > Number(service.price) 
-    ? Math.round((1 - Number(service.price) / Number(service.originalPrice)) * 100) 
-    : 0;
+  const discountPercent =
+    service.originalPrice && Number(service.originalPrice) > Number(service.price)
+      ? Math.round((1 - Number(service.price) / Number(service.originalPrice)) * 100)
+      : 0;
 
   return (
     <Card
@@ -47,10 +47,7 @@ export default function ProductCard({ service }: { service: Product }) {
         },
       }}
     >
-      <Link 
-        href={`/san-pham/${service.slug}?productId=${service.id}`} 
-        style={{ textDecoration: 'none', display: 'block' }}
-      >
+      <Link href={`/san-pham/${service.slug}?productId=${service.id}`} style={{ textDecoration: 'none', display: 'block' }}>
         <Box
           sx={{
             position: 'relative',
@@ -237,7 +234,7 @@ export default function ProductCard({ service }: { service: Product }) {
           {/* Rating */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
             <Rating
-              value={rating}
+              value={Number(rating)}
               readOnly
               size='small'
               sx={{
@@ -250,29 +247,6 @@ export default function ProductCard({ service }: { service: Product }) {
               ({reviewCount})
             </Typography>
           </Box>
-
-          {/* Tags */}
-          {service.tags && service.tags.length > 0 && (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 1.5 }}>
-              {service.tags.slice(0, 2).map((tag, idx) => (
-                <Chip
-                  key={idx}
-                  label={tag}
-                  size='small'
-                  sx={{
-                    height: 20,
-                    fontSize: '0.7rem',
-                    fontWeight: 500,
-                    bgcolor: 'primary.light',
-                    color: 'common.white',
-                    '& .MuiChip-label': {
-                      px: 1,
-                    },
-                  }}
-                />
-              ))}
-            </Box>
-          )}
 
           {/* Price */}
           <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1, mt: 'auto' }}>
