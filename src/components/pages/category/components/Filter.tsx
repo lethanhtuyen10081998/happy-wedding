@@ -32,55 +32,57 @@ export default function Filter() {
         <Paper
           elevation={0}
           sx={{
-            p: 3,
-            border: '1px solid common.divider',
-            borderRadius: 2,
+            p: { xs: 1.5, sm: 2 },
+            border: '1px solid rgba(0,0,0,0.09)',
+            borderRadius: '4px',
+            bgcolor: 'white',
+            boxShadow: '0 1px 2px 0 rgba(0,0,0,0.13)',
           }}
         >
           <Box
             sx={{
               display: 'flex',
               alignItems: 'center',
-              gap: 1.5,
-              pb: 2,
-              mb: 3,
-              borderBottom: '1px solid common.divider',
+              gap: { xs: 0.75, sm: 1 },
+              pb: { xs: 1, sm: 1.5 },
+              mb: { xs: 1.5, sm: 2 },
+              borderBottom: '1px solid rgba(0,0,0,0.09)',
             }}
           >
             <Box
               sx={{
-                width: 40,
-                height: 40,
+                width: { xs: 28, sm: 32 },
+                height: { xs: 28, sm: 32 },
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                borderRadius: 1.5,
+                borderRadius: 1,
                 bgcolor: 'grey.100',
               }}
             >
-              <TuneIcon sx={{ color: 'primary.main', fontSize: 20 }} />
+              <TuneIcon sx={{ color: 'primary.main', fontSize: { xs: 16, sm: 18 } }} />
             </Box>
             <Typography
-              variant='h6'
+              variant='body1'
               sx={{
-                fontWeight: 600,
-                color: 'text.primary',
-                fontSize: '1.125rem',
+                fontWeight: 500,
+                color: 'rgba(0,0,0,0.87)',
+                fontSize: { xs: '0.8125rem', sm: '0.875rem' },
               }}
             >
               Bộ lọc tìm kiếm
             </Typography>
           </Box>
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 1.5, sm: 2 } }}>
             <Box>
               <Typography
-                variant='body2'
+                variant='caption'
                 sx={{
-                  mb: 1.5,
+                  mb: { xs: 0.75, sm: 1 },
                   fontWeight: 500,
-                  color: 'text.primary',
-                  fontSize: '0.875rem',
+                  color: 'rgba(0,0,0,0.54)',
+                  fontSize: { xs: '0.6875rem', sm: '0.75rem' },
                 }}
               >
                 Tìm kiếm sản phẩm
@@ -93,23 +95,24 @@ export default function Filter() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position='start'>
-                      <SearchIcon sx={{ color: 'grey.500', fontSize: 20 }} />
+                      <SearchIcon sx={{ color: 'grey.500', fontSize: { xs: 16, sm: 18 } }} />
                     </InputAdornment>
                   ),
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
-                    height: 44,
+                    height: { xs: 40, sm: 36 },
                     bgcolor: 'common.white',
+                    fontSize: { xs: '0.8125rem', sm: '0.875rem' },
                     '& fieldset': {
-                      borderColor: 'common.divider',
+                      borderColor: 'rgba(0,0,0,0.09)',
                     },
                     '&:hover fieldset': {
                       borderColor: 'primary.main',
                     },
                     '&.Mui-focused fieldset': {
                       borderColor: 'primary.main',
-                      borderWidth: 2,
+                      borderWidth: 1,
                     },
                   },
                 }}
@@ -117,20 +120,20 @@ export default function Filter() {
             </Box>
 
             <Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
-                <AttachMoneyIcon sx={{ color: 'grey.500', fontSize: 18 }} />
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: { xs: 0.75, sm: 1 } }}>
+                <AttachMoneyIcon sx={{ color: 'grey.500', fontSize: { xs: 14, sm: 16 } }} />
                 <Typography
-                  variant='body2'
+                  variant='caption'
                   sx={{
                     fontWeight: 500,
-                    color: 'text.primary',
-                    fontSize: '0.875rem',
+                    color: 'rgba(0,0,0,0.54)',
+                    fontSize: { xs: '0.6875rem', sm: '0.75rem' },
                   }}
                 >
                   Khoảng giá (VNĐ)
                 </Typography>
               </Box>
-              <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1.5 }}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: { xs: 0.75, sm: 1 } }}>
                 <TextField
                   type='number'
                   {...methods.register('fromPrice', { valueAsNumber: true })}
@@ -138,17 +141,18 @@ export default function Filter() {
                   size='small'
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      height: 44,
+                      height: { xs: 40, sm: 36 },
                       bgcolor: 'common.white',
+                      fontSize: { xs: '0.8125rem', sm: '0.875rem' },
                       '& fieldset': {
-                        borderColor: 'common.divider',
+                        borderColor: 'rgba(0,0,0,0.09)',
                       },
                       '&:hover fieldset': {
                         borderColor: 'primary.main',
                       },
                       '&.Mui-focused fieldset': {
                         borderColor: 'primary.main',
-                        borderWidth: 2,
+                        borderWidth: 1,
                       },
                     },
                   }}
@@ -160,17 +164,18 @@ export default function Filter() {
                   size='small'
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      height: 44,
+                      height: { xs: 40, sm: 36 },
                       bgcolor: 'common.white',
+                      fontSize: { xs: '0.8125rem', sm: '0.875rem' },
                       '& fieldset': {
-                        borderColor: 'common.divider',
+                        borderColor: 'rgba(0,0,0,0.09)',
                       },
                       '&:hover fieldset': {
                         borderColor: 'primary.main',
                       },
                       '&.Mui-focused fieldset': {
                         borderColor: 'primary.main',
-                        borderWidth: 2,
+                        borderWidth: 1,
                       },
                     },
                   }}
@@ -179,14 +184,31 @@ export default function Filter() {
             </Box>
 
             <FormControl fullWidth size='small'>
-              <InputLabel>Sắp xếp theo giá</InputLabel>
-              <Select defaultValue='asc' label='Sắp xếp theo giá' onChange={(e) => methods.setValue('sortOrder', e.target.value as 'asc' | 'desc')}>
-                <MenuItem value='asc'>Giá thấp đến cao</MenuItem>
-                <MenuItem value='desc'>Giá cao đến thấp</MenuItem>
+              <InputLabel sx={{ fontSize: { xs: '0.8125rem', sm: '0.875rem' } }}>Sắp xếp theo giá</InputLabel>
+              <Select 
+                defaultValue='asc' 
+                label='Sắp xếp theo giá' 
+                onChange={(e) => methods.setValue('sortOrder', e.target.value as 'asc' | 'desc')}
+                sx={{
+                  height: { xs: 40, sm: 36 },
+                  fontSize: { xs: '0.8125rem', sm: '0.875rem' },
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(0,0,0,0.09)',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'primary.main',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'primary.main',
+                  },
+                }}
+              >
+                <MenuItem value='asc' sx={{ fontSize: { xs: '0.8125rem', sm: '0.875rem' } }}>Giá thấp đến cao</MenuItem>
+                <MenuItem value='desc' sx={{ fontSize: { xs: '0.8125rem', sm: '0.875rem' } }}>Giá cao đến thấp</MenuItem>
               </Select>
             </FormControl>
 
-            <Button type='submit' variant='contained' fullWidth>
+            <Button type='submit' variant='contained' fullWidth size='medium' sx={{ mt: { xs: 0.5, sm: 0 } }}>
               Áp dụng bộ lọc
             </Button>
           </Box>

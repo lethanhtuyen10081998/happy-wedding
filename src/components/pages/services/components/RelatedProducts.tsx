@@ -15,7 +15,7 @@ export default function RelatedProducts({ currentProductId }: { currentProductId
 
   return (
     <Box>
-      <Typography variant='h5' sx={{ fontWeight: 700, mb: 3, color: 'primary.main' }}>
+      <Typography variant='h5' sx={{ fontWeight: 500, mb: 3, color: 'rgba(0,0,0,0.87)', fontSize: '1.25rem' }}>
         Sản phẩm liên quan
       </Typography>
 
@@ -27,7 +27,7 @@ export default function RelatedProducts({ currentProductId }: { currentProductId
             sm: 'repeat(2, 1fr)',
             md: 'repeat(4, 1fr)',
           },
-          gap: 2.5,
+          gap: { xs: 2, sm: 2.5, md: 3 },
         }}
       >
         {relatedProducts.map((product) => (

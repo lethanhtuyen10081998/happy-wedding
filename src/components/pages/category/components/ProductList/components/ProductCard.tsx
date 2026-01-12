@@ -2,7 +2,7 @@
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import { Box, Card, CardContent, Chip, IconButton, Rating, Typography } from '@mui/material';
+import { Box, Card, CardContent, IconButton, Rating, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from 'src/types/product';
@@ -24,13 +24,14 @@ export default function ProductCard({ service }: { service: Product }) {
         position: 'relative',
         overflow: 'visible',
         border: '1px solid',
-        borderColor: 'grey.200',
-        borderRadius: 2,
+        borderColor: 'rgba(0,0,0,0.09)',
+        borderRadius: '8px',
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         bgcolor: 'common.white',
+        boxShadow: '0 1px 2px 0 rgba(0,0,0,0.03)',
         '&:hover': {
-          transform: 'translateY(-8px)',
-          boxShadow: '0 12px 32px rgba(0,0,0,0.15)',
+          transform: 'translateY(-4px)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
           borderColor: 'primary.main',
           '& .product-image': {
             transform: 'scale(1.05)',
@@ -50,10 +51,10 @@ export default function ProductCard({ service }: { service: Product }) {
         <Box
           sx={{
             position: 'relative',
-            aspectRatio: '4/3',
+            aspectRatio: { xs: '1/1', sm: '4/3' },
             overflow: 'hidden',
             bgcolor: 'grey.50',
-            borderRadius: '8px 8px 0 0',
+            borderRadius: { xs: '6px 6px 0 0', sm: '8px 8px 0 0' },
           }}
         >
           {service.imagesList?.[0] ? (
@@ -83,54 +84,88 @@ export default function ProductCard({ service }: { service: Product }) {
             </Box>
           )}
 
-          {/* Badges */}
-          <Box sx={{ position: 'absolute', top: 12, left: 12, display: 'flex', flexDirection: 'column', gap: 1 }}>
+          {/* Badges - Shopee Style */}
+          <Box sx={{ position: 'absolute', top: { xs: 4, sm: 6, md: 8 }, left: 0, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
             {discountPercent > 0 && (
-              <Chip
-                label={`-${discountPercent}%`}
+              <Box
                 sx={{
-                  bgcolor: 'error.main',
-                  color: 'common.white',
+                  position: 'relative',
+                  bgcolor: 'primary.main',
+                  color: 'white',
                   fontWeight: 700,
-                  fontSize: '0.75rem',
-                  height: 28,
-                  boxShadow: '0 2px 8px rgba(229, 0, 0, 0.3)',
+                  fontSize: { xs: '0.625rem', sm: '0.6875rem', md: '0.75rem' },
+                  px: { xs: 1, sm: 1.25, md: 1.5 },
+                  py: { xs: 0.25, sm: 0.375, md: 0.5 },
+                  borderTopRightRadius: '3px',
+                  borderBottomRightRadius: '3px',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.2)',
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    borderTop: { xs: '3px solid', sm: '3px solid', md: '4px solid' },
+                    borderTopColor: 'primary.main',
+                    borderLeft: { xs: '3px solid', sm: '3px solid', md: '4px solid' },
+                    borderLeftColor: 'transparent',
+                    filter: 'brightness(0.85)',
+                  },
                 }}
-              />
+              >
+                -{discountPercent}%
+              </Box>
             )}
             {isNew && (
-              <Chip
-                label='MỚI'
+              <Box
                 sx={{
+                  position: 'relative',
                   bgcolor: 'success.main',
-                  color: 'common.white',
+                  color: 'white',
                   fontWeight: 700,
                   fontSize: '0.75rem',
-                  height: 28,
-                  boxShadow: '0 2px 8px rgba(5, 180, 106, 0.3)',
+                  px: 1.5,
+                  py: 0.5,
+                  borderTopRightRadius: '3px',
+                  borderBottomRightRadius: '3px',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.2)',
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    borderTop: '4px solid',
+                    borderTopColor: 'success.main',
+                    borderLeft: '4px solid transparent',
+                    filter: 'brightness(0.85)',
+                  },
                 }}
-              />
+              >
+                MỚI
+              </Box>
             )}
           </Box>
 
-          {/* Wishlist Button */}
+          {/* Wishlist Button - Shopee Style */}
           <IconButton
             className='wishlist-btn'
             sx={{
               position: 'absolute',
-              top: 12,
-              right: 12,
+              top: 8,
+              right: 8,
               bgcolor: 'common.white',
-              width: 40,
-              height: 40,
+              width: 36,
+              height: 36,
               opacity: 0,
               visibility: 'hidden',
               transition: 'all 0.3s ease',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              borderRadius: '50%',
+              backdropFilter: 'blur(4px)',
               '&:hover': {
-                bgcolor: 'error.main',
+                bgcolor: 'primary.main',
                 color: 'common.white',
-                transform: 'scale(1.1)',
+                transform: 'scale(1.15)',
+                boxShadow: (theme) => `0 4px 12px ${theme.palette.primary.main}66`,
               },
             }}
             onClick={(e) => {
@@ -204,21 +239,21 @@ export default function ProductCard({ service }: { service: Product }) {
           )}
         </Box>
 
-        <CardContent sx={{ p: 2.5 }}>
-          {/* Product Name */}
+        <CardContent sx={{ p: { xs: 1, sm: 1.5, md: 2 } }}>
+          {/* Product Name - Shopee Style */}
           <Typography
             sx={{
-              fontWeight: 600,
-              color: 'text.primary',
-              mb: 1,
+              fontWeight: 400,
+              color: 'rgba(0,0,0,0.87)',
+              mb: { xs: 0.5, sm: 1 },
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
               WebkitLineClamp: 2,
               WebkitBoxOrient: 'vertical',
-              lineHeight: 1.4,
-              fontSize: '1rem',
-              minHeight: 48,
+              lineHeight: 1.3,
+              fontSize: { xs: '0.75rem', sm: '0.8125rem', md: '0.875rem' },
+              minHeight: { xs: 32, sm: 36, md: 40 },
               transition: 'color 0.2s ease',
               '&:hover': {
                 color: 'primary.main',
@@ -228,8 +263,8 @@ export default function ProductCard({ service }: { service: Product }) {
             {service.name}
           </Typography>
 
-          {/* Rating */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
+          {/* Rating - Shopee Style */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: { xs: 0.75, sm: 1, md: 1.5 } }}>
             <Rating
               value={Number(rating)}
               readOnly
@@ -238,21 +273,26 @@ export default function ProductCard({ service }: { service: Product }) {
                 '& .MuiRating-iconFilled': {
                   color: 'warning.main',
                 },
+                '& .MuiRating-iconEmpty': {
+                  color: 'grey.400',
+                },
+                fontSize: { xs: '0.75rem', sm: '0.8125rem', md: '0.875rem' },
               }}
             />
-            <Typography variant='caption' sx={{ color: 'text.secondary', fontSize: '0.75rem' }}>
+            <Typography variant='caption' sx={{ color: '#767676', fontSize: { xs: '0.625rem', sm: '0.6875rem', md: '0.75rem' }, ml: 0.5 }}>
               ({reviewCount})
             </Typography>
           </Box>
 
-          {/* Price */}
-          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1, mt: 'auto' }}>
+          {/* Price - Shopee Style */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1 }, mt: 'auto', flexWrap: 'wrap' }}>
             <Typography
               variant='h6'
               sx={{
                 fontWeight: 700,
                 color: 'primary.main',
-                fontSize: '1.25rem',
+                fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
+                lineHeight: 1.2,
               }}
             >
               {Number(service.price).toLocaleString('vi-VN')}₫
@@ -262,23 +302,17 @@ export default function ProductCard({ service }: { service: Product }) {
               <Typography
                 variant='body2'
                 sx={{
-                  fontSize: '0.875rem',
-                  fontWeight: 500,
+                  fontSize: { xs: '0.75rem', sm: '0.8125rem', md: '0.875rem' },
+                  fontWeight: 400,
                   color: 'grey.500',
                   textDecoration: 'line-through',
+                  lineHeight: 1.2,
                 }}
               >
                 {Number(service.originalPrice).toLocaleString('vi-VN')}₫
               </Typography>
             )}
           </Box>
-
-          {/* Stock Status */}
-          {inStock && (
-            <Typography variant='caption' sx={{ color: 'success.main', fontWeight: 500, display: 'block', mt: 0.5 }}>
-              ✓ Còn hàng
-            </Typography>
-          )}
         </CardContent>
       </Link>
     </Card>

@@ -24,13 +24,35 @@ const ProductDetailPage = ({ product }: ProductDetailPageProps) => {
   // Strip HTML from description for meta tags
   const stripHtml = (html: string) => {
     if (!html) return '';
-    return html.replace(/<[^>]*>/g, '').substring(0, 160);
+    // Remove HTML tags
+    let text = html.replace(/<[^>]*>/g, '');
+    // Decode HTML entities
+    text = text
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&apos;/g, "'");
+    // Clean up multiple spaces and newlines
+    text = text.replace(/\s+/g, ' ').trim();
+    return text;
   };
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || (typeof window !== 'undefined' ? window.location.origin : '');
   const currentUrl = `${siteUrl}${router.asPath}`;
   const imageUrl = product.imagesList?.[0] || '';
-  const description = stripHtml(product.description || '');
+
+  // Get description with fallback
+  let description = stripHtml(product.description || '');
+  // If description is empty or too short, create a fallback
+  if (!description || description.length < 10) {
+    description = `${product.name || 'Sản phẩm'} - Chất lượng cao, uy tín tại Happy Wedding. Xem ngay để biết thêm chi tiết!`;
+  }
+  // Limit to 160 characters for meta description
+  description = description.substring(0, 160);
+
   const title = product.name || 'Sản phẩm';
   const tags = product.tags?.join(', ') || '';
 

@@ -2,6 +2,7 @@
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { Box, Button, Card, CardContent, IconButton, Paper, Skeleton, Typography } from '@mui/material';
 import { SPACING } from 'src/constants/grid';
@@ -12,7 +13,11 @@ import useList from 'src/services/admin/manage/product/getList';
 import type { FilterProps } from '../Filter';
 import ProductCard from './components/ProductCard';
 
-export default function ProductList() {
+interface ProductListProps {
+  onFilterToggle?: () => void;
+}
+
+export default function ProductList({ onFilterToggle }: ProductListProps) {
   const { name, category, sortOrder, fromPrice, toPrice } = useFilterObjectContext<FilterProps>();
   const page = usePage();
   const { onUpdatePage } = useAPIFilterContext();
@@ -109,35 +114,60 @@ export default function ProductList() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          pb: 2,
-          mb: 3,
-          borderBottom: '2px solid',
-          borderColor: 'grey.200',
+          pb: 1.5,
+          mb: 2,
+          borderBottom: '1px solid rgba(0,0,0,0.09)',
+          gap: 2,
         }}
       >
-        <Typography variant='body1' sx={{ fontWeight: 500, color: 'text.secondary' }}>
+        <Typography variant='caption' sx={{ fontWeight: 400, color: 'rgba(0,0,0,0.54)', fontSize: '0.75rem', flex: 1 }}>
           Hiển thị{' '}
-          <Box component='span' sx={{ fontWeight: 700, color: 'primary.main' }}>
+          <Box component='span' sx={{ fontWeight: 500, color: 'primary.main' }}>
             {data.length}
           </Box>{' '}
           trong tổng số{' '}
-          <Box component='span' sx={{ fontWeight: 700, color: 'primary.main' }}>
+          <Box component='span' sx={{ fontWeight: 500, color: 'primary.main' }}>
             {total}
           </Box>{' '}
           sản phẩm
         </Typography>
+        {/* Mobile Filter Button */}
+        {onFilterToggle && (
+          <Button
+            variant='outlined'
+            startIcon={<FilterListIcon />}
+            onClick={onFilterToggle}
+            size='small'
+            sx={{
+              display: { xs: 'flex', lg: 'none' },
+              textTransform: 'none',
+              borderRadius: '4px',
+              borderColor: 'primary.main',
+              color: 'primary.main',
+              fontSize: '0.75rem',
+              minWidth: 'auto',
+              px: 1.5,
+              '&:hover': {
+                borderColor: 'primary.light',
+                bgcolor: (theme) => `${theme.palette.primary.main}08`,
+              },
+            }}
+          >
+            Bộ lọc
+          </Button>
+        )}
       </Box>
 
       <Box
         sx={{
           display: 'grid',
           gridTemplateColumns: {
-            xs: '1fr',
+            xs: 'repeat(2, 1fr)',
             sm: 'repeat(2, 1fr)',
             md: 'repeat(3, 1fr)',
             lg: 'repeat(4, 1fr)',
           },
-          gap: { xs: 2, sm: 2.5, md: 3 },
+          gap: { xs: 1, sm: 2, md: 2.5, lg: 3 },
         }}
       >
         {data.map((service) => (
@@ -154,10 +184,10 @@ export default function ProductList() {
               alignItems: 'center',
               gap: 0.5,
               p: 0.5,
-              border: '1px solid',
-              borderColor: 'grey.300',
-              borderRadius: 2,
+              border: '1px solid rgba(0,0,0,0.09)',
+              borderRadius: '4px',
               bgcolor: 'common.white',
+              boxShadow: '0 1px 1px rgba(0,0,0,0.05)',
             }}
           >
             <IconButton
@@ -167,13 +197,15 @@ export default function ProductList() {
               sx={{
                 width: 40,
                 height: 40,
-                borderRadius: 1.5,
+                borderRadius: '4px',
+                color: 'rgba(0,0,0,0.54)',
                 '&:disabled': {
-                  opacity: 0.4,
+                  opacity: 0.3,
+                  cursor: 'not-allowed',
                 },
                 '&:hover:not(:disabled)': {
-                  bgcolor: 'primary.light',
-                  color: 'common.white',
+                  bgcolor: 'primary.main',
+                  color: 'white',
                 },
               }}
             >
@@ -183,26 +215,7 @@ export default function ProductList() {
             {[...Array(Math.min(5, Math.ceil(total / 12)))].map((_, i) => {
               const pageNum = i + 1;
               return (
-                <Button
-                  key={pageNum}
-                  variant={page === pageNum ? 'contained' : 'text'}
-                  size='small'
-                  onClick={() => onUpdatePage(pageNum)}
-                  sx={{
-                    minWidth: 40,
-                    width: 40,
-                    height: 40,
-                    p: 0,
-                    borderRadius: 1.5,
-                    bgcolor: page === pageNum ? 'primary.main' : 'transparent',
-                    color: page === pageNum ? 'common.white' : 'text.primary',
-                    fontWeight: 600,
-                    fontSize: '0.875rem',
-                    '&:hover': {
-                      bgcolor: page === pageNum ? 'primary.dark' : 'grey.100',
-                    },
-                  }}
-                >
+                <Button key={pageNum} variant={page === pageNum ? 'contained' : 'text'} size='small' onClick={() => onUpdatePage(pageNum)}>
                   {pageNum}
                 </Button>
               );
@@ -215,13 +228,15 @@ export default function ProductList() {
               sx={{
                 width: 40,
                 height: 40,
-                borderRadius: 1.5,
+                borderRadius: '4px',
+                color: 'rgba(0,0,0,0.54)',
                 '&:disabled': {
-                  opacity: 0.4,
+                  opacity: 0.3,
+                  cursor: 'not-allowed',
                 },
                 '&:hover:not(:disabled)': {
-                  bgcolor: 'primary.light',
-                  color: 'common.white',
+                  bgcolor: 'primary.main',
+                  color: 'white',
                 },
               }}
             >

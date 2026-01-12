@@ -1,8 +1,6 @@
 'use client';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PhoneIcon from '@mui/icons-material/Phone';
-import VerifiedIcon from '@mui/icons-material/Verified';
-import { Box, Button, Card, CardContent, Chip, Divider, Rating, Stack, Typography } from '@mui/material';
+import { Box, Button, CardContent, Divider, Rating, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useDetailDataContext } from 'src/context/detailContext/hooksContext';
 import { formatMoney } from 'src/libs/utils';
@@ -17,7 +15,6 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
   const soldCount = productData.soldCount || 5;
   const inStock = productData.inStock !== undefined ? productData.inStock : true;
   const stockCount = productData.stockCount || 50;
-  const highlights = productData.highlights || ['Chất lượng cao, uy tín', 'Giao hàng nhanh chóng', 'Đổi trả trong 7 ngày', 'Bảo hành chính hãng'];
 
   const discountPercent = originalPrice && originalPrice > price ? Math.round((1 - price / originalPrice) * 100) : 0;
 
@@ -26,162 +23,119 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
   };
 
   return (
-    <Card sx={{ borderRadius: 2, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
-      <CardContent sx={{ p: 3 }}>
-        {/* Product Name */}
-        <Typography
-          variant='h4'
-          sx={{
-            fontWeight: 700,
-            mb: 2,
-            color: 'text.primary',
-            lineHeight: 1.3,
-          }}
-        >
-          {name}
-        </Typography>
+    <CardContent>
+      {/* Product Name - Shopee Style */}
+      <Typography
+        variant='h4'
+        sx={{
+          fontWeight: 500,
+          mb: 2,
+          color: 'rgba(0,0,0,0.87)',
+          lineHeight: 1.4,
+          fontSize: '1.5rem',
+        }}
+      >
+        {name}
+      </Typography>
 
-        {/* Rating & Reviews */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            <Rating value={Number(rating)} readOnly size='small' precision={0.5} />
-            <Typography variant='body2' sx={{ ml: 0.5, fontWeight: 600 }}>
-              {rating}
-            </Typography>
-          </Box>
-          <Divider orientation='vertical' flexItem />
-          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-            {reviewCount} đánh giá
-          </Typography>
-          <Divider orientation='vertical' flexItem />
-        </Box>
-
-        {/* Price Section */}
-        <Box sx={{ bgcolor: 'grey.50', p: 2, borderRadius: 2, mb: 3 }}>
-          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 2, mb: 1 }}>
-            <Typography
-              variant='h3'
-              sx={{
-                fontWeight: 700,
-                color: 'primary.main',
-                fontSize: '2rem',
-              }}
-            >
-              {formatMoney(price)}
-            </Typography>
-            {originalPrice && originalPrice > price && (
-              <>
-                <Typography
-                  variant='h6'
-                  sx={{
-                    color: 'text.secondary',
-                    textDecoration: 'line-through',
-                    fontWeight: 500,
-                  }}
-                >
-                  {formatMoney(originalPrice)}
-                </Typography>
-                <Chip
-                  label={`-${discountPercent}%`}
-                  sx={{
-                    bgcolor: 'error.main',
-                    color: 'common.white',
-                    fontWeight: 700,
-                    height: 28,
-                  }}
-                />
-              </>
-            )}
-          </Box>
-          <Typography variant='caption' sx={{ color: 'text.secondary' }}>
-            Giá đã bao gồm VAT
-          </Typography>
-        </Box>
-
-        {/* Stock Status */}
-        <Box sx={{ mb: 3 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-            <Typography variant='body2' sx={{ fontWeight: 600 }}>
-              Tình trạng:
-            </Typography>
-            {inStock ? (
-              <Chip
-                icon={<CheckCircleIcon sx={{ fontSize: 16 }} />}
-                label={`Còn hàng (${stockCount} sản phẩm)`}
-                sx={{
-                  bgcolor: 'success.light',
-                  color: 'success.dark',
-                  fontWeight: 600,
-                  height: 28,
-                }}
-              />
-            ) : (
-              <Chip
-                label='Hết hàng'
-                sx={{
-                  bgcolor: 'error.light',
-                  color: 'error.dark',
-                  fontWeight: 600,
-                  height: 28,
-                }}
-              />
-            )}
-          </Box>
-        </Box>
-
-        {/* Action Buttons */}
-        <Stack spacing={2} sx={{ mb: 3 }}>
-          <Button
-            variant='contained'
-            fullWidth
-            size='large'
-            startIcon={<PhoneIcon />}
+      {/* Rating & Reviews - Shopee Style */}
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3, pb: 2, borderBottom: '1px solid rgba(0,0,0,0.09)' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          <Rating
+            value={Number(rating)}
+            readOnly
+            size='small'
+            precision={0.5}
             sx={{
-              py: 1.5,
-              fontSize: '1rem',
-              fontWeight: 600,
-              borderRadius: 2,
-              textTransform: 'none',
+              '& .MuiRating-iconFilled': {
+                color: 'warning.main',
+              },
+              '& .MuiRating-iconEmpty': {
+                color: '#d5d5d5',
+              },
+            }}
+          />
+          <Typography variant='body2' sx={{ ml: 0.5, fontWeight: 500, color: 'rgba(0,0,0,0.87)' }}>
+            {rating}
+          </Typography>
+        </Box>
+        <Divider orientation='vertical' flexItem sx={{ height: 16, bgcolor: 'rgba(0,0,0,0.12)' }} />
+        <Typography variant='body2' sx={{ color: 'rgba(0,0,0,0.54)', fontWeight: 400 }}>
+          {reviewCount} đánh giá
+        </Typography>
+        <Divider orientation='vertical' flexItem sx={{ height: 16, bgcolor: 'rgba(0,0,0,0.12)' }} />
+        <Typography variant='body2' sx={{ color: 'rgba(0,0,0,0.54)', fontWeight: 400 }}>
+          Đã bán {soldCount}
+        </Typography>
+      </Box>
+
+      {/* Price, Stock Status & Buttons - Compact */}
+      <Box sx={{ mb: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1.5, flexWrap: 'wrap' }}>
+          <Typography
+            variant='h5'
+            sx={{
+              fontWeight: 500,
+              color: 'primary.main',
+              fontSize: '1.5rem',
+              lineHeight: 1.2,
             }}
           >
+            {formatMoney(price)}
+          </Typography>
+          {originalPrice && originalPrice > price && (
+            <>
+              <Typography
+                variant='body2'
+                sx={{
+                  color: 'grey.500',
+                  textDecoration: 'line-through',
+                  fontWeight: 400,
+                  fontSize: '0.875rem',
+                }}
+              >
+                {formatMoney(originalPrice)}
+              </Typography>
+              <Box
+                sx={{
+                  bgcolor: 'primary.main',
+                  color: 'white',
+                  fontWeight: 600,
+                  fontSize: '0.75rem',
+                  px: 1,
+                  py: 0.25,
+                  borderRadius: '3px',
+                }}
+              >
+                -{discountPercent}%
+              </Box>
+            </>
+          )}
+          {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, ml: 'auto' }}>
+            <Box
+              sx={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                bgcolor: inStock ? 'success.main' : 'primary.main',
+              }}
+            />
+            <Typography variant='caption' sx={{ color: inStock ? 'success.main' : 'primary.main', fontWeight: 500 }}>
+              {inStock ? `Còn hàng (${stockCount})` : 'Hết hàng'}
+            </Typography>
+          </Box> */}
+        </Box>
+
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Button variant='contained' size='medium' startIcon={<PhoneIcon />} sx={{ flex: 1 }}>
             Liên hệ: 0377 002 994
           </Button>
-          <Button
-            variant='outlined'
-            fullWidth
-            size='large'
-            sx={{
-              py: 1.5,
-              fontSize: '1rem',
-              fontWeight: 600,
-              borderRadius: 2,
-              textTransform: 'none',
-            }}
-          >
+          <Button variant='outlined' size='medium' sx={{ flex: 1 }}>
             Zalo: 0377 002 994
           </Button>
-        </Stack>
-
-        <Divider sx={{ my: 3 }} />
-
-        {/* Features */}
-        <Box>
-          <Typography variant='subtitle1' sx={{ fontWeight: 600, mb: 2 }}>
-            Ưu điểm nổi bật:
-          </Typography>
-          <Stack spacing={1.5}>
-            {highlights.map((feature, index) => (
-              <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <VerifiedIcon sx={{ fontSize: 20, color: 'success.main' }} />
-                <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-                  {feature}
-                </Typography>
-              </Box>
-            ))}
-          </Stack>
         </Box>
-      </CardContent>
-    </Card>
+      </Box>
+    </CardContent>
   );
 }
 

@@ -72,14 +72,14 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
   };
 
   return (
-    <Card sx={{ overflow: 'hidden', borderRadius: 2, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
+    <Card sx={{ overflow: 'hidden', borderRadius: '4px', boxShadow: '0 1px 2px 0 rgba(0,0,0,0.13)', border: '1px solid rgba(0,0,0,0.09)' }}>
       <Box
         sx={{
           position: 'relative',
-          aspectRatio: '4/3',
+          aspectRatio: '1/1',
           width: '100%',
           overflow: 'hidden',
-          backgroundColor: '#f8f9fa',
+          backgroundColor: '#fff',
           '&::before': {
             content: '""',
             position: 'absolute',
@@ -88,7 +88,7 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'blur(20px)',
-            opacity: 0.6,
+            opacity: 0.5,
             zIndex: 0,
           },
         }}
@@ -107,63 +107,63 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
           }}
         />
 
-        {/* Nút điều hướng trái */}
+        {/* Nút điều hướng trái - Shopee Style */}
         {gallery.length > 1 && (
           <IconButton
             onClick={prevImage}
             sx={{
               position: 'absolute',
-              left: '16px',
+              left: '12px',
               top: '50%',
               transform: 'translateY(-50%)',
               backgroundColor: 'rgba(255, 255, 255, 0.9)',
-              color: 'text.primary',
+              color: 'rgba(0,0,0,0.54)',
               borderRadius: '50%',
-              width: '48px',
-              height: '48px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              width: '40px',
+              height: '40px',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
               zIndex: 2,
               '&:hover': {
                 backgroundColor: 'primary.main',
-                color: 'common.white',
+                color: 'white',
                 transform: 'translateY(-50%) scale(1.1)',
               },
               transition: 'all 0.3s ease',
             }}
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={20} />
           </IconButton>
         )}
 
-        {/* Nút điều hướng phải */}
+        {/* Nút điều hướng phải - Shopee Style */}
         {gallery.length > 1 && (
           <IconButton
             onClick={nextImage}
             sx={{
               position: 'absolute',
-              right: '16px',
+              right: '12px',
               top: '50%',
               transform: 'translateY(-50%)',
               backgroundColor: 'rgba(255, 255, 255, 0.9)',
-              color: 'text.primary',
+              color: 'rgba(0,0,0,0.54)',
               borderRadius: '50%',
-              width: '48px',
-              height: '48px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              width: '40px',
+              height: '40px',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
               zIndex: 2,
               '&:hover': {
                 backgroundColor: 'primary.main',
-                color: 'common.white',
+                color: 'white',
                 transform: 'translateY(-50%) scale(1.1)',
               },
               transition: 'all 0.3s ease',
             }}
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={20} />
           </IconButton>
         )}
 
-        {/* Nút xem fullscreen */}
+        {/* Nút xem fullscreen - Shopee Style */}
         <IconButton
           onClick={() => {
             setFullscreenOpen(true);
@@ -171,39 +171,39 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
           }}
           sx={{
             position: 'absolute',
-            top: '16px',
-            right: '16px',
+            top: '12px',
+            right: '12px',
             backgroundColor: 'rgba(255, 255, 255, 0.9)',
-            color: 'text.primary',
+            color: 'rgba(0,0,0,0.54)',
             borderRadius: '50%',
-            width: '48px',
-            height: '48px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+            width: '40px',
+            height: '40px',
+            boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
             zIndex: 2,
-            '&:hover': {
-              backgroundColor: 'primary.main',
-              color: 'common.white',
-              transform: 'scale(1.1)',
-            },
+              '&:hover': {
+                backgroundColor: 'primary.main',
+                color: 'white',
+                transform: 'scale(1.1)',
+              },
             transition: 'all 0.3s ease',
           }}
         >
-          <Maximize2 size={20} />
+          <Maximize2 size={18} />
         </IconButton>
 
-        {/* Số thứ tự ảnh */}
+        {/* Số thứ tự ảnh - Shopee Style */}
         {gallery.length > 1 && (
           <Box
             sx={{
               position: 'absolute',
-              bottom: '16px',
-              right: '16px',
-              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              bottom: '12px',
+              right: '12px',
+              backgroundColor: 'rgba(0, 0, 0, 0.54)',
               color: 'white',
-              padding: '6px 12px',
-              borderRadius: '20px',
-              fontSize: '0.875rem',
-              fontWeight: 600,
+              padding: '4px 10px',
+              borderRadius: '12px',
+              fontSize: '0.75rem',
+              fontWeight: 400,
               backdropFilter: 'blur(4px)',
               zIndex: 2,
             }}
@@ -219,13 +219,14 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
             paddingY: '12px',
             paddingX: '8px',
             display: 'flex',
-            gap: 1.5,
+            gap: 1,
             overflowX: 'auto',
+            bgcolor: '#fafafa',
             '&::-webkit-scrollbar': {
               height: 4,
             },
             '&::-webkit-scrollbar-thumb': {
-              backgroundColor: 'grey.300',
+              backgroundColor: 'rgba(0,0,0,0.2)',
               borderRadius: 2,
             },
           }}
@@ -236,15 +237,16 @@ export default function Gallery({ gallery, title }: { gallery: string[]; title: 
               sx={{
                 width: '80px',
                 height: '80px',
-                borderRadius: 1.5,
+                borderRadius: '4px',
                 cursor: 'pointer',
-                border: (theme) => (index === currentImageIndex ? `3px solid ${theme.palette.primary.main}` : `2px solid ${theme.palette.grey[300]}`),
+                border: (theme) => index === currentImageIndex ? `2px solid ${theme.palette.primary.main}` : '1px solid rgba(0,0,0,0.09)',
                 backgroundImage: `url(${image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 flexShrink: 0,
                 transition: 'all 0.3s ease',
-                opacity: index === currentImageIndex ? 1 : 0.7,
+                opacity: index === currentImageIndex ? 1 : 0.8,
+                boxShadow: index === currentImageIndex ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
                 '&:hover': {
                   opacity: 1,
                   borderColor: 'primary.main',

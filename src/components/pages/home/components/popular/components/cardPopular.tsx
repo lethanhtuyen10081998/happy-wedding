@@ -38,10 +38,17 @@ export function WeddingServiceCard({
       sx={{
         position: 'relative',
         overflow: 'hidden',
-        border: '1px solid primary.light',
+        border: '1px solid rgba(0,0,0,0.09)',
+        borderRadius: '4px',
         transition: 'all 0.3s ease',
         height: '100%',
-        '&:hover': { transform: 'translateY(-8px)', boxShadow: '0 8px 24px rgba(0,0,0,0.12)' },
+        boxShadow: '0 1px 2px 0 rgba(0,0,0,0.03)',
+        bgcolor: 'white',
+        '&:hover': {
+          transform: 'translateY(-4px)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          borderColor: 'primary.main',
+        },
       }}
     >
       {isPopular && (
@@ -80,15 +87,36 @@ export function WeddingServiceCard({
             </Box>
           )}
         </NextLink>
-        <div style={{ position: 'absolute', bottom: '8px', left: '8px', color: 'white' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-            <Badge sx={{ backgroundColor: 'primary.main', fontWeight: 'bold', borderRadius: variables.borderRadius, padding: '4px 8px' }}>
-              <Typography variant='caption' sx={{ fontWeight: '500', color: 'white' }}>
-                Giảm giá {(((originalPrice - price) * 100) / originalPrice).toFixed(0)}%
-              </Typography>
-            </Badge>
-          </div>
-        </div>
+        {originalPrice && originalPrice > price && (
+          <Box sx={{ position: 'absolute', bottom: 8, left: 0 }}>
+            <Box
+              sx={{
+                position: 'relative',
+                bgcolor: 'primary.main',
+                color: 'white',
+                fontWeight: 600,
+                fontSize: '0.75rem',
+                px: 1.5,
+                py: 0.5,
+                borderTopRightRadius: '3px',
+                borderBottomRightRadius: '3px',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.2)',
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  borderTop: '4px solid',
+                  borderTopColor: 'primary.main',
+                  borderLeft: '4px solid transparent',
+                  filter: 'brightness(0.85)',
+                },
+              }}
+            >
+              Giảm {Math.round(((originalPrice - price) * 100) / originalPrice)}%
+            </Box>
+          </Box>
+        )}
       </Box>
 
       <CardContent style={{ padding: '12px' }}>
@@ -116,18 +144,21 @@ export function WeddingServiceCard({
             </Typography>
           </div>
         </NextLink>
-        <div style={{ marginBottom: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-            <Typography variant='h6' sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+        <Box sx={{ mb: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+            <Typography variant='h6' sx={{ fontWeight: 500, color: 'primary.main', fontSize: '1.25rem', lineHeight: 1.2 }}>
               {formatMoney(price)}
             </Typography>
-            {originalPrice && (
-              <Typography variant='subtitle2' sx={{ fontWeight: 'bold', color: 'text.secondary', textDecoration: 'line-through' }}>
+            {originalPrice && originalPrice > price && (
+              <Typography
+                variant='subtitle2'
+                sx={{ fontWeight: 400, color: '#929292', textDecoration: 'line-through', fontSize: '0.875rem', lineHeight: 1.2 }}
+              >
                 {formatMoney(originalPrice)}
               </Typography>
             )}
-          </div>
-        </div>
+          </Box>
+        </Box>
 
         <Typography
           variant='caption'
@@ -212,7 +243,6 @@ export function WeddingServiceCard({
       <CardActions style={{ padding: '24px', paddingTop: 0, height: 80 }}>
         <Box style={{ padding: '24px', paddingTop: 0, position: 'absolute', bottom: 0, left: 0, right: 0 }}>
           <Box style={{ display: 'flex', gap: '12px', width: '100%' }}>
-            <Button variant='contained'>Đặt ngay</Button>
             <NextLink href={`${Routes.SERVICES.replace(':id', slug)}?productId=${id}`}>
               <Button variant='outlined'>Tìm hiểu thêm</Button>
             </NextLink>
