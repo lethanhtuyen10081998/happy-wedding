@@ -173,6 +173,7 @@ export function WeddingServiceCard({
             lineHeight: 1.6,
             fontSize: '0.875rem',
             height: 40,
+            display: { xs: 'none', md: 'block' },
           }}
           dangerouslySetInnerHTML={{
             __html: description ? description.replace(/<[^>]*>/g, '').toLowerCase() : 'Chưa có mô tả',
@@ -240,7 +241,7 @@ export function WeddingServiceCard({
         </Box>
       </CardContent>
 
-      <CardActions style={{ padding: '24px', paddingTop: 0, height: 80 }}>
+      <CardActions sx={{ padding: '24px', paddingTop: 0, height: 80, display: { xs: 'none', md: 'block' } }}>
         <Box style={{ padding: '24px', paddingTop: 0, position: 'absolute', bottom: 0, left: 0, right: 0 }}>
           <Box style={{ display: 'flex', gap: '12px', width: '100%' }}>
             <NextLink href={`${Routes.SERVICES.replace(':id', slug)}?productId=${id}`}>

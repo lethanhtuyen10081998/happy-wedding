@@ -41,7 +41,7 @@ function WeddingServicesShowcase() {
 
           <Grid container spacing={3}>
             {data.map((service, index) => (
-              <Grid item xs={12} md={4} key={index}>
+              <Grid item xs={6} md={4} key={index}>
                 <WeddingServiceCard
                   title={service.name}
                   description={service.description}
