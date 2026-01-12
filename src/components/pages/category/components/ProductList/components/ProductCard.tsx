@@ -2,8 +2,7 @@
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Box, Button, Card, CardContent, Chip, IconButton, Rating, Typography } from '@mui/material';
+import { Box, Card, CardContent, Chip, IconButton, Rating, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from 'src/types/product';
@@ -142,8 +141,7 @@ export default function ProductCard({ service }: { service: Product }) {
             <FavoriteBorderIcon fontSize='small' />
           </IconButton>
 
-          {/* Quick View Overlay */}
-          <Box
+          {/* <Box
             className='quick-view'
             sx={{
               position: 'absolute',
@@ -184,8 +182,7 @@ export default function ProductCard({ service }: { service: Product }) {
             >
               Xem nhanh
             </Button>
-          </Box>
-
+          </Box> */}
           {/* Stock Badge */}
           {!inStock && (
             <Box
