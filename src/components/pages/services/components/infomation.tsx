@@ -13,8 +13,8 @@ function Infomation({ price, originalPrice, name }: { price: number; originalPri
   const productData = useDetailDataContext<Product>();
 
   const rating = productData.rating || 4.5;
-  const reviewCount = productData.reviewCount || 128;
-  const soldCount = productData.soldCount || 523;
+  const reviewCount = productData.reviewCount || 0;
+  const soldCount = productData.soldCount || 5;
   const inStock = productData.inStock !== undefined ? productData.inStock : true;
   const stockCount = productData.stockCount || 50;
   const highlights = productData.highlights || ['Chất lượng cao, uy tín', 'Giao hàng nhanh chóng', 'Đổi trả trong 7 ngày', 'Bảo hành chính hãng'];
